@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #333;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.form-group {
+    margin-top: 15px;
+}
+label, input, textarea, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+input[type="text"], textarea, input[type="number"] {
+    padding: 8px;
+    font-size: 16px;
+}
+#categoryCheckboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+#selectedCategories {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+button {
+    padding: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #005f99;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #007acc;
+    color: white;
+}
+.header {
+    position: sticky; /* Sticky position */
+    top: 0;          /* Dính vào đầu khi cuộn */
+    background: #f0efeb;
+    
+    text-align: center;
+    z-index: 1;      
+    
+}
