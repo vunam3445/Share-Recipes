@@ -10,7 +10,7 @@ function AdminCategory() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [currentPage, setCurrentPage] = useState(0); // Thêm state cho trang hiện tại
   const [totalPages, setTotalPages] = useState(0); // Thêm state cho tổng số trang
-  const pageSize = 3;
+  const pageSize = 10;
 
   // Fetch categories khi trang hiện tại thay đổi
   useEffect(() => {
@@ -93,7 +93,7 @@ function AdminCategory() {
 
   return (
     <div className="container">
-      <div className="header">
+      <div className="header-category">
         <h1>Quản lý Category</h1>
         <Link to={"/"}>Trở về trang chủ</Link>
 
