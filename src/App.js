@@ -20,7 +20,7 @@ function App() {
    <Routes>
    <Route path="/admin" element={<Admin />} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
-    <Route path="admin/recipe" element={<AdminRecipe/>} />
+    <Route path="/admin/recipe" element={<AdminRecipe/>} />
    </Routes>
    </div>
   );
