@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+}
+
+.mainContent {
+    padding-top: 20px ;
+    margin-left: 40px;
+    margin-right: 40px;
+    height: auto;
+}
+
+.recipeLayout {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 213px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.recipes {
+    width: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Đảm bảo tỷ lệ phân chia giữa Sidebar và Recipes */
+.recipeLayout {
+    display: flex;
+
+}
+
+/* Đặt lại dấu chấm phẩy trong phần padding */
+.recipes {
+    padding: 20px;
+}
