@@ -10885,3 +10885,13 @@ iframe.uk-cover {
     page-break-after: avoid;
   }
 }
+
+/* Đặt kích thước, canh giữa và style cho phần chứa nút Google */
+.loginWithGG {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 50%;
+}
+
