@@ -79,6 +79,7 @@ const AdminRecipeTable = ({ toggleModal , fetchRecipes}) => {
             <th>Ảnh</th>
             <th>Thời gian</th>
             <th>Phục vụ</th>
+            <th>Giá nguyên liệu</th>
             <th>Categories</th>
             <th>Hành động</th>
           </tr>
@@ -94,6 +95,7 @@ const AdminRecipeTable = ({ toggleModal , fetchRecipes}) => {
               <td><img src={require(`../assests/images/${recipe.recipe.image}`)} alt={recipe.recipe.image} style={{ width: '100px' }} /></td>
               <td>{recipe.recipe.time}</td>
               <td>{recipe.recipe.serves}</td>
+              <td>{recipe.recipe.price}</td>
               <td>
                 {recipe.categories.map(category => (
                   <span key={category.categoryid}>{category.name} </span>

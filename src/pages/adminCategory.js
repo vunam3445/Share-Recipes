@@ -95,7 +95,7 @@ function AdminCategory() {
     <div className="container">
       <div className="header-category">
         <h1>Quản lý Category</h1>
-        <Link to={"/"}>Trở về trang chủ</Link>
+        <Link to={"/admin"}>Trở về trang chủ</Link>
 
         <div className="form-group">
           <label htmlFor="categoryName">Tên Category:</label>

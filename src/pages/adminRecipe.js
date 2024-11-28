@@ -38,6 +38,7 @@ function AdminRecipe() {
         step: recipe.step,
         image: recipe.image,
         time: recipe.time,
+        price: recipe.price,
         serves: recipe.serves,
       });
       
@@ -55,6 +56,7 @@ function AdminRecipe() {
         step: "",
         image: null,
         time: "",
+        price:"",
         serves: "",
       });
       setSelectedCategories([]);
@@ -132,7 +134,7 @@ function AdminRecipe() {
     <div className="container">
       <div className="header">
         <h1>Quản lý Recipe</h1>
-        <Link to="/">Trở về trang chủ</Link>
+        <Link to="/admin">Trở về trang chủ</Link>
         <button onClick={() => toggleModal()}>Thêm Recipe</button>
       </div>
 
@@ -200,6 +202,14 @@ function AdminRecipe() {
                 id="serves"
                 placeholder="Nhập số người phục vụ"
                 value={recipeData.serves}
+                onChange={handleInputChange}
+              />
+                 <label htmlFor="price">Giá nguyên liệu:</label>
+              <input
+                type="number"
+                id="price"
+                placeholder="Nhập giá nguyên liệu"
+                value={recipeData.price}
                 onChange={handleInputChange}
               />
 
