@@ -10935,3 +10935,7 @@ iframe.uk-cover {
   border-radius: 50px;
   padding: 8px 20px;
 }
+
+.pagination {
+  justify-content: center;
+}

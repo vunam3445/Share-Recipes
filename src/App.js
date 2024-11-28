@@ -6,8 +6,6 @@ import AdminCategory from './pages/adminCategory';
 import AdminRecipe  from './pages/adminRecipe';
 import AdminOrderPage from './pages/adminOrder';
 import Order from './components/Order';
-
-import AdminRecipe from './pages/adminRecipe';
 import Search from './pages/searchpage';
 
 import UIkit from 'uikit';
@@ -15,6 +13,7 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import './App.css';
 import './styles/main.css';
 import './styles/home.css';
+
 UIkit.use(Icons) 
 
 function App() {
@@ -23,11 +22,11 @@ function App() {
 <div className='app'>
 <div>
    
-
-
     </div>
    <Routes>
-   <Route path="/" element={<Order />} />
+    <Route path="/" element={<Home />} />
+    <Route path="/search" element={<Search />} />
+    <Route path="/order" element={<Order />} />
     <Route path="/admin" element={<Admin />} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
