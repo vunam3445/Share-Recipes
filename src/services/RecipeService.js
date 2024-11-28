@@ -134,7 +134,7 @@ const detailRecipe = async (recipeId) => {
   }
 
   try {
-    const response = await axios.get(`${BASE_URL}/recipeDetail/${2}`, {
+    const response = await axios.get(`${BASE_URL}/recipeDetail/${recipeId}`, {
     
     });
     return response.data;

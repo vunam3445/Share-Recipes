@@ -71,7 +71,7 @@ const RecipeDetail = () => {
       <div className="uk-container">
         <div data-uk-grid>
           <div className="uk-width-1-2@s">
-            <img className="uk-border-rounded-large" src={`http://localhost:8083/foodwed/images/${recipe.image}`} alt={recipe.name} />
+            <img className="uk-border-rounded-large" src={require(`../assests/images/${recipe.image}`)} alt={recipe.name} />
           </div>
           <div className="uk-width-expand@s uk-flex uk-flex-middle">
             <div>
@@ -173,7 +173,7 @@ const RecipeDetail = () => {
       <div className="uk-container uk-margin-top">
         <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
           <div className="uk-width-1-1">
-            <h3>Categories</h3>
+            <h3>Tags</h3>
             <div className="uk-margin-medium-top">
               {categories.map((category) => (
                 <a
