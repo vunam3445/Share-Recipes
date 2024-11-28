@@ -120,10 +120,30 @@ const deleteRecipe = async (recipeId) => {
     throw new Error("Có lỗi khi xóa Recipe.");
   }
 };
+// Hàm lấy chi tiết recipe
+const detailRecipe = async (recipeId) => {
+  if (!recipeId) {
+    throw new Error("Recipe ID không được để trống.");
+  }
+
+  try {
+    const response = await axios.get(`${BASE_URL}/recipeDetail/${2}`, {
+    
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching recipe detail:", error.response?.data || error.message);
+    throw new Error("Có lỗi khi lấy thông tin chi tiết Recipe.");
+  }
+};
+
+
+
 
 export default {
   getRecipes,
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  detailRecipe
 };

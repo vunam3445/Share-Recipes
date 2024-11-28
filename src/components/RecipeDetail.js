@@ -1,138 +1,148 @@
-import React from 'react';
-import 'uikit/dist/css/uikit.min.css';
-import 'uikit/dist/js/uikit.min.js';
+import React, { useEffect, useState } from 'react';
+import RecipeService from '../services/RecipeService';
 
-const RecipeDetail = ({ recipe }) => {
+const RecipeDetail = () => {
+  const recipeId = "ffc66d99-0cd6-42c4-a065-b2ed831b5fcd";  // Dùng recipeId cố định
+  const [recipe, setRecipe] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [completedSteps, setCompletedSteps] = useState([]);  // Trạng thái lưu các bước đã hoàn thành
+  const [completedIngredients, setCompletedIngredients] = useState([]);  // Trạng thái lưu các nguyên liệu đã chọn
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      if (!recipeId) {
+        console.error("Recipe ID is required.");
+        return;
+      }
+
+      try {
+        const data = await RecipeService.detailRecipe(recipeId);
+        const { recipe, categories } = data.result;
+
+        // Tách nguyên liệu và các bước thành mảng
+        recipe.ingredientsArray = recipe.ingredien.split(';').map(item => item.trim());
+        recipe.stepsArray = recipe.step.split(';').map(item => item.trim());
+        setRecipe(recipe);
+        setCategories(categories);
+      } catch (error) {
+        console.error('Error fetching recipe:', error);
+      }
+    };
+
+    if (recipeId) {
+      fetchRecipe();
+    }
+  }, [recipeId]);
+
+  // Hàm xử lý khi người dùng tích vào bước
+  const toggleStepCompletion = (index) => {
+    setCompletedSteps(prev => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
+  };
+
+  // Hàm xử lý khi người dùng tích vào nguyên liệu
+  const toggleIngredientCompletion = (index) => {
+    setCompletedIngredients(prev => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
+  };
+
   if (!recipe) {
-    return <p>Loading...</p>;
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {/* Navbar */}
-      <nav className="uk-navbar-container uk-letter-spacing-small">
-        <div className="uk-container">
-          <div className="uk-position-z-index" data-uk-navbar>
-            <div className="uk-navbar-left">
-              <a className="uk-navbar-item uk-logo" href="/">Kocina</a>
-              <ul className="uk-navbar-nav uk-visible@m uk-margin-large-left">
-                <li><a href="/">Home</a></li>
-                <li className="uk-active"><a href="/recipe">Recipe</a></li>
-                <li><a href="/search">Search</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </div>
-            <div className="uk-navbar-right">
-              <a className="uk-navbar-toggle" data-uk-search-icon href="#"></a>
-              <div className="uk-navbar-item">
-                <a className="uk-button uk-button-primary" href="/sign-up">Sign Up</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
+      {/* Recipe Details */}
       <div className="uk-container">
         <div data-uk-grid>
           <div className="uk-width-1-2@s">
-            <img
-              className="uk-border-rounded-large"
-              src={recipe.image}
-              alt={recipe.name}
-            />
+            <img className="uk-border-rounded-large" src={`http://localhost:8083/foodwed/images/${recipe.image}`} alt={recipe.name} />
           </div>
           <div className="uk-width-expand@s uk-flex uk-flex-middle">
             <div>
               <h1>{recipe.name}</h1>
-              <p>{recipe.description}</p>
-              <div
-                className="uk-margin-medium-top uk-child-width-expand uk-text-center uk-grid-divider"
-                data-uk-grid
-              >
+              <p>{recipe.description || 'No description provided.'}</p>
+              <div className="uk-margin-medium-top uk-child-width-expand uk-text-center uk-grid-divider" data-uk-grid>
                 <div>
                   <span data-uk-icon="icon: clock; ratio: 1.4"></span>
-                  <h5 className="uk-text-500 uk-margin-small-top uk-margin-remove-bottom">
-                    Active Time
-                  </h5>
-                  <span className="uk-text-small">{recipe.activeTime}</span>
-                </div>
-                <div>
-                  <span data-uk-icon="icon: future; ratio: 1.4"></span>
-                  <h5 className="uk-text-500 uk-margin-small-top uk-margin-remove-bottom">
-                    Total Time
-                  </h5>
-                  <span className="uk-text-small">{recipe.totalTime}</span>
+                  <h5>Time</h5>
+                  <span>{recipe.time} mins</span>
                 </div>
                 <div>
                   <span data-uk-icon="icon: users; ratio: 1.4"></span>
-                  <h5 className="uk-text-500 uk-margin-small-top uk-margin-remove-bottom">
-                    Yield
-                  </h5>
-                  <span className="uk-text-small">{recipe.servings} Servings</span>
+                  <h5>Serves</h5>
+                  <span>{recipe.serves}</span>
                 </div>
               </div>
+              <hr />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Ingredients Section */}
+      {/* Steps and Ingredients */}
       <div className="uk-section uk-section-default">
         <div className="uk-container uk-container-small">
-          <h3>Ingredients</h3>
-          <ul className="uk-list uk-list-large uk-list-divider uk-margin-medium-top">
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
+          <div className="uk-grid uk-grid-small" data-uk-grid>
+            {/* Steps - Bên trái */}
+            <div className="uk-width-1-2@s uk-text-left">
+              <h3>How to Make It</h3>
+              {recipe.stepsArray.map((step, index) => (
+                <div key={index} className="uk-grid-small uk-margin-medium-top" data-uk-grid>
+                  <div className="uk-width-auto">
+                    <a 
+                      href="#"
+                      className={`uk-step-icon ${completedSteps.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
+                      data-uk-icon="icon: check; ratio: 0.8"
+                      style={{ color: completedSteps.includes(index) ? 'green' : 'orange' }}
+                      onClick={() => toggleStepCompletion(index)}
+                    ></a>
+                  </div>
+                  <div className="uk-width-expand">
+                    <h5 className="uk-step-title uk-text-500 uk-text-uppercase uk-text-primary">{index + 1}. Step</h5>
+                    <div className="uk-step-content">{step}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Ingredients - Bên phải */}
+            <div className="uk-width-1-2@s uk-text-left">
+              <h3>Ingredients</h3>
+              <ul className="uk-list uk-list-large uk-list-divider uk-margin-medium-top">
+                {recipe.ingredientsArray.map((ingredient, index) => (
+                  <li key={index}>
+                    <span
+                      className={`uk-icon ${completedIngredients.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
+                      style={{ color: completedIngredients.includes(index) ? 'green' : 'orange' }}
+                      onClick={() => toggleIngredientCompletion(index)}
+                    >
+                      <i className="fa fa-check"></i>
+                    </span>
+                    {ingredient}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="uk-section uk-section-default">
-        <div className="uk-container uk-text-secondary uk-text-500">
-          <div className="uk-child-width-1-2@s" data-uk-grid>
-            <div>
-              <a href="#" className="uk-logo">Kocina</a>
-            </div>
-            <div className="uk-flex uk-flex-middle uk-flex-right@s">
-              <div data-uk-grid className="uk-child-width-auto uk-grid-small">
-                <div>
-                  <a
-                    href="https://www.facebook.com/"
-                    data-uk-icon="icon: facebook; ratio: 0.8"
-                    className="uk-icon-button facebook"
-                    target="_blank"
-                    rel="noreferrer"
-                  ></a>
-                </div>
-                <div>
-                  <a
-                    href="https://www.instagram.com/"
-                    data-uk-icon="icon: instagram; ratio: 0.8"
-                    className="uk-icon-button instagram"
-                    target="_blank"
-                    rel="noreferrer"
-                  ></a>
-                </div>
-                <div>
-                  <a
-                    href="https://twitter.com/"
-                    data-uk-icon="icon: twitter; ratio: 0.8"
-                    className="uk-icon-button twitter"
-                    target="_blank"
-                    rel="noreferrer"
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="uk-margin-medium-top uk-text-small uk-text-muted">
-            <div>Made by Unbound Studio in Guatemala City.</div>
+      {/* Categories */}
+      <div className="uk-container uk-margin-top">
+        <div className="uk-grid-small uk-child-width-auto uk-text-right" data-uk-grid>
+          <div>
+            <h3>Categories</h3>
+            <ul className="uk-list uk-list-large uk-list-divider uk-margin-medium-top">
+              {categories.map((category) => (
+                <li key={category.categoryid}>{category.name}</li>
+              ))}
+            </ul>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };
