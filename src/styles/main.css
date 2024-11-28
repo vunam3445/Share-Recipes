@@ -10885,3 +10885,10 @@ iframe.uk-cover {
     page-break-after: avoid;
   }
 }
+/* Đoạn CSS này có thể nằm trong file CSS của bạn */
+.fixed-img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover; /* Giữ tỷ lệ ảnh và cắt bớt nếu cần */
+}
+
