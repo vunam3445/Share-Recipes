@@ -1,11 +1,5 @@
 
 import {Routes , Route ,Link} from 'react-router-dom';
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
-import './App.css';
-import './styles/main.css';
-import './styles/home.css';
-UIkit.use(Icons)
 
 import Admin from './pages/admin';
 
@@ -13,6 +7,13 @@ import Home from './pages/home'
 
 import AdminCategory from './pages/adminCategory';
 import AdminRecipe  from './pages/adminRecipe';
+
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+import './App.css';
+import './styles/main.css';
+import './styles/home.css';
+UIkit.use(Icons)
 
 
 function App() {
