@@ -23,6 +23,7 @@ const getOrders = async (isactive,page = 0, size = 3) => {
 // Thêm đơn hàng mới
 const createOrder = async (orderData) => {
   try {
+    console.log(orderData)
     const response = await axios.post(`${BASE_URL}/create`, orderData, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -65,9 +66,26 @@ const deleteOrder = async (orderId) => {
   }
 };
 
+const getOrderByUser = async (uid, page = 0, size = 3) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/uorder/${uid}`, {
+      params: { page, size },
+      headers: {
+        'Authorization': `Bearer ${token}`, // Thêm token xác thực
+      },
+    });
+    // Trả về dữ liệu từ API
+    return response.data.result;
+  } catch (error) {
+    console.error('Error fetching orders for user:', error);
+    throw new Error('Có lỗi khi lấy danh sách đơn hàng của người dùng.');
+  }
+};
+
 export default {
   getOrders,
   createOrder,
   updateOrder,
   deleteOrder,
+  getOrderByUser
 };

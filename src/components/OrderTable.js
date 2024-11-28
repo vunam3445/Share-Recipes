@@ -14,6 +14,8 @@ const OrderTable = ({ filterStatus }) => {
   const [orderData, setOrderData] = useState({
     id: "",
     uid: "",
+    recipeid: "",
+    recipename: "",
     name: "",
     address: "",
     phone: "",
@@ -78,6 +80,8 @@ const OrderTable = ({ filterStatus }) => {
       setOrderData({
         id: "",
         uid: "",
+        recipeid: "",
+    recipename: "",
         name: "",
         address: "",
         phone: "",
@@ -115,6 +119,8 @@ const OrderTable = ({ filterStatus }) => {
   const validateOrderData = () => {
     const {
       uid,
+      recipeid,
+      recipename,
       name,
       address,
       phone,
@@ -123,7 +129,7 @@ const OrderTable = ({ filterStatus }) => {
       quantity,
     } = orderData;
 
-    if (!uid || !name || !address || !phone || !ingredien || !price || !quantity) {
+    if (!uid || !recipeid || !recipename || !name || !address || !phone || !ingredien || !price || !quantity) {
       alert("vui lòng nhập đầy đủ thông tin!")
       return false;
     }
@@ -149,6 +155,20 @@ const OrderTable = ({ filterStatus }) => {
             name="uid"
             placeholder="UID"
             value={orderData.uid}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="recipeid"
+            placeholder="Recipe ID"
+            value={orderData.recipeid}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="recipename"
+            placeholder="Recipe Name"
+            value={orderData.recipename}
             onChange={handleInputChange}
           />
           <input
@@ -238,6 +258,8 @@ const OrderTable = ({ filterStatus }) => {
               <tr>
                 <th>ID</th>
                 <th>UID</th>
+                <th>RecipeID</th>
+                <th>Tên món ăn</th>
                 <th>Tên khách hàng</th>
                 <th>Địa chỉ</th>
                 <th>Số điện thoại</th>
@@ -256,6 +278,8 @@ const OrderTable = ({ filterStatus }) => {
                   <tr key={order.id}>
                     <td>{order.id}</td>
                     <td>{order.uid}</td>
+                    <td>{order.recipeid}</td>
+                    <td>{order.recipename}</td>
                     <td>{order.name}</td>
                     <td>{order.address}</td>
                     <td>{order.phone}</td>
