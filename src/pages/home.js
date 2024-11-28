@@ -10,18 +10,21 @@ import '../styles/home.css'; // Sử dụng đường dẫn chính xác.
 
 function Home() {
   return (
-    <div style={{ backgroundColor: "white", padding: "0px", margin: "0px" }}>
-      <Navbar />
-      <Header />
-      <div className="mainContent">
-        <div className="recipeLayout">
-          <RecipeSlidebar />
-          <Recipes />
+    <div className="divMain">
+      <div className="divHome">
+        <Navbar />
+        <Header />
+        <div className="mainContent">
+          <div className="recipeLayout">
+            <RecipeSlidebar className="sidebar" />
+            <Recipes className="recipes" />
+          </div>
         </div>
+        <SubscribeSection />
+        <Footer />
       </div>
-      <SubscribeSection />
-      <Footer />
     </div>
+    
   );
 }
 

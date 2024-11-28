@@ -4,15 +4,16 @@ const RecipeSidebar = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const categories = [
-    { title: "Dish Type", items: ["Appetizers & Snacks", "Bread Recipes", "Cake Recipes", "Candy and Fudge", "Casserole Recipes", "Christmas Cookies", "Cocktail Recipes", "Main Dishes", "Pasta Recipes", "Pie Recipes", "Sandwiches"] },
-    { title: "Meal Type", items: ["Breakfast and Brunch", "Desserts", "Dinners", "Lunch"] },
-    { title: "Diet and Health", items: ["Diabetic", "Gluten Free", "High Fiber Recipes", "Low Calorie"] },
-    { title: "World Cuisine", items: ["Chinese", "Indian", "Italian", "Mexican"] },
-    { title: "Seasonal", items: ["Baby Shower", "Birthday", "Christmas", "Halloween"] },
+    { title: "bữa sáng", items: ["bánh mì", "bánh giò", "bánh cuốn", "phở", "cháo lòng"] },
+    { title: "bữa trưa", items: ["cơm tấm", "bún bò", "bánh xèo", "gỏi cuốn", "bún thịt nướng"] },
+    { title: "bữa tối", items: ["lẩu gà", "lẩu thái", "cơm chiên", "mì xào", "bò kho"] },
+    { title: "ăn nhẹ", items: ["bánh tráng trộn", "bánh flan", "kem dừa", "chè thập cẩm", "xoài lắc"] },
+    { title: "món chay", items: ["đậu hũ chiên", "rau xào thập cẩm", "cơm chiên chay", "gỏi ngó sen", "bún riêu chay"] },
+    { title: "đồ uống", items: ["trà sữa", "sinh tố", "nước mía", "trà chanh", "cà phê sữa đá"] }
   ];
 
   const styles = {
-    sidebar: { width: "25%", paddingLeft: "100px" },
+    sidebar: { width: "213px", paddingLeft: "0px" },
     heading: { fontSize: "24px", marginBottom: "20px", textAlign: "left" },
     nav: { 
       listStyle: "none", 
@@ -23,7 +24,6 @@ const RecipeSidebar = () => {
       alignItems: "flex-start" 
     },
     navItem: { marginBottom: "15px", width: "100%" },
-    details: { fontSize: "18px", width: "100%" },
     summary: { 
       cursor: "pointer", 
       fontWeight: "bold", 
@@ -31,10 +31,19 @@ const RecipeSidebar = () => {
       textAlign: "left", 
       width: "100%" 
     },
-    subItems: { paddingLeft: "20px", marginTop: "10px", listStyle: "none" },
-    subItem: { marginBottom: "8px" },
+    subItems: { 
+      textAlign:"left",
+      paddingLeft: "20px", 
+      marginTop: "10px", 
+      listStyle: "none", 
+      display: "flex", 
+      flexDirection: "column", 
+      gap: "8px"  // Thêm khoảng cách giữa các mục con
+    },
+    subItem: { marginBottom: "8px" }, // Có thể bỏ dòng này nếu dùng gap
     link: { textDecoration: "none", color: "#333" },
   };
+
 
   const handleToggle = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -46,24 +55,23 @@ const RecipeSidebar = () => {
       <ul style={styles.nav}>
         {categories.map((category, index) => (
           <li key={index} style={styles.navItem}>
-            <details 
-              style={styles.details} 
-              open={activeIndex === index}
+            <div 
+              style={styles.summary} 
               onClick={() => handleToggle(index)}
             >
-              <summary style={styles.summary}>{category.title}</summary>
-              {activeIndex === index && (
-                <ul style={styles.subItems}>
-                  {category.items.map((item, idx) => (
-                    <li key={idx} style={styles.subItem}>
-                      <a href={`#${item.toLowerCase().replace(/ /g, "-")}`} style={styles.link}>
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </details>
+              {category.title}
+            </div>
+            {activeIndex === index && (
+              <ul style={styles.subItems}>
+                {category.items.map((item, idx) => (
+                  <li key={idx} style={styles.subItem}>
+                    <a href={`#${item.toLowerCase().replace(/ /g, "-")}`} style={styles.link}>
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

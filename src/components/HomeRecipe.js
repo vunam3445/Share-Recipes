@@ -19,10 +19,10 @@ function Recipes() {
   ];
 
   return (
-    <div className="uk-section uk-section-default">
-      <div className="uk-container">
+    <div className="uk-section uk-section-default" style={{ paddingTop: "0px" , width: "100% "}}>
+      <div className="uk-container" style={{ padding:"0px"}}>
         <div data-uk-grid>
-          <div className="uk-width-expand@m">
+          <div className="uk-width-expand@m" >
             <form className="uk-search uk-search-default uk-width-1-1">
               <span data-uk-search-icon></span>
               <input
@@ -33,7 +33,7 @@ function Recipes() {
             </form>
           </div>
           <div className="uk-width-1-3@m uk-text-right@m uk-light">
-            <select className="uk-select uk-select-light uk-width-auto uk-border-pill uk-select-primary">
+            <select className="uk-select uk-select-light uk-width-auto uk-border-pill uk-select-primary" >
               <option>Sort by: Latest</option>
               <option>Sort by: Top Rated</option>
               <option>Sort by: Trending</option>

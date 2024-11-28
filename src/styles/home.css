@@ -1,20 +1,36 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     margin: 0px;
-    padding: 0px;
+    padding: 0px !important;
 }
 
 .mainContent {
-    padding-top: 20px ;
-    margin-left: 40px;
-    margin-right: 40px;
+    padding-top: 40px ;
+    /* margin-left: 40px;
+    margin-right: 40px; */
+    padding-left: 40px;
+    padding-right: 40px;
     height: auto;
+}
+
+.divMain{
+    display: flex;
+    justify-content: center;
+}
+
+.divHome {
+    background-color: #ffffff;
+    padding: 0px;
+    margin: 0;  
+    width: 80%;
 }
 
 .recipeLayout {
     display: flex;
     gap: 20px;
+    /* Chiều rộng Sidebar cố định và Recipes chiếm phần còn lại */
+    align-items: flex-start;
 }
 
 .sidebar {
@@ -24,18 +40,9 @@ body {
 }
 
 .recipes {
-    width: auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Đảm bảo tỷ lệ phân chia giữa Sidebar và Recipes */
-.recipeLayout {
-    display: flex;
+    flex-grow: 1;
+    /* Recipes chiếm phần còn lại */
+    padding: 0px;
 
 }
 
-/* Đặt lại dấu chấm phẩy trong phần padding */
-.recipes {
-    padding: 20px;
-}
