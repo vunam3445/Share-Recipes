@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
 
-const RecipeDetail = () => {
-  const recipeId = "ffc66d99-0cd6-42c4-a065-b2ed831b5fcd";  // Dùng recipeId cố định
+const RecipeDetail = ({recipeId}) => {
   const [recipe, setRecipe] = useState(null);
   const [categories, setCategories] = useState([]);
   const [completedSteps, setCompletedSteps] = useState([]);  // Trạng thái lưu các bước đã hoàn thành
