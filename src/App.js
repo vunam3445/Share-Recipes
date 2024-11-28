@@ -7,6 +7,7 @@ import Admin from './pages/admin';
 import AdminCategory from './pages/adminCategory';
 import AdminRecipe  from './pages/adminRecipe';
 import AdminOrderPage from './pages/adminOrder';
+import Order from './components/Order';
 
 
 function App() {
@@ -14,12 +15,13 @@ function App() {
    
 <div className='app'>
 <div>
-    
+   
 
 
     </div>
    <Routes>
-   <Route path="/admin" element={<Admin />} />
+   <Route path="/" element={<Order />} />
+    <Route path="/admin" element={<Admin />} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
     <Route path='/admin/order' element={<AdminOrderPage/>} />
