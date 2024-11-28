@@ -10882,7 +10882,7 @@ iframe.uk-cover {
   }
   h2,
   h3 {
-    page-break-after: avoid;
+    page-break-after: avoid;  
   }
 }
 /* Đoạn CSS này có thể nằm trong file CSS của bạn */
