@@ -22,7 +22,6 @@ function App() {
    <Route path="/admin" element={<Admin />} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="admin/recipe" element={<AdminRecipe/>} />
-    <Route path="recipe/detail" element={<RecipeDetail/>} />
    </Routes>
    </div>
   );

@@ -3,6 +3,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8083/foodwed/category';
+const token = localStorage.getItem("token");
 
 const CategoryService = {
   // Lấy danh sách categories với phân trang
@@ -54,7 +55,6 @@ const CategoryService = {
   createCategory: async (categoryName) => {
     try {
       // Thêm token vào header của yêu cầu
-      const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlIjoiQURNSU4iLCJpc3MiOiJxdXlkZXB0cmFpLmNvbSIsImV4cCI6MTczMjM2MDU5OCwiaWF0IjoxNzMyMzU2OTk4LCJ1c2VyaWQiOiJlYmFmZTFkZS01MWQ5LTRhMWQtYWMzMi04NmM0MmU5ZDI4ODgifQ.C057HYFOsoT2vfevKoKPNDrSK-abAc5598iAXqmC-D4v0cGDm5A1M3RKkwQyE-07Wp02Y66kFrtnz_umIMQEPA"; // Bạn có thể lấy token từ localStorage hoặc sessionStorage
 
       if (!token) {
         throw new Error("Không tìm thấy token. Vui lòng đăng nhập.");
@@ -81,7 +81,6 @@ const CategoryService = {
   // Cập nhật category
   updateCategory: async (categoryId, categoryName) => {
     try {
-      const token = "your_token_here"; // Token được lấy từ localStorage hoặc sessionStorage
 
       if (!token) {
         throw new Error("Không tìm thấy token. Vui lòng đăng nhập.");
@@ -108,7 +107,6 @@ const CategoryService = {
   // Xóa category
   deleteCategory: async (categoryId) => {
     try {
-      const token = "your_token_here"; // Token được lấy từ localStorage hoặc sessionStorage
 
       if (!token) {
         throw new Error("Không tìm thấy token. Vui lòng đăng nhập.");
