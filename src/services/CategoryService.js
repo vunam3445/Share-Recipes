@@ -7,7 +7,7 @@ const token = localStorage.getItem("token");
 
 const CategoryService = {
   // Lấy danh sách categories với phân trang
-  getCategories: async (pageNumber = 0, pageSize = 3) => {
+  getCategories: async (pageNumber = 0, pageSize = 4) => {
     try {
       const response = await axios.get(API_URL, {
         params: {

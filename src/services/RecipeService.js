@@ -28,8 +28,8 @@ const getRecipes = async (page = 0, size = 10) => {
 // Hàm gửi yêu cầu POST để tạo một recipe mới
 const createRecipe = async (recipeData, selectedCategories) => {
   // Kiểm tra các trường dữ liệu có bị null hoặc trống
-  if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves) {
-    throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' không được để trống.");
+  if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
+    throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' và 'giá' không được để trống.");
   }
 
   if (!selectedCategories || selectedCategories.length === 0) {
@@ -43,6 +43,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
   formData.append("step", recipeData.step);
   formData.append("time", recipeData.time);
   formData.append("serves", recipeData.serves);
+  formData.append("price", recipeData.price);
   formData.append("image", recipeData.image); // File ảnh
 
   // Append từng phần tử của selectedCategories vào formData
@@ -67,8 +68,8 @@ const createRecipe = async (recipeData, selectedCategories) => {
   //update
   const updateRecipe = async (recipeId, recipeData, selectedCategories) => {
     // Kiểm tra các trường dữ liệu có bị null hoặc trống
-    if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves) {
-      throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' không được để trống.");
+    if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
+      throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' và 'giá' không được để trống.");
     }
   
     if (!selectedCategories || selectedCategories.length === 0) {
@@ -82,7 +83,10 @@ const createRecipe = async (recipeData, selectedCategories) => {
     formData.append("ingredien", recipeData.ingredien);
     formData.append("step", recipeData.step);
     formData.append("time", recipeData.time);
+    
     formData.append("serves", recipeData.serves);
+    formData.append("price",recipeData.price);
+    console.log("kdfa",recipeData.price)
   
     if (recipeData.image) {
       formData.append("image", recipeData.image); // Nếu có ảnh mới, thêm vào formData
@@ -91,7 +95,9 @@ const createRecipe = async (recipeData, selectedCategories) => {
     selectedCategories.forEach((categoryId) => {
       formData.append("categoryids", categoryId);
     });
-  
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+  }
     try {
       const response = await axios.put(`${BASE_URL}/update`, formData, {
         headers: {
@@ -99,6 +105,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error("Error updating recipe:", error.response?.data || error.message);

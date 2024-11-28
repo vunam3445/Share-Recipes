@@ -8,6 +8,7 @@ function Admin() {
         
         <Link to="/admin/category">Manage Categories</Link>
         <Link to="/admin/recipe">Manage Recipes</Link>
+        <Link to="/admin/order">Manage Orders</Link>
       </div>
     </div>
   );
