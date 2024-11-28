@@ -2,11 +2,12 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Header from "../components/HomeHeader";
 import RecipeSlidebar from "../components/HomeRecipeSlidebar";
-import Recipes from "../components/HomeRecipe";
 import SubscribeSection from "../components/HomeSubscribeSection";
 import Footer from "../components/HomeFooter";
+import RecipeList from "../components/RecipeList";
 
 import '../styles/home.css'; // Sử dụng đường dẫn chính xác.
+
 
 function Home() {
   return (
@@ -17,7 +18,7 @@ function Home() {
         <div className="mainContent">
           <div className="recipeLayout">
             <RecipeSlidebar className="sidebar" />
-            <Recipes className="recipes" />
+            <RecipeList />
           </div>
         </div>
         <SubscribeSection />
