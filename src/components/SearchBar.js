@@ -19,13 +19,13 @@ const Search = () => {
 
   // Lấy query và categoryId từ URL
   const query = new URLSearchParams(location.search).get("name");
-  const categoryIdFromUrl = new URLSearchParams(location.search).get("categoryId");
+  const categoryId = new URLSearchParams(location.search).get("categoryId");
 
   // Hàm tìm kiếm
   const fetchSearchResults = async () => {
     try {
       setLoading(true);
-      const data = await SearchService.searchRecipes(query, categoryIdFromUrl || ""); // Lấy kết quả tìm kiếm
+      const data = await SearchService.searchRecipes(query, categoryId || ""); // Lấy kết quả tìm kiếm
       setRecipes(data);
     } catch (err) {
       setError(err.message);
@@ -52,7 +52,8 @@ const Search = () => {
   // Tìm kiếm khi nhấn Enter
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" && searchQuery.trim()) {
-      navigate(`/search?name=${searchQuery}`); // Điều hướng với từ khóa tìm kiếm
+      const categoryParam = selectedCategory ? `&categoryId=${selectedCategory}` : "";
+      navigate(`/search?name=${searchQuery}${categoryParam}`); // Điều hướng với từ khóa tìm kiếm và categoryId nếu có
     }
   };
 
@@ -70,22 +71,12 @@ const Search = () => {
   useEffect(() => {
     fetchCategories();
     setSearchQuery(query || "");
-  }, [query]);
+    setSelectedCategory(categoryId || null); // Cập nhật selectedCategory khi categoryId thay đổi
+  }, [query, categoryId]);
 
-  // Lấy dữ liệu tìm kiếm khi query/categoryId thay đổi
   useEffect(() => {
     fetchSearchResults(); // Gọi lại kết quả tìm kiếm khi query hoặc categoryId thay đổi
-  }, [query, categoryIdFromUrl]);
-
-  // Lấy selectedCategory từ URL khi trang tải lại
-  useEffect(() => {
-    // Nếu categoryId từ URL tồn tại, cập nhật selectedCategory
-    if (categoryIdFromUrl) {
-      setSelectedCategory(categoryIdFromUrl);
-    } else {
-      setSelectedCategory(null); // Nếu không có categoryId trong URL, đặt lại thành null
-    }
-  }, [categoryIdFromUrl]); // Chỉ chạy lại khi categoryId thay đổi
+  }, [query, categoryId]);
 
   if (loading) return <p>Loading search results...</p>;
   if (error) return <p>{error}</p>;
@@ -104,14 +95,14 @@ const Search = () => {
           className="uk-input uk-border-rounded"
           value={searchQuery}
           onChange={handleSearchChange}
-          onKeyDown={handleSearchSubmit}
+          onKeyDown={handleSearchSubmit} // Tìm kiếm khi nhấn Enter
         />
       </div>
 
       {/* Lọc theo category */}
       <FilterBar
         categories={categories}
-        selectedCategory={categoryIdFromUrl}  // Chuyển categoryId từ URL vào FilterBar
+        selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
 

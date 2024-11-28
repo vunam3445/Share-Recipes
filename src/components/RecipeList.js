@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import AllRecipeService from "../services/AllRecipeService";
-import "uikit/dist/css/uikit.min.css"; // Nếu bạn cần style UIkit
-import "../styles/main.css"; // Nếu có style riêng của bạn
+
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]); // Lưu danh sách công thức
