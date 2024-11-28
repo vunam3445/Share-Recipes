@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [token, setToken] = useState(null);
   const navigate = useNavigate();
+
+  // Kiểm tra token trong localStorage khi component được mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+  }, []);
 
   // Hàm xử lý sự kiện khi người dùng nhấn Enter
   const handleSearchSubmit = (e) => {
@@ -17,6 +24,13 @@ function Navbar() {
     }
   };
 
+  // Xử lý đăng xuất
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Xóa token khỏi localStorage
+    setToken(null); // Cập nhật trạng thái token
+    navigate('/'); // Điều hướng về trang chính
+  };
+
   return (
     <nav className="uk-navbar-container uk-letter-spacing-small">
       <div className="uk-container">
@@ -27,6 +41,7 @@ function Navbar() {
               <li className="uk-active"><a href="/">Home</a></li>
               <li><a href="/recipe">Recipe</a></li>
               <li><a href="/contact">Contact</a></li>
+              <li><a href='/order'>Order</a></li>
             </ul>
           </div>
 
@@ -47,13 +62,19 @@ function Navbar() {
               </div>
             </div>
 
-            {/* Các phần khác */}
+            {/* Hiển thị nút tùy thuộc vào trạng thái token */}
             <ul className="uk-navbar-nav uk-visible@m">
-              <li><a href="/sign-in">Sign In</a></li>
+              {token ? (
+                <li><button className="uk-button uk-button-primary" onClick={handleLogout}>Logout</button></li>
+              ) : (
+                <>
+                  <li><a href="/login">Login</a></li>
+                  <div className="uk-navbar-item">
+                    <a className="uk-button uk-button-primary" href="/signup">Sign Up</a>
+                  </div>
+                </>
+              )}
             </ul>
-            <div className="uk-navbar-item">
-              <a className="uk-button uk-button-primary" href="/sign-up">Sign Up</a>
-            </div>
           </div>
         </div>
       </div>

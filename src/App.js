@@ -28,7 +28,8 @@ function App() {
 
     </div>
    <Routes>
-    <Route path="/admin" element={<Admin />} />
+   <Route path="/" element={<Home/>} />
+    <Route path="/admin" element={<Admin/>} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
     <Route path='/admin/order' element={<AdminOrderPage/>} />

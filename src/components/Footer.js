@@ -42,7 +42,7 @@ function Footer() {
         </div>
       </div>
       <div className="uk-margin-medium-top uk-text-small uk-text-muted">
-        <div>Made by Unbound Studio in Guatemala City.</div>
+        <div>Made by Quý đẹp trai vô địch nhất vũ trụ.</div>
       </div>
     </div>
    </footer>

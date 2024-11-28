@@ -32,7 +32,7 @@ const Login = () => {
   
           // Điều hướng dựa trên giá trị scope
           if (userScope === 'ADMIN') {
-            setTimeout(() => navigate('/signup'), 1000); // Trang admin
+            setTimeout(() => navigate('/admin'), 1000); // Trang admin
           } else {
             setTimeout(() => navigate('/'), 1000); // Trang chính
           }
