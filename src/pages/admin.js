@@ -6,8 +6,9 @@ function Admin() {
       <h1>Welcome to Recipe Management</h1>
       <div class="menu">
         
-        <Link to="/admincategory">Manage Categories</Link>
-        <Link to="/adminrecipe">Manage Recipes</Link>
+        <Link to="/admin/category">Manage Categories</Link>
+        <Link to="/admin/recipe">Manage Recipes</Link>
+        <Link to="/admin/order">Manage Orders</Link>
       </div>
     </div>
   );

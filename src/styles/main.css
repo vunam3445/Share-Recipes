@@ -10882,8 +10882,58 @@ iframe.uk-cover {
   }
   h2,
   h3 {
-    page-break-after: avoid;
+    page-break-after: avoid;  
   }
+}
+/* Đoạn CSS này có thể nằm trong file CSS của bạn */
+.fixed-img {
+  width: 200px;
+  height: 200px;
+  object-fit: var(--uk-leader-fill-content); /* Giữ tỷ lệ ảnh và cắt bớt nếu cần */
+}
+
+/* src/styles/filterbar.css */
+.filter-bar {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-bar label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.filter-bar .category-item {
+  display: flex;
+  align-items: start;
+  gap: 5px;
+  margin-right: 20px;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-bar .category-item:hover {
+  background-color: #dcdcdc;
+  border-radius: 50px;
+  
+}
+
+.filter-bar .category-item input[type="radio"] {
+  margin-right: 8px;
+}
+
+/* src/styles/filterbar.css */
+.filter-bar .category-item.active {
+  background-color: #7f8c8d;
+  color: white;
+  border-radius: 50px;
+  padding: 8px 20px;
 }
 
 /* Đặt kích thước, canh giữa và style cho phần chứa nút Google */
