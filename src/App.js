@@ -24,12 +24,14 @@ function App() {
 
     </div>
    <Routes>
+    <Route path="/" element={<Home />} />
     <Route path="/admin" element={<Admin />} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
     <Route path='/admin/order' element={<AdminOrderPage/>} />
     <Route path="admin/recipe" element={<AdminRecipe/>} />
     <Route path="/detail" element={<RecipeDetail/>} />
+  
    </Routes>
    </div>
   );
