@@ -1,6 +1,7 @@
 import React from "react";
 import Comments from "../components/Comment";
 
+/// Trang này để test comment
 const CommentPage = () => {
   const recipeId = "1"; // Thay bằng ID công thức thực tế
 
