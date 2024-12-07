@@ -23,9 +23,6 @@ function App() {
    
 <div className='app'>
 <div>
-    
-
-
     </div>
    <Routes>
    <Route path="/" element={<Home/>} />

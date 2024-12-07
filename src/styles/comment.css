@@ -1,0 +1,185 @@
+/* General styles for the comments section */
+.comments-container {
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    text-align: center;
+    /* color: #333; */
+}
+
+.name {
+    color: #45a049;
+}
+
+/* Style for the comments list */
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /* Đảm bảo các comment được sắp xếp theo chiều dọc */
+    flex-wrap: wrap;
+    /* Cho phép wrapping khi không đủ không gian */
+    align-content: flex-start;
+    /* Đảm bảo các phần tử được căn lên trên */
+    align-items: flex-start;
+    /* Căn các phần tử vào đầu của trục chính */
+}
+
+.comment-item {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+    box-sizing: border-box;
+    /* Đảm bảo comment chiếm một dòng */
+    width: 100%;
+    /* Chiếm toàn bộ chiều rộng */
+}
+
+.comment-item p {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.comment-item small {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.content{
+    text-align: left;
+}
+/* Style for the replies */
+.replies {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+    margin-left: 20px;
+    /* Thêm indent cho các reply */
+    display: flex;
+    flex-direction: column;
+    /* Đảm bảo các reply nằm theo chiều dọc */
+    flex-wrap: wrap;
+    /* Cho phép wrapping khi không đủ không gian */
+    align-content: flex-start;
+    /* Đảm bảo các phần tử được căn lên trên */
+    align-items: flex-start;
+    /* Căn các phần tử vào đầu của trục chính */
+}
+
+.reply-item {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: block;
+    /* Đảm bảo reply chiếm một dòng */
+    width: 100%;
+    /* Chiếm toàn bộ chiều rộng */
+}
+
+.reply-item p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.reply-item small {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Style for the new comment form */
+.newCommentContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.divHeadComment {
+    position: relative;
+    /* Để định vị nút Reply tuyệt đối trong khối cha */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textReply {
+    position: absolute;
+    right: 0;
+    /* Căn nút Reply sang bên phải */
+    top: 50%;
+    /* Căn chỉnh theo chiều dọc */
+    transform: translateY(-50%);
+    /* Đảm bảo nút Reply nằm giữa */
+    display: none;
+    cursor: pointer;
+    color: #007BFF;
+    font-size: 14px;
+}
+
+.textReply:hover {
+    color: #0056b3;
+    /* Màu khi hover nút Reply */
+}
+
+.comment-item:hover>.divHeadComment .textReply {
+    display: inline;
+}
+
+.reply-item:hover>.divHeadComment .textReply {
+    display: inline;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    resize: vertical;
+    min-height: 100px;
+    margin-left: 8px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
