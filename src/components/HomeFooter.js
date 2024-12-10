@@ -105,9 +105,9 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Unbound Studio
+            Quý Đẹp Trai
           </a>{" "}
-          in Guatemala City.
+          Vô Địch Nhất Vũ Trụ.
         </div>
       </div>
     </footer>

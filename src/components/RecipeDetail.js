@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
 import { useParams } from "react-router-dom";
+import Comments from "../components/Comment";
+import RecipeSuggestionList from './RecipeSuggestionList';
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
@@ -190,6 +192,9 @@ const RecipeDetail = () => {
           </div>
         </div>
       </div>
+      {/* Comment */}
+      <Comments recipeId={recipeId} />
+      <RecipeSuggestionList recipeId={recipeId} />
     </div>
   );
 };

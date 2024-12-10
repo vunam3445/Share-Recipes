@@ -21,7 +21,7 @@ const RecipeList = () => {
   const fetchRecipes = async (page) => {
     try {
       setLoading(true);
-      const data = await AllRecipeService.getRecipes(page - 1, 9); // `page - 1` vì API có thể bắt đầu từ 0
+      const data = await AllRecipeService.getRecipes(page - 1, 12); // `page - 1` vì API có thể bắt đầu từ 0
       setRecipes(data.content || []); // Đảm bảo dữ liệu là mảng
       setTotalPages(data.totalPages || 1);
       setTotalElements(data.totalElements || 0);
@@ -114,8 +114,8 @@ const RecipeList = () => {
       </div>
 
       {/* Phân trang */}
-      <div className="uk-margin-large-top">
-        <ul className="uk-pagination uk-flex-center uk-text-500 uk-margin-remove">
+      <div className="pagination">
+        <ul className="ul-pagination">
           {/* Nút "Previous" */}
           <li className={currentPage === 1 ? "uk-disabled" : ""}>
             <button
