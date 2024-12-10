@@ -1,12 +1,13 @@
 
 import { Routes, Route, Link } from 'react-router-dom';
 import Admin from './pages/admin';
-import Home from './pages/home'
 import AdminCategory from './pages/adminCategory';
 import AdminOrderPage from './pages/adminOrder';
 import AdminRecipe from './pages/adminRecipe';
 import Search from './pages/searchpage';
 import RecipeDetail from './pages/detailRecipe';
+import RecipeList from './pages/home';
+import RecipeFavouriteList from './pages/favouritesRecipe';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 import './App.css';
@@ -29,7 +30,9 @@ function App() {
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
     <Route path='/admin/order' element={<AdminOrderPage/>} />
     <Route path="admin/recipe" element={<AdminRecipe/>} />
-    <Route path="/detail" element={<RecipeDetail/>} />
+    <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
+    <Route path='/recipeList' element={<RecipeList/>}/>
+    <Route path='/' element={<RecipeFavouriteList/>}/>
    </Routes>
    </div>
   );
