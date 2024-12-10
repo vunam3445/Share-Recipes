@@ -13,8 +13,8 @@ const Comments = ({ recipeId }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState(5); // Số lượng comment cần hiển thị
 
   const decoder = getUserFromToken();
-  // const userId = decoder.userid;
-  const userId = "f9e9093f-3805-47b4-b6ba-dbd783b097cb"; // User ID tạm thời
+  const userId = decoder.userid;
+  // const userId = "f9e9093f-3805-47b4-b6ba-dbd783b097cb"; // User ID tạm thời
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

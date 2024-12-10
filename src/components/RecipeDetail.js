@@ -194,8 +194,9 @@ const RecipeDetail = () => {
       </div>
       {/* Comment */}
       <Comments recipeId={recipeId} />
-      <RecipeSuggestionList recipeId={recipeId} />
+     
     </div>
+    
   );
 };
 

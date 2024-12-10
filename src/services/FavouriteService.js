@@ -1,14 +1,12 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8083/foodwed/favourites'; // Endpoint quản lý yêu thích
+const token = localStorage.getItem("token");
+const decoder = getUserFromToken();
+const userId = decoder.userid;
 
 const FavouriteService = {
-  /**
-   * Lấy danh sách yêu thích của người dùng
-   * @param {string} userId - ID người dùng
-   * @param {string} token - Token xác thực của người dùng
-   * @returns {Promise<Array>} Danh sách yêu thích hoặc mảng rỗng nếu có lỗi
-   */
+
   getFavourites: async (userId, token) => {
     if (!userId || !token) {
       console.error('User ID and token are required to fetch favourites.');
