@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8083/foodwed/category';
 const token = localStorage.getItem("token");
-
+console.log(token)
 const CategoryService = {
   // Lấy danh sách categories với phân trang
   getCategories: async (pageNumber = 0, pageSize = 4) => {

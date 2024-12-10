@@ -3,7 +3,7 @@ import axios from 'axios';
 // Địa chỉ API gốc
 const API_URL = 'http://localhost:8083/foodwed/auth';
 
-// Thiết lập một instance của axios với cấu hình mặc định (nếu cần)
+// Thiết lập một instance của axios với cấu hình mặc định
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
@@ -30,28 +30,15 @@ export const loginUser = async (userData) => {
   }
 };
 
-// đổi mật khẩu người dùng
-export const changePassword = async (passwordData, token) => {
-  try {
-    const response = await axiosInstance.put('/change-password', passwordData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Lỗi khi đổi mật khẩu');
-  }
-};
 
-export const googleLogin = async (googleToken) => {
-  try {
-    const response = await axiosInstance.post('/google', { token: googleToken });
-    return response.data;  // Token sẽ được trả về từ API của bạn nếu đăng nhập thành công
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Lỗi khi đăng nhập Google');
-  }
-};
+// export const googleLogin = async (googleToken) => {
+//   try {
+//     const response = await axiosInstance.post('/google', { token: googleToken });
+//     return response.data;  // Token sẽ được trả về từ API của bạn nếu đăng nhập thành công
+//   } catch (error) {
+//     throw new Error(error.response?.data?.message || 'Lỗi khi đăng nhập Google');
+//   }
+// };
 
 
 

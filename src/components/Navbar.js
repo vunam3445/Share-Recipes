@@ -36,7 +36,7 @@ function Navbar() {
       <div className="uk-container">
         <div className="uk-position-z-index" data-uk-navbar>
           <div className="uk-navbar-left">
-            <a className="uk-navbar-item uk-logo" href="/">Kocina</a>
+            <a className="uk-navbar-item uk-logo" href="/">Daily Cook</a>
             <ul className="uk-navbar-nav uk-visible@m uk-margin-large-left">
               <li className="uk-active"><a href="/">Home</a></li>
               <li><a href="/recipe">Recipe</a></li>
@@ -65,7 +65,12 @@ function Navbar() {
             {/* Hiển thị nút tùy thuộc vào trạng thái token */}
             <ul className="uk-navbar-nav uk-visible@m">
               {token ? (
-                <li><button className="uk-button uk-button-primary" onClick={handleLogout}>Logout</button></li>
+                <>
+                  <li><a href="/changepassword">Change Password</a></li>
+                  <div className="uk-navbar-item">
+                    <button className="uk-button uk-button-primary" onClick={handleLogout}>Logout</button>
+                  </div>
+                </>
               ) : (
                 <>
                   <li><a href="/login">Login</a></li>

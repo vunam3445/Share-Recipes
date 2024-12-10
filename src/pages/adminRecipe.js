@@ -103,6 +103,7 @@ function AdminRecipe() {
         ...recipeData,
         image: recipeData.image || editingRecipe?.image, // Nếu không có ảnh mới, giữ lại ảnh cũ
       };
+      console.log(selectedCategories)
   
       if (editingRecipe) {
         // Cập nhật Recipe

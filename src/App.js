@@ -10,22 +10,18 @@ import AdminOrderPage from './pages/adminOrder';
 import AdminRecipe from './pages/adminRecipe';
 import Search from './pages/searchpage';
 import RecipeDetail from './pages/detailRecipe';
-import './App.css';
-import './styles/main.css';
-import './styles/home.css';
 import Register from './pages/Signup';
 import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
+import './App.css';
+import './styles/main.css';
+import './styles/home.css';
 UIkit.use(Icons)
-
 function App() {
   return (
    
 <div className='app'>
 <div>
-    
-
-
     </div>
    <Routes>
    <Route path="/" element={<Home/>} />
@@ -37,8 +33,7 @@ function App() {
     <Route path="/signup" element={<Register/>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/changepassword" element={<ChangePassword/>} />
-    <Route path="/detail" element={<RecipeDetail/>} />
-  
+    <Route path="/detail" element={<RecipeDetail/>} />  
    </Routes>
    </div>
   );

@@ -24,7 +24,7 @@ const Login = () => {
       if (response.status === 'success') {
         setSuccess(`Đăng nhập thành công!`);
         localStorage.setItem('token', response.result.token);
-  
+        
         // Giải mã token để kiểm tra scope
         const decoder = getUserFromToken();
         if (decoder) {
@@ -32,6 +32,7 @@ const Login = () => {
   
           // Điều hướng dựa trên giá trị scope
           if (userScope === 'ADMIN') {
+            console.log()
             setTimeout(() => navigate('/admin'), 1000); // Trang admin
           } else {
             setTimeout(() => navigate('/'), 1000); // Trang chính
@@ -68,7 +69,7 @@ const Login = () => {
             localStorage.setItem('token', user.token);  // Lưu token trả về từ backend
 
             // Hiển thị thông báo thành công và thông tin người dùng
-            setSuccess(`Đăng nhập Google thành công! Token: ${result.result.token}`);
+            setSuccess(`Đăng nhập Google thành công!`);
             console.log('Thông tin người dùng:', user);  // In thông tin người dùng vào console
             console.log('Token:', user.token);  // In token trả về từ backend vào console
 
@@ -88,10 +89,10 @@ const Login = () => {
       <div className="uk-width-1-2@m uk-padding-large uk-flex uk-flex-middle uk-flex-center" data-uk-height-viewport>
         <div className="uk-width-3-4@s">
           <div className="uk-text-center uk-margin-bottom">
-            <Link className="#custom-style" to="/">Kocina</Link>
+            <Link className="uk-logo uk-text-primary uk-text-bold" to="/">Daily Cook</Link>
           </div>
           <div className="uk-text-center uk-margin-medium-bottom">
-            <h1 className="uk-h2 uk-letter-spacing-small">Login to Kocina</h1>
+            <h1 className="uk-h2 uk-letter-spacing-small">Login to Daily Cook</h1>
           </div>
 
           {error && <div className="uk-alert-danger uk-text-center uk-margin" data-uk-alert>{error}</div>}

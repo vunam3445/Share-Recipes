@@ -42,7 +42,7 @@ input[type="text"], textarea, input[type="number"] {
 }
 button {
     padding: 10px;
-    background-color: #007acc;
+    background-color: red;
     color: white;
     border: none;
     cursor: pointer;
