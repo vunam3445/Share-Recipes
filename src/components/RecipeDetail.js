@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
+import Comments from "../components/Comment";
+import RecipeSuggestionList from './RecipeSuggestionList';
 
 const RecipeDetail = ({recipeId}) => {
   const [recipe, setRecipe] = useState(null);
@@ -188,6 +190,9 @@ const RecipeDetail = ({recipeId}) => {
           </div>
         </div>
       </div>
+      {/* Comment */}
+      <Comments recipeId={recipeId} />
+      <RecipeSuggestionList recipeId={recipeId} />
     </div>
   );
 };
