@@ -66,7 +66,7 @@ const deleteOrder = async (orderId) => {
   }
 };
 
-const getOrderByUser = async (uid, page = 0, size = 3) => {
+const getOrderByUser = async (uid, page = 0, size = 6) => {
   try {
     const response = await axios.get(`${BASE_URL}/uorder/${uid}`, {
       params: { page, size },
