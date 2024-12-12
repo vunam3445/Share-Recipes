@@ -39,9 +39,9 @@ function Navbar() {
                 <a className="uk-navbar-item uk-logo" href="/">Kocina</a>
                 <ul className="uk-navbar-nav uk-visible@m uk-margin-large-left">
                   <li className="uk-active"><a href="/">Home</a></li>
-                  <li><a href="/order">Order</a></li>
                   <li><a href="/recipe">Recipe</a></li>
                   <li><a href="/contact">Contact</a></li>
+                  <li><a href='/order'>Order</a></li>
                   <li><a href="/favourites">Favourite</a></li>
                 </ul>
               </div>

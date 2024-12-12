@@ -9,6 +9,7 @@ import AdminRecipe from './pages/adminRecipe';
 import AdminOrderPage from './pages/adminOrder';
 import Order from './components/Order';
 import Search from './pages/searchpage';
+import Gmail from './pages/adminGmail';
 import RecipeDetail from './pages/detailRecipe';
 import Register from './pages/Signup';
 import Login from './pages/Login';
@@ -21,31 +22,25 @@ UIkit.use(Icons)
 
 function App() {
   return (
-
-    <div className='app'>
-      <div>
-
-
-
-      </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="admin/category" element={<AdminCategory />} />
-        <Route path="/admin/recipe" element={<AdminRecipe />} />
-        <Route path='/admin/order' element={<AdminOrderPage />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
-        <Route path="/favourites" element={<FavouritesRecipe />} />
-        
-
-
-      </Routes>
+   
+<div className='app'>
+<div>
     </div>
+   <Routes>
+   <Route path="/" element={<Home/>} />
+    <Route path="/admin" element={<Admin/>} />
+    <Route path="/admin/gmail" element={<Gmail/>} />
+    <Route path="admin/category" element={<AdminCategory/>} /> 
+    <Route path="/admin/recipe" element={<AdminRecipe/>} />
+    <Route path='/admin/order' element={<AdminOrderPage/>} />
+    <Route path="admin/recipe" element={<AdminRecipe/>} />
+    <Route path="/signup" element={<Register/>} />
+    <Route path="/login" element={<Login/>} />
+    <Route path="/changepassword" element={<ChangePassword/>} />
+    <Route path="/detail" element={<RecipeDetail/>} />
+  
+   </Routes>
+   </div>
   );
 }
 
