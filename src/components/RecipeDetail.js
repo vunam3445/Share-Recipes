@@ -80,20 +80,19 @@ const RecipeDetail = () => {
       }
   
       const result = await FavouriteService.addFavourite(recipeId);
-      console.log(result); // In ra kết quả từ API
   
-      if (!result) {
-        
-        toast.error("Thêm vào danh sách yêu thích không thành công!");
+      if (result) {
+        setIsSaved(true);
+        toast.success("Thêm vào danh sách yêu thích thành công!");
       } else {
-        setIsSaved(prev => !prev);
-        toast.success("Không thể thêm vào danh sách yêu thích!");
+        toast.error("Không thể thêm vào danh sách yêu thích!");
       }
     } catch (error) {
       console.error('Lỗi khi thêm vào yêu thích:', error);
-      toast.success("Thêm vào danh sách yêu thích thành công!");
+      toast.error("Lỗi khi thêm vào danh sách yêu thích!");
     }
   };
+  
 
   const toggleCart = () => {
     setIsInCart(prev => !prev); // Đảo trạng thái "In Cart"

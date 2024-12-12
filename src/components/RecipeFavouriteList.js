@@ -75,6 +75,8 @@ function RecipeFavouriteList({ userId, token }) {
             id={recipe.recipeId}
             name={recipe.recipeName}
             image={recipe.recipeImage}
+            serves={recipe.serves}
+            time={recipe.time}
             isFavourite={recipe.isFavourite}
             onRemove={handleRemoveFavourite}
             onToggleFavourite={handleToggleFavourite}

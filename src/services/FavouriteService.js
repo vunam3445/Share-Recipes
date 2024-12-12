@@ -91,7 +91,7 @@ const FavouriteService = {
       );
 
       const data = response.data;
-
+      console.log("service", data)
       if (data.status === 'success') {
         return data.result;
       } else {
