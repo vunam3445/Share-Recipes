@@ -18,11 +18,6 @@ const SendEmailForm = () => {
     await sendBulkEmails(subject, message);
   };
 
-    // Chuyển trang
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
     <div>
       <h1>Quản lý Email</h1>
