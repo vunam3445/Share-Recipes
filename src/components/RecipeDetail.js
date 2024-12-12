@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
 import { useParams } from "react-router-dom";
 import Comments from "../components/Comment";
+import FavouriteService from '../services/FavouriteService';
 import { getUserFromToken } from "../components/readtoken";
 import RecipeSuggestionList from './RecipeSuggestionList';
 
@@ -13,6 +14,26 @@ const RecipeDetail = () => {
   const [completedIngredients, setCompletedIngredients] = useState([]);  // Trạng thái lưu các nguyên liệu đã chọn
   const [isSaved, setIsSaved] = useState(false); // Trạng thái "saved"
   const [isInCart, setIsInCart] = useState(false); // Trạng thái "giỏ hàng"
+ /**
+ * Hàm tiện ích để lấy token từ localStorage
+ * @returns {string|null} Token hoặc null nếu không tồn tại
+ */
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+/**
+ * Hàm tiện ích để lấy userId từ token
+ * @returns {string|null} UserId hoặc null nếu không thể giải mã
+ */
+const getUserId = () => {
+  const token = getToken();
+  if (token) {
+    const decoder = getUserFromToken(token); // Cần phải pass token vào getUserFromToken
+    return decoder?.userid || null; // Trả về userId nếu tồn tại
+  }
+  return null;
+};
   const [isFormVisible, setIsFormVisible] = useState(false); // Trạng thái hiển thị form
   const [formData, setFormData] = useState({
     name: '',
@@ -71,9 +92,30 @@ const RecipeDetail = () => {
   };
 
   // Hàm xử lý khi người dùng nhấn vào Save
-  const toggleSave = () => {
-    setIsSaved(prev => !prev); // Đảo trạng thái "Saved"
+  const toggleSave = async () => {
+    try {
+      // Kiểm tra xem đã có userId và token chưa
+      const token = getToken();
+      const userId = getUserId();
+      
+      if (!userId || !token) {
+        console.error('User ID and token are required.');
+        return;
+      }
+  
+      // Gọi hàm addFavourite từ FavouriteService để thêm vào danh sách yêu thích
+      const result = await FavouriteService.addFavourite(recipeId);
+  
+      if (result) {
+        // Nếu thêm thành công, đảo trạng thái "Saved"
+        setIsSaved(prev => !prev);
+      }
+    } catch (error) {
+      console.error('Lỗi khi thêm vào yêu thích:', error);
+    }
   };
+  
+  
 
   // Hàm xử lý khi người dùng thêm vào giỏ hàng
 

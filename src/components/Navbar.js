@@ -42,6 +42,7 @@ function Navbar() {
                   <li><a href="/recipe">Recipe</a></li>
                   <li><a href="/contact">Contact</a></li>
                   <li><a href='/order'>Order</a></li>
+                  <li><a href="/favourites">Favourite</a></li>
                 </ul>
               </div>
 
