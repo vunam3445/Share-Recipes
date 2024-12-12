@@ -84,7 +84,7 @@ const UserOrderTable = () => {
                 <tr>
                   <th>Tên người đặt</th>
                   <th>Combo Món ăn</th>
-                  <th>Tổng tiền</th>
+<th>Tổng tiền</th>
                   <th>Trạng thái</th>
                 </tr>
               </thead>

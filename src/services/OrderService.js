@@ -13,6 +13,7 @@ const getOrders = async (isactive, page = 0, size = 3) => {
         'Authorization': `Bearer ${token}`,
       },
     });
+    
     return response.data;
   } catch (error) {
     console.error('Error fetching orders:', error);
@@ -74,6 +75,8 @@ const getOrderByUser = async (uid, page = 0, size = 6) => {
         'Authorization': `Bearer ${token}`,
       },
     });
+    console.log(uid)
+    console.log(response.data.result);
     return response.data.result;
   } catch (error) {
     console.error('Error fetching orders for user:', error);

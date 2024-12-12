@@ -21,9 +21,11 @@ function RecipeSuggestionList() {
   return (
     <div>
       <h3>Other Recipes You May Like</h3>
-      <div>
+      <div className='list'>
         {recipes.map((recipe) => (
-          <RecipeSuggestionCard key={recipe.id} name={recipe.name} image={recipe.image} />
+          <div className='card'>
+          <RecipeSuggestionCard key={recipe.id} name={recipe.name} image={recipe.image} serves={recipe.serves} time={recipe.time}/>
+          </div>
         ))}
       </div>
     </div>

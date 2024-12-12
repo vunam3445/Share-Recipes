@@ -53,9 +53,9 @@ function RecipeFavouriteList({ userId, token }) {
     }
   };
 
-  if (loading) {
-    return <div>Loading your favourite recipes...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading your favourite recipes...</div>;
+  // }
 
   if (error) {
     return <div>Error fetching favourite recipes: {error.message}</div>;

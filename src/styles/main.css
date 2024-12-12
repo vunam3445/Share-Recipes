@@ -11025,3 +11025,13 @@ iframe.uk-cover {
 .info-text {
   font-weight: 500;
 }
+.list{
+  display : flex;
+  flex-wrap: wrap;
+}
+.card{
+  width: 25%
+}
+.uk-card-media-top.uk-inline.uk-light{
+  width: 90%
+}

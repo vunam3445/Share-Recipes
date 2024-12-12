@@ -10,8 +10,10 @@ const SuggestionService = {
       const response = await axios.get(`${API_URL}/${recipeId}`);
 
       const data = response.data;
+      console.log(data)
 
       if (data.status === 'success' && data.result) {
+        console.log(data.result)
         return data.result;
       } else {
         console.error('Unexpected API response format:', data);
