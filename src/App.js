@@ -1,22 +1,23 @@
 
-import {Routes , Route ,Link} from 'react-router-dom';
-// import 'uikit/dist/css/uikit.min.css';
+import { Routes, Route, Link } from 'react-router-dom';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+import Home from './pages/home';
 import Admin from './pages/admin';
-import Home from './pages/home'
 import AdminCategory from './pages/adminCategory';
-import AdminOrderPage from './pages/adminOrder';
 import AdminRecipe from './pages/adminRecipe';
+import AdminOrderPage from './pages/adminOrder';
+import Order from './components/Order';
 import Search from './pages/searchpage';
 import Gmail from './pages/adminGmail';
 import RecipeDetail from './pages/detailRecipe';
-import './App.css';
-import './styles/main.css';
-import './styles/home.css';
 import Register from './pages/Signup';
 import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
+import FavouritesRecipe from './pages/favouritesRecipe';
+import './App.css';
+import './styles/main.css';
+import './styles/home.css';
 UIkit.use(Icons)
 
 function App() {
