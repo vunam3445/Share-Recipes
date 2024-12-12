@@ -3,7 +3,7 @@ import axios from 'axios';
 // Địa chỉ API gốc
 const API_URL = 'http://localhost:8083/foodwed/auth';
 
-// Thiết lập một instance của axios với cấu hình mặc định (nếu cần)
+// Thiết lập một instance của axios với cấu hình mặc định
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
@@ -30,28 +30,39 @@ export const loginUser = async (userData) => {
   }
 };
 
-// đổi mật khẩu người dùng
-export const changePassword = async (passwordData, token) => {
+// src/services/authservice.js
+export const resetPassword = async (data) => {
   try {
-    const response = await axiosInstance.put('/change-password', passwordData, {
+    const response = await fetch('http://localhost:8083/foodwed/auth/forgot-password', {
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify(data),
     });
-    return response.data;
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      return errorResponse.trim();
+    }
+
+    return await response.text(); // Nhận về dòng chữ trực tiếp từ backend
   } catch (error) {
-    throw new Error(error.response?.data?.message || 'Lỗi khi đổi mật khẩu');
+    return 'Đã xảy ra lỗi khi gửi yêu cầu đặt lại mật khẩu.';
   }
 };
 
-export const googleLogin = async (googleToken) => {
-  try {
-    const response = await axiosInstance.post('/google', { token: googleToken });
-    return response.data;  // Token sẽ được trả về từ API của bạn nếu đăng nhập thành công
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Lỗi khi đăng nhập Google');
-  }
-};
+
+
+
+// export const googleLogin = async (googleToken) => {
+//   try {
+//     const response = await axiosInstance.post('/google', { token: googleToken });
+//     return response.data;  // Token sẽ được trả về từ API của bạn nếu đăng nhập thành công
+//   } catch (error) {
+//     throw new Error(error.response?.data?.message || 'Lỗi khi đăng nhập Google');
+//   }
+// };
 
 
 

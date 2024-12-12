@@ -30,7 +30,7 @@ function Footer() {
         <div className="uk-child-width-1-2@s" data-uk-grid style={{ marginBottom: "30px" }}>
           <div style={{textAlign: "left"}}>
             <a href="#" className="uk-logo">
-              Kocina
+              Daily Cook
             </a>
           </div>
           <div className="uk-flex uk-flex-middle uk-flex-right@s">
@@ -98,16 +98,7 @@ function Footer() {
           </div>
         </div>
         <div className="uk-margin-medium-top uk-text-small uk-text-muted" style={{textAlign: "left"}}>
-          Made by{" "}
-          <a
-            className="uk-link-muted"
-            href="https://unbound.studio/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Quý Đẹp Trai
-          </a>{" "}
-          Vô Địch Nhất Vũ Trụ.
+          Made by Quý Đẹo Trai Vô Địch Nhất Vũ Trụ{" "}
         </div>
       </div>
     </footer>

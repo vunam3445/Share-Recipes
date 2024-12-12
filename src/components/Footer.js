@@ -7,7 +7,7 @@ function Footer() {
     <div className="uk-container uk-text-secondary uk-text-500">
       <div className="uk-child-width-1-2@s" data-uk-grid>
         <div>
-          <a href="#" className="uk-logo">Kocina</a>
+          <a href="#" className="uk-logo">Daily Cook</a>
         </div>
         <div className="uk-flex uk-flex-middle uk-flex-right@s">
           <div data-uk-grid className="uk-child-width-auto uk-grid-small">
