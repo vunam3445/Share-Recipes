@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import orderService from '../services/OrderService'; // Đảm bảo đường dẫn đúng
+import orderService from '../services/OrderService';
+import Navbar from '../components/Navbar';
+import Footer from '../components/HomeFooter';
+import '../styles/orderlist.css';
 
-const UserOrderList = () => {
+const UserOrderTable = ({userId}) => {
   const [orders, setOrders] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const userId = '2f1a9712-3097-4748-ac8b-62f7703c6977';
 
-  const fetchOrders = async (page = 0, size = 3) => {
+
+  const fetchOrders = async (page = 0, size = 6) => {
     setLoading(true);
     setError(null);
     try {
@@ -29,24 +32,61 @@ const UserOrderList = () => {
     fetchOrders(pageNumber);
   }, [pageNumber]);
 
+  const handlePreviousPage = () => {
+    if (pageNumber > 0) setPageNumber(pageNumber - 1);
+  };
+
+  const handleNextPage = () => {
+    if (pageNumber < totalPages - 1) setPageNumber(pageNumber + 1);
+  };
+
   return (
     <div>
-      <h2>Danh sách đơn hàng</h2>
-      {/* Hiển thị loading hoặc lỗi */}
-      {loading ? <p>Đang tải dữ liệu...</p> : error ? <p>{error}</p> : null}
-      {/* Hiển thị danh sách */}
-      <ul>
-        {orders.map((order) => (
-          <li key={order.id}>
-            <p>Tên người đặt: {order.uname}</p>
-            <p>Món ăn: {order.recipename}</p>
-            <p>Tổng tiền: {order.totalPrice}</p>
-            <p>Trạng thái: {order.active ? 'Hoạt động' : 'Không hoạt động'}</p>
-          </li>
-        ))}
-      </ul>
+      <Navbar />
+      <div className="order-page uk-container"> {/* Đảm bảo phần tử này có class uk-container */}
+        <h2>Danh sách đơn hàng</h2>
+        {loading ? (
+          <p className="loading">Đang tải dữ liệu...</p>
+        ) : error ? (
+          <p className="error">{error}</p>
+        ) : (
+          <div className="table-container">
+            <table className="order-table">
+              <thead>
+                <tr>
+                  <th>Tên người đặt</th>
+                  <th>Combo Món ăn</th>
+                  <th>Tổng tiền</th>
+                  <th>Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order.id}>
+                    <td>{order.uname}</td>
+                    <td>{order.recipename}</td>
+                    <td>{order.totalPrice.toLocaleString()} VND</td>
+                    <td className={order.active ? 'status-active' : 'status-inactive'}>
+                      {order.active ? 'Đã giao' : 'Chờ giao hàng'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="pagination">
+              <button onClick={handlePreviousPage} disabled={pageNumber === 0}>
+                Trang trước
+              </button>
+              <button onClick={handleNextPage} disabled={pageNumber >= totalPages - 1}>
+                Trang sau
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer />
     </div>
   );
 };
 
-export default UserOrderList;
+export default UserOrderTable;

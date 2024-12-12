@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/home.css";
 function SubscribeSection() {
   return (
-    <div className="uk-container" style={{backgroundColor: "white"}} >
+    <div className="uk-container"  >
       <div className="uk-background-primary uk-border-rounded-large uk-light">
         <div className="uk-width-3-4@m uk-margin-auto uk-padding-large">
           <div className="uk-text-center">
