@@ -119,10 +119,15 @@ const FavouriteService = {
     }
 
     try {
-      const response = await axios.delete(`${API_URL}/delete/${userId}/${recipeId}`, {
+      const response = await axios.delete(`${API_URL}/delete`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
+        },
+        params: {
+          userId,
+          recipeId, 
+             
         },
       });
 
