@@ -5,7 +5,7 @@ import "../styles/main.css";
 function RecipeSuggestionCard({ id, name, image }) {
   return (
     <div
-      class="uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-margin-medium-top"
+      class=""
       data-uk-grid
     >
       <div>
