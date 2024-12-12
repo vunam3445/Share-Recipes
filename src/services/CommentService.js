@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8083/foodwed/comments";
-const token = localStorage.getItem("token");
 console.log(token)
 // Lấy comments của một recipe (không cần token)
 export const getCommentsByRecipe = async (recipeId) => {
@@ -16,8 +15,7 @@ export const getCommentsByRecipe = async (recipeId) => {
 
 // Thêm một comment hoặc reply (cần token)
 export const addComment = async (commentData) => {
-  //   // Lấy token từ localStorage
-
+  const token = localStorage.getItem("token");  // Lấy token từ localStorage
 
   if (!token) {
     throw new Error("Token is required for adding a comment.");
