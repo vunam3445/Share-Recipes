@@ -30,6 +30,30 @@ export const loginUser = async (userData) => {
   }
 };
 
+// src/services/authservice.js
+export const resetPassword = async (data) => {
+  try {
+    const response = await fetch('http://localhost:8083/foodwed/auth/forgot-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      return errorResponse.trim();
+    }
+
+    return await response.text(); // Nhận về dòng chữ trực tiếp từ backend
+  } catch (error) {
+    return 'Đã xảy ra lỗi khi gửi yêu cầu đặt lại mật khẩu.';
+  }
+};
+
+
+
 
 // export const googleLogin = async (googleToken) => {
 //   try {

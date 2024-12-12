@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
 import { useParams } from "react-router-dom";
 import Comments from "../components/Comment";
+import { getUserFromToken } from "../components/readtoken";
 import RecipeSuggestionList from './RecipeSuggestionList';
 
 const RecipeDetail = () => {
@@ -12,6 +13,22 @@ const RecipeDetail = () => {
   const [completedIngredients, setCompletedIngredients] = useState([]);  // Trạng thái lưu các nguyên liệu đã chọn
   const [isSaved, setIsSaved] = useState(false); // Trạng thái "saved"
   const [isInCart, setIsInCart] = useState(false); // Trạng thái "giỏ hàng"
+  const [isFormVisible, setIsFormVisible] = useState(false); // Trạng thái hiển thị form
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    quantity: 1,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const toggleFormVisibility = () => setIsFormVisible(prev => !prev);
+  const decoder = getUserFromToken();
+  const userId = decoder.userid;
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -63,6 +80,55 @@ const RecipeDetail = () => {
     setIsInCart(prev => !prev); // Đảo trạng thái "In Cart"
   };
 
+  // Hàm xử lý submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Tạo đối tượng orderData
+    const orderData = {
+      uid: userId,
+      recipeid: recipeId,
+      recipename: recipe.name,
+      ...formData,
+      price: recipe.price,
+      ingredien: recipe.ingredien,
+      totalPrice: recipe.price * formData.quantity,
+      isactive: false
+    };
+  
+    try {
+      const token = localStorage.getItem('token');
+  
+      // Kiểm tra xem token có tồn tại không
+      if (!token) {
+        console.error('Token not found in local storage');
+        return;
+      }
+  
+      // Gửi yêu cầu POST với token trong headers
+      const response = await fetch('http://localhost:8083/foodwed/order/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(orderData)
+      });
+  
+      if (response.ok) {
+        // Đặt trạng thái để đóng form và hiển thị thông báo thành công
+        setIsFormVisible(false);
+        alert('Order placed successfully!');
+      } else {
+        // Xử lý lỗi
+        console.error('Failed to place order:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+    }
+  };
+  
+
   if (!recipe) {
     return <div>Loading...</div>;
   }
@@ -93,7 +159,6 @@ const RecipeDetail = () => {
                 <div>
                   <span data-uk-icon="icon: credit-card; ratio: 1.4"></span>
                   <h5>Price</h5>
-                  
                   <span>{recipe.price} USD</span>
                 </div>
               </div>
@@ -112,10 +177,10 @@ const RecipeDetail = () => {
                 <div>
                   <button 
                     className="uk-button uk-button-default"
-                    onClick={toggleCart}
+                    onClick={toggleFormVisibility}
                   >
                     <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span> 
-                    {isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                    Add to Cart
                   </button>
                 </div>
               </div>
@@ -172,31 +237,62 @@ const RecipeDetail = () => {
         </div>
       </div>
 
-      {/* Categories */}
-      <div className="uk-container uk-margin-top">
-        <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
-          <div className="uk-width-1-1">
-            <h3>Tags</h3>
-            <div className="uk-margin-medium-top">
-              {categories.map((category) => (
-                <a
-                  key={category.categoryid}
-                  href="#"
-                  className="uk-label uk-label-primary uk-margin-small-right"
-                  style={{ marginBottom: '5px' }}
-                >
-                  {category.name}
-                </a>
-              ))}
-            </div>
-          </div>
+{/* Form Overlay */}
+{isFormVisible && (
+  <div className="overlay" onClick={toggleFormVisibility}>
+    <div className="form-container" onClick={e => e.stopPropagation()}>
+      <h3>Enter your information</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name:</label>
+          <input type="text" name="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
+        </div>
+        <div className="form-group">
+          <label>Phone:</label>
+          <input type="text" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
+        </div>
+        <div className="form-group">
+          <label>Address:</label>
+          <textarea name="address" placeholder="Your address" value={formData.address} onChange={handleInputChange}></textarea>
+        </div>
+        <div className="form-group">
+          <label>Quantity:</label>
+          <input type="number" name="quantity" placeholder="Enter quantity" min="1" value={formData.quantity} onChange={handleInputChange} />
+        </div>
+        {/* Additional info */}
+        <div className="form-group">
+          <label>Total Price:</label>
+          <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
+        </div>
+
+        {/* Check if all required fields are filled */}
+        {!formData.name || !formData.phone || !formData.address || !formData.quantity ? (
+          <div className="error-message">Please fill in all required fields before submitting.</div>
+        ) : null}
+
+        <button type="submit" className="uk-button uk-button-primary" disabled={!formData.name || !formData.phone || !formData.address || !formData.quantity}>
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
+
+      {/* Comments Section */}
+      <div className="uk-section uk-section-muted">
+        <div className="uk-container uk-container-small">
+          <Comments recipeId={recipeId} />
         </div>
       </div>
-      {/* Comment */}
-      <Comments recipeId={recipeId} />
-     
+
+      {/* Recipe Suggestions */}
+      <div className="uk-section uk-section-default">
+        <div className="uk-container uk-container-small">
+          <RecipeSuggestionList categories={categories} currentRecipeId={recipeId} />
+        </div>
+      </div>
     </div>
-    
   );
 };
 

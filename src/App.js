@@ -14,6 +14,7 @@ import Register from './pages/Signup';
 import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
 import FavouritesRecipe from './pages/favouritesRecipe';
+import ForgotPassword from './pages/ForgotPassword';
 
 import './App.css';
 import './styles/main.css';
@@ -21,13 +22,8 @@ import './styles/home.css';
 UIkit.use(Icons)
 function App() {
   return (
-
-
     <div className='app'>
       <div>
-
-
-
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -42,9 +38,7 @@ function App() {
         <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="/favourites" element={<FavouritesRecipe />} />
-        
-
-
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
       </Routes>
     </div>
   );

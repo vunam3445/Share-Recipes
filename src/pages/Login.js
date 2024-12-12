@@ -16,26 +16,23 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-  
+
     const userData = { email, password };
-  
+
     try {
       const response = await loginUser(userData);
       if (response.status === 'success') {
-        setSuccess(`Đăng nhập thành công!`);
+        setSuccess('Đăng nhập thành công!');
         localStorage.setItem('token', response.result.token);
-        
-        // Giải mã token để kiểm tra scope
+
         const decoder = getUserFromToken();
         if (decoder) {
           const userScope = decoder.scope;
-  
-          // Điều hướng dựa trên giá trị scope
+
           if (userScope === 'ADMIN') {
-            console.log()
-            setTimeout(() => navigate('/admin'), 1000); // Trang admin
+            setTimeout(() => navigate('/admin'), 1000);
           } else {
-            setTimeout(() => navigate('/'), 1000); // Trang chính
+            setTimeout(() => navigate('/'), 1000);
           }
         } else {
           setError('Token không hợp lệ!');
@@ -50,30 +47,26 @@ const Login = () => {
 
   const handleGoogleLogin = async (response) => {
     try {
-        const token = response.credential;  // Lấy token Google từ phản hồi
+        const token = response.credential;
 
-        // Gửi token Google đến backend để xác minh
         const backendResponse = await fetch('http://localhost:8083/foodwed/auth/google', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token }),  // Gửi token đến backend
+            body: JSON.stringify({ token }),
         });
 
         if (backendResponse.ok) {
             const result = await backendResponse.json();
-            const user = result.result;  // Thông tin người dùng từ backend
+            const user = result.result;
 
-            // Lưu token vào localStorage
-            localStorage.setItem('token', user.token);  // Lưu token trả về từ backend
+            localStorage.setItem('token', user.token);
 
-            // Hiển thị thông báo thành công và thông tin người dùng
-            setSuccess(`Đăng nhập Google thành công!`);
-            console.log('Thông tin người dùng:', user);  // In thông tin người dùng vào console
-            console.log('Token:', user.token);  // In token trả về từ backend vào console
+            setSuccess('Đăng nhập Google thành công!');
+            console.log('Thông tin người dùng:', user);
+            console.log('Token:', user.token);
 
-            // Điều hướng về trang chính
             setTimeout(() => navigate('/'), 1000);
         } else {
             setError('Đăng nhập Google thất bại.');
@@ -82,7 +75,6 @@ const Login = () => {
         setError('Đã xảy ra lỗi khi đăng nhập bằng Google.');
     }
 };
-
 
   return (
     <div className="uk-grid-collapse" data-uk-grid>
@@ -127,22 +119,26 @@ const Login = () => {
           </form>
 
           <div className="loginWithGG">
-  <GoogleOAuthProvider clientId="934560233636-oerj7ripv9ituu22ntoc4nn4gcunq180.apps.googleusercontent.com">
-    <GoogleLogin
-      onSuccess={handleGoogleLogin}
-      onError={() => setError('Đăng nhập Google thất bại')}
-      render={(renderProps) => (
-        <button
-          className="google-button"
-          onClick={renderProps.onClick}
-          disabled={renderProps.disabled}
-        >
-          Đăng nhập với Google
-        </button>
-      )}
-    />
-  </GoogleOAuthProvider>
-</div>
+            <GoogleOAuthProvider clientId="934560233636-oerj7ripv9ituu22ntoc4nn4gcunq180.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => setError('Đăng nhập Google thất bại')}
+                render={(renderProps) => (
+                  <button
+                    className="google-button"
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    Đăng nhập với Google
+                  </button>
+                )}
+              />
+            </GoogleOAuthProvider>
+          </div>
+
+          <div className="uk-width-1-1 uk-text-center uk-margin-top">
+            <Link to="/forgot-password" className="uk-button uk-button-link">Quên mật khẩu?</Link>
+          </div>
         </div>
       </div>
       <div className="uk-width-1-2@m uk-padding-large uk-flex uk-flex-middle uk-flex-center uk-light" data-uk-height-viewport>
