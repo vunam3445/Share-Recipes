@@ -1,33 +1,54 @@
 // src/components/RecipeCard.js
-import React from 'react';
+import React from "react";
 import "../styles/main.css";
 
 function RecipeSuggestionCard({ id, name, image }) {
   return (
-    <div className="uk-card">
-      <div className="uk-card-media-top uk-inline uk-light">
-        <img
-          className="uk-border-rounded-medium"
-          src={require(`../assests/images/${image}`)} // Thay "path/to/images" bằng đường dẫn chính xác đến thư mục ảnh của bạn
-          alt={name}
-        />
-        <div className="uk-position-cover uk-card-overlay uk-border-rounded-medium"></div>
-        <div className="uk-position-xsmall uk-position-top-right">
-          <a href="#" className="uk-icon-button uk-like uk-position-z-index uk-position-relative" data-uk-icon="heart"></a>
-        </div>
-      </div>
+    <div
+      class="uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-margin-medium-top"
+      data-uk-grid
+    >
       <div>
-        <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">{name}</h3>
-        <div className="uk-text-xsmall uk-text-muted" data-uk-grid>
-          <div className="uk-width-auto uk-flex uk-flex-middle">
-            <span className="uk-rating-filled" data-uk-icon="icon: star; ratio: 0.7"></span>
-            <span className="uk-margin-xsmall-left">5.0</span>
-            <span>(73)</span>
+        <div className="uk-card">
+          <div className="uk-card-media-top uk-inline uk-light">
+            <img
+              className="uk-border-rounded-medium"
+              src={require(`../assests/images/${image}`)} // Thay "path/to/images" bằng đường dẫn chính xác đến thư mục ảnh của bạn
+              alt={name}
+            />
+            <div className="uk-position-cover uk-card-overlay uk-border-rounded-medium"></div>
+            <div className="uk-position-xsmall uk-position-top-right">
+              <a
+                href="#"
+                className="uk-icon-button uk-like uk-position-z-index uk-position-relative"
+                data-uk-icon="heart"
+              ></a>
+            </div>
           </div>
-          <div className="uk-width-expand uk-text-right">by John Keller</div>
+          <div>
+            <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">
+              {name}
+            </h3>
+            <div className="uk-text-xsmall uk-text-muted" data-uk-grid>
+              <div className="uk-width-auto uk-flex uk-flex-middle">
+                <span
+                  className="uk-rating-filled"
+                  data-uk-icon="icon: star; ratio: 0.7"
+                ></span>
+                <span className="uk-margin-xsmall-left">5.0</span>
+                <span>(73)</span>
+              </div>
+              <div className="uk-width-expand uk-text-right">
+                by John Keller
+              </div>
+            </div>
+          </div>
+          <a
+            href={`recipe/recipeDetail/${id}`}
+            className="uk-position-cover"
+          ></a>
         </div>
       </div>
-      <a href="recipe.html" className="uk-position-cover"></a>
     </div>
   );
 }
