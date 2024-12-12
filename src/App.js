@@ -9,6 +9,7 @@ import AdminCategory from './pages/adminCategory';
 import AdminOrderPage from './pages/adminOrder';
 import AdminRecipe from './pages/adminRecipe';
 import Search from './pages/searchpage';
+import Gmail from './pages/adminGmail';
 import RecipeDetail from './pages/detailRecipe';
 import './App.css';
 import './styles/main.css';
@@ -27,6 +28,7 @@ function App() {
    <Routes>
    <Route path="/" element={<Home/>} />
     <Route path="/admin" element={<Admin/>} />
+    <Route path="/admin/gmail" element={<Gmail/>} />
     <Route path="admin/category" element={<AdminCategory/>} /> 
     <Route path="/admin/recipe" element={<AdminRecipe/>} />
     <Route path='/admin/order' element={<AdminOrderPage/>} />

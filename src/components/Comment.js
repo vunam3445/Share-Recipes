@@ -13,14 +13,12 @@ const Comments = ({ recipeId }) => {
   const [commentsToDisplay, setCommentsToDisplay] = useState(5); // Số lượng comment cần hiển thị
 
   const decoder = getUserFromToken();
-  // const userId = decoder.userid;
-  const userId = "f9e9093f-3805-47b4-b6ba-dbd783b097cb"; // User ID tạm thời
+  const userId = decoder ? decoder.userid : null; // Kiểm tra nếu decoder tồn tại và lấy userId
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString(); // Chuyển đổi thành định dạng dễ đọc như: "12/7/2024, 9:15:00 AM"
   };
-
 
   // Hàm tải lại danh sách comment
   const fetchComments = async () => {
@@ -46,6 +44,11 @@ const Comments = ({ recipeId }) => {
 
   // Thêm comment mới và tải lại danh sách comment
   const handleAddComment = async () => {
+    if (!userId) {
+      alert("Bạn cần đăng nhập để comment!");
+      return;
+    }
+
     if (!newComment.trim()) return;
 
     try {
@@ -99,36 +102,35 @@ const Comments = ({ recipeId }) => {
   };
 
   const renderComments = (comments) =>
-  comments.map((comment) => (
-    <li className="comment-item" key={comment.cmtid}>
-      <div className="divHeadComment">
-        <small>{comment.fullname} {formatDate(comment.date)}</small> {/* Hiển thị thời gian từ trường 'date' */}
-        <p
-          className="textReply"
-          onClick={() => toggleReplyForm(comment.cmtid)}
-        >
-          Reply
-        </p>
-      </div>
-      <p className="content">{comment.content}</p>
-      {/* Hiển thị form reply nếu đang trả lời comment này */}
-      {replyingTo === comment.cmtid && (
-        <div className="reply-form">
-          <textarea
-            placeholder="Write your reply..."
-            value={replyContent}
-            onChange={(e) => setReplyContent(e.target.value)}
-          ></textarea>
-          <button onClick={handleReply}>Submit Reply</button>
+    comments.map((comment) => (
+      <li className="comment-item" key={comment.cmtid}>
+        <div className="divHeadComment">
+          <small>{comment.fullname} {formatDate(comment.date)}</small>
+          <p
+            className="textReply"
+            onClick={() => toggleReplyForm(comment.cmtid)}
+          >
+            Reply
+          </p>
         </div>
-      )}
-      {/* Hiển thị replies nếu có */}
-      {comment.replies?.length > 0 && (
-        <ul className="replies">{renderComments(comment.replies)}</ul>
-      )}
-    </li>
-  ));
-
+        <p className="content">{comment.content}</p>
+        {/* Hiển thị form reply nếu đang trả lời comment này */}
+        {replyingTo === comment.cmtid && (
+          <div className="reply-form">
+            <textarea
+              placeholder="Write your reply..."
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+            ></textarea>
+            <button onClick={handleReply}>Submit Reply</button>
+          </div>
+        )}
+        {/* Hiển thị replies nếu có */}
+        {comment.replies?.length > 0 && (
+          <ul className="replies">{renderComments(comment.replies)}</ul>
+        )}
+      </li>
+    ));
 
   const handleLoadMore = () => {
     const nextComments = commentsToDisplay + 5;
@@ -156,7 +158,7 @@ const Comments = ({ recipeId }) => {
       ) : (
         <p>Chưa có bình luận nào. Hãy là người đầu tiên đóng góp!</p>
       )}
-      
+
       {/* Hiển thị nút "Tải thêm" nếu còn comment để tải */}
       {displayedComments.length < allComments.length && (
         <button onClick={handleLoadMore} className="load-more-button">
