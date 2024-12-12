@@ -6,16 +6,16 @@ import "../styles/main.css";
 
 function RecipeSuggestionList() {
   const [recipes, setRecipes] = useState([]); // Lưu danh sách công thức gợi ý
-  const { recipeid } = useParams(); // Lấy recipeid từ URL params
+  const { recipeId } = useParams(); // Lấy recipeid từ URL params
 
   useEffect(() => {
     // Kiểm tra recipeid trước khi gọi API
-    if (recipeid) {
-      SuggestionService.getSuggestions(recipeid).then((data) => {
+    if (recipeId) {
+      SuggestionService.getSuggestions(recipeId).then((data) => {
         setRecipes(data);
       });
     }
-  }, [recipeid]); // Chỉ gọi lại khi recipeid thay đổi
+  }, [recipeId]); // Chỉ gọi lại khi recipeid thay đổi
 
   return (
     <div className="uk-section uk-section-muted">
