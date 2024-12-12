@@ -19,9 +19,6 @@ const SendEmailForm = () => {
   };
 
     // Chuyển trang
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <div>

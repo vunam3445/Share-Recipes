@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8083/foodwed/favourites'; // Endpoint quản lý yêu thích
-const token = localStorage.getItem("token");
-const decoder = getUserFromToken();
-const userId = decoder.userid;
+
 
 const FavouriteService = {
 
