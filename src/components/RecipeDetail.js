@@ -27,8 +27,6 @@ const RecipeDetail = () => {
   };
 
   const toggleFormVisibility = () => setIsFormVisible(prev => !prev);
-  const decoder = getUserFromToken();
-  const userId = decoder.userid;
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -57,14 +55,16 @@ const RecipeDetail = () => {
   }, [recipeId]);
 
   // Hàm xử lý khi người dùng tích vào bước
-  const toggleStepCompletion = (index) => {
+  const toggleStepCompletion = (index, e) => {
+    e.preventDefault();
     setCompletedSteps(prev => 
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
 
   // Hàm xử lý khi người dùng tích vào nguyên liệu
-  const toggleIngredientCompletion = (index) => {
+  const toggleIngredientCompletion = (index, e) => {
+    e.preventDefault();
     setCompletedIngredients(prev => 
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
@@ -76,14 +76,13 @@ const RecipeDetail = () => {
   };
 
   // Hàm xử lý khi người dùng thêm vào giỏ hàng
-  const toggleCart = () => {
-    setIsInCart(prev => !prev); // Đảo trạng thái "In Cart"
-  };
+
 
   // Hàm xử lý submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    const decoder = getUserFromToken();
+    const userId = decoder.userid;
     // Tạo đối tượng orderData
     const orderData = {
       uid: userId,
@@ -200,11 +199,14 @@ const RecipeDetail = () => {
                 <div key={index} className="uk-grid-small uk-margin-medium-top" data-uk-grid>
                   <div className="uk-width-auto">
                     <a 
-                      href="#"
+                      href="#"  // Ngăn ngừa chuyển trang lại
                       className={`uk-step-icon ${completedSteps.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
                       data-uk-icon="icon: check; ratio: 0.8"
-                      style={{ color: completedSteps.includes(index) ? 'green' : 'orange' }}
-                      onClick={() => toggleStepCompletion(index)}
+                      style={{ 
+                        color: completedSteps.includes(index) ? 'white' : 'orange',
+                        backgroundColor: completedSteps.includes(index) ? '#eb4a36' : 'transparent'  // Màu nền khi tích vào
+                      }}
+                      onClick={(e) => toggleStepCompletion(index, e)}
                     ></a>
                   </div>
                   <div className="uk-width-expand">
@@ -221,13 +223,12 @@ const RecipeDetail = () => {
               <ul className="uk-list uk-list-large uk-list-divider uk-margin-medium-top">
                 {recipe.ingredientsArray.map((ingredient, index) => (
                   <li key={index}>
-                    <span
+                    {/* <span
                       className={`uk-icon ${completedIngredients.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
-                      style={{ color: completedIngredients.includes(index) ? 'green' : 'orange' }}
-                      onClick={() => toggleIngredientCompletion(index)}
-                    >
-                      <i className="fa fa-check"></i>
-                    </span>
+                      data-uk-icon="icon: check; ratio: 0.8"
+                      style={{ color: completedIngredients.includes(index) ? 'white' : 'orange', backgroundColor: completedIngredients.includes(index) ? 'green' : 'transparent' }}  // Màu nền khi tích vào
+                      onClick={(e) => toggleIngredientCompletion(index, e)}
+                    ></span> */}
                     {ingredient}
                   </li>
                 ))}
@@ -237,59 +238,72 @@ const RecipeDetail = () => {
         </div>
       </div>
 
-{/* Form Overlay */}
-{isFormVisible && (
-  <div className="overlay" onClick={toggleFormVisibility}>
-    <div className="form-container" onClick={e => e.stopPropagation()}>
-      <h3>Enter your information</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
+      {/* Add to Cart Form */}
+      {isFormVisible && (
+        <div className="uk-modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <button className="uk-modal-close-default" type="button" data-uk-close onClick={toggleFormVisibility}></button>
+            <h2 className="uk-modal-title">Add to Cart</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="text" 
+                  name="name" 
+                  placeholder="Your Name" 
+                  value={formData.name} 
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="tel" 
+                  name="phone" 
+                  placeholder="Your Phone" 
+                  value={formData.phone} 
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="text" 
+                  name="address" 
+                  placeholder="Your Address" 
+                  value={formData.address} 
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="number" 
+                  name="quantity" 
+                  placeholder="Quantity" 
+                  value={formData.quantity} 
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button className="uk-button uk-button-primary" type="submit">Order</button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Phone:</label>
-          <input type="text" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea name="address" placeholder="Your address" value={formData.address} onChange={handleInputChange}></textarea>
-        </div>
-        <div className="form-group">
-          <label>Quantity:</label>
-          <input type="number" name="quantity" placeholder="Enter quantity" min="1" value={formData.quantity} onChange={handleInputChange} />
-        </div>
-        {/* Additional info */}
-        <div className="form-group">
-          <label>Total Price:</label>
-          <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
-        </div>
+      )}
 
-        {/* Check if all required fields are filled */}
-        {!formData.name || !formData.phone || !formData.address || !formData.quantity ? (
-          <div className="error-message">Please fill in all required fields before submitting.</div>
-        ) : null}
-
-        <button type="submit" className="uk-button uk-button-primary" disabled={!formData.name || !formData.phone || !formData.address || !formData.quantity}>
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-)}
-
-
-      {/* Comments Section */}
-      <div className="uk-section uk-section-muted">
+      {/* Comments */}
+      <div className="uk-section uk-section-default uk-padding-remove-top">
         <div className="uk-container uk-container-small">
+          <h3>Comments</h3>
           <Comments recipeId={recipeId} />
         </div>
       </div>
 
       {/* Recipe Suggestions */}
-      <div className="uk-section uk-section-default">
+      <div className="uk-section uk-section-default uk-padding-remove-top">
         <div className="uk-container uk-container-small">
-          <RecipeSuggestionList categories={categories} currentRecipeId={recipeId} />
+          <h3>Related Recipes</h3>
+          <RecipeSuggestionList categories={categories} />
         </div>
       </div>
     </div>

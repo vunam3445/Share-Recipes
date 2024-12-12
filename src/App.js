@@ -9,6 +9,7 @@ import AdminRecipe from './pages/adminRecipe';
 import AdminOrderPage from './pages/adminOrder';
 import Order from './components/Order';
 import Search from './pages/searchpage';
+import Gmail from './pages/adminGmail';
 import RecipeDetail from './pages/detailRecipe';
 import Register from './pages/Signup';
 import Login from './pages/Login';
@@ -39,6 +40,8 @@ function App() {
         <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="/favourites" element={<FavouritesRecipe />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/detail" element={<RecipeDetail/>} />
+        <Route path="/admin/gmail" element={<Gmail/>} />
       </Routes>
     </div>
   );

@@ -114,7 +114,7 @@ const Login = () => {
               />
             </div>
             <div className="uk-width-1-1 uk-text-center">
-              <button className="uk-button uk-button-primary uk-button-large" type="submit">Sign In</button>
+              <button className="uk-button uk-button-primary uk-button-large" type="submit">Login</button>
             </div>
           </form>
 
