@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import RecipeService from '../services/RecipeService';
+import { useParams } from "react-router-dom";
+import Comments from "../components/Comment";
+import RecipeSuggestionList from './RecipeSuggestionList';
 
-const RecipeDetail = ({recipeId}) => {
+const RecipeDetail = () => {
+  const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [categories, setCategories] = useState([]);
   const [completedSteps, setCompletedSteps] = useState([]);  // Trạng thái lưu các bước đã hoàn thành
   const [completedIngredients, setCompletedIngredients] = useState([]);  // Trạng thái lưu các nguyên liệu đã chọn
-  const [price, setPrice] = useState(100);  // Giá cố định, sẽ cập nhật sau
   const [isSaved, setIsSaved] = useState(false); // Trạng thái "saved"
   const [isInCart, setIsInCart] = useState(false); // Trạng thái "giỏ hàng"
 
@@ -90,7 +93,8 @@ const RecipeDetail = ({recipeId}) => {
                 <div>
                   <span data-uk-icon="icon: credit-card; ratio: 1.4"></span>
                   <h5>Price</h5>
-                  <span>{price} USD</span>
+                  
+                  <span>{recipe.price} USD</span>
                 </div>
               </div>
               <hr />
@@ -188,7 +192,11 @@ const RecipeDetail = ({recipeId}) => {
           </div>
         </div>
       </div>
+      {/* Comment */}
+      <Comments recipeId={recipeId} />
+     
     </div>
+    
   );
 };
 

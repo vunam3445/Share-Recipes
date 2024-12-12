@@ -5,13 +5,9 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8083/foodwed/suggestion';
 
 const SuggestionService = {
-  getSuggestions: async (recipeid) => {
+  getSuggestions: async (recipeId) => {
     try {
-      const response = await axios.get(`${API_URL}/${recipeid}`, {
-        headers: {
-          'Content-Type': 'application/json', // Đặt Content-Type nếu cần thiết
-        },
-      });
+      const response = await axios.get(`${API_URL}/${recipeId}`);
 
       const data = response.data;
 
