@@ -2,7 +2,7 @@
 import React from 'react';
 import "../styles/main.css";
 
-function RecipeSuggestionCard({ id, name, image }) {
+function RecipeSuggestionCard({ id, name, image, serves, time }) {
   return (
     <div className="uk-card">
       <div className="uk-card-media-top uk-inline uk-light">
@@ -18,14 +18,16 @@ function RecipeSuggestionCard({ id, name, image }) {
       </div>
       <div>
         <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">{name}</h3>
-        <div className="uk-text-xsmall uk-text-muted" data-uk-grid>
-          <div className="uk-width-auto uk-flex uk-flex-middle">
-            <span className="uk-rating-filled" data-uk-icon="icon: star; ratio: 0.7"></span>
-            <span className="uk-margin-xsmall-left">5.0</span>
-            <span>(73)</span>
+        <div className="info-container">
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="user"></span>
+              <span className="info-text">{serves} servings</span>
+            </div>
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="clock"></span>
+              <span className="info-text">{time} mins</span>
+            </div>
           </div>
-          <div className="uk-width-expand uk-text-right">by John Keller</div>
-        </div>
       </div>
       <a href="recipe.html" className="uk-position-cover"></a>
     </div>

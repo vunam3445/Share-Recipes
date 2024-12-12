@@ -106,7 +106,7 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #eb4a36;
+  color: #000000;
   text-decoration: none;
   cursor: pointer;
 }
@@ -1996,13 +1996,13 @@ select.uk-form-width-xsmall {
 .uk-button-default {
   background-color: transparent;
   color: #000;
-  border: 1px solid #000;
+  border:0.25px solid #000;
 }
 
 /* Hover + Focus */
 .uk-button-default:hover,
 .uk-button-default:focus {
-  background-color: #000;
+  background-color: #eb4a36;
   color: #fff;
   border-color: #000;
 }
@@ -10958,4 +10958,70 @@ iframe.uk-cover {
 
 .pagination {
   justify-content: center;
+}
+
+.uk-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uk-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.uk-card-media-top img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.uk-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.uk-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.uk-margin-right {
+  margin-right: 10px;
+}
+/* RecipeCard.css */
+
+/* Container for serves and time */
+.info-container {
+  display: flex;
+  justify-content: space-between; /* Khoảng cách đều giữa các icon */
+  align-items: center; /* Canh giữa theo chiều dọc */
+  margin-top: 8px;
+  padding: 0 8px; /* Căn nội dung với mép ảnh */
+  box-sizing: border-box; /* Đảm bảo padding không làm vượt kích thước */
+}
+
+/* Individual items for serves and time */
+.info-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px; /* Kích thước chữ vừa phải */
+  color: #555; /* Màu chữ nhẹ nhàng */
+}
+
+/* Icon styling */
+.info-item .uk-icon {
+  margin-right: 6px; /* Khoảng cách giữa icon và text */
+  color: #ff6f61; /* Màu icon nổi bật */
+}
+
+/* Text styling */
+.info-text {
+  font-weight: 500;
 }

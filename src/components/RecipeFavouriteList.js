@@ -5,14 +5,20 @@ import "../styles/main.css";
 
 function RecipeFavouriteList({ userId, token }) {
   const [favourites, setFavourites] = useState([]);
+  const [loading, setLoading] = useState(true); // Quản lý trạng thái loading
+  const [error, setError] = useState(null); // Quản lý lỗi
 
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
-        const data = await FavouriteService.getFavourites(userId, token);
+        setLoading(true); // Bắt đầu trạng thái loading
+        const data = await FavouriteService.getUserFavourites(userId, token);
         setFavourites(data);
-      } catch (error) {
-        console.error('Error fetching favourite list:', error);
+      } catch (err) {
+        console.error('Error fetching favourite list:', err);
+        setError(err); // Lưu lỗi vào trạng thái
+      } finally {
+        setLoading(false); // Kết thúc trạng thái loading
       }
     };
 
@@ -23,8 +29,8 @@ function RecipeFavouriteList({ userId, token }) {
 
   const handleRemoveFavourite = async (recipeId) => {
     try {
-      await FavouriteService.removeFavourite(userId, recipeId, token);
-      setFavourites((prev) => prev.filter((fav) => fav.id !== recipeId));  // Cập nhật lại danh sách yêu thích
+      await FavouriteService.deleteFavourite(userId, recipeId, token);
+      setFavourites((prev) => prev.filter((fav) => fav.id !== recipeId));
     } catch (error) {
       console.error('Error removing favourite:', error);
     }
@@ -33,19 +39,27 @@ function RecipeFavouriteList({ userId, token }) {
   const handleToggleFavourite = async (recipeId, isLiked) => {
     try {
       if (isLiked) {
-        // Thêm vào danh sách yêu thích
         await FavouriteService.addFavourite(userId, recipeId, token);
       } else {
-        // Xóa khỏi danh sách yêu thích
-        await FavouriteService.removeFavourite(userId, recipeId, token);
+        await FavouriteService.deleteFavourite(userId, recipeId, token);
       }
-      setFavourites((prev) => prev.map((fav) => 
-        fav.id === recipeId ? { ...fav, isFavourite: isLiked } : fav
-      ));
+      setFavourites((prev) =>
+        prev.map((fav) =>
+          fav.id === recipeId ? { ...fav, isFavourite: isLiked } : fav
+        )
+      );
     } catch (error) {
       console.error('Error toggling favourite:', error);
     }
   };
+
+  if (loading) {
+    return <div>Loading your favourite recipes...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching favourite recipes: {error.message}</div>;
+  }
 
   if (favourites.length === 0) {
     return <div>No favourite recipes found.</div>;
@@ -61,9 +75,9 @@ function RecipeFavouriteList({ userId, token }) {
             id={recipe.id}
             name={recipe.name}
             image={recipe.image}
-            isFavourite={recipe.isFavourite}  // Truyền trạng thái yêu thích
+            isFavourite={recipe.isFavourite}
             onRemove={handleRemoveFavourite}
-            onToggleFavourite={handleToggleFavourite}  // Truyền hàm xử lý thay đổi trạng thái yêu thích
+            onToggleFavourite={handleToggleFavourite}
           />
         ))}
       </div>

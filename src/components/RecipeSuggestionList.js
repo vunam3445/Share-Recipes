@@ -3,7 +3,7 @@ import SuggestionService from '../services/SuggestionService';
 import RecipeSuggestionCard from './RecipeSuggestionCard';
 import "../styles/main.css";
 
-function RecipeSuggestionList() {
+function RecipeSuggestionList({recipeId}) {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function RecipeSuggestionList() {
       <h3>Other Recipes You May Like</h3>
       <div>
         {recipes.map((recipe) => (
-          <RecipeSuggestionCard key={recipe.id} name={recipe.name} image={recipe.image} />
+          <RecipeSuggestionCard key={recipe.id} name={recipe.name} image={recipe.image} serves={recipe.serves} time={recipe.time} />
         ))}
       </div>
     </div>

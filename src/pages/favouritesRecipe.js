@@ -1,32 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import Header from "../components/HomeHeader";
 import SubscribeSection from "../components/HomeSubscribeSection";
 import Footer from "../components/HomeFooter";
-import RecipeFavouriteList from "../components/RecipeFavouriteList"; // Đảm bảo đã import đúng
-import '../styles/home.css'; // Sử dụng đường dẫn chính xác.
+import RecipeFavouriteList from "../components/RecipeFavouriteList";
+import { getUserFromToken } from "../components/readtoken";
+import '../styles/home.css';
 
-// Component chính cho trang yêu thích món ăn
 function FavouritesRecipe() {
-  const [userId, setUserId] = useState(null); // Trạng thái cho userId
-  const [token, setToken] = useState(null); // Trạng thái cho token
-
-  // Dữ liệu giả lập cho userId và token (Bạn có thể lấy từ context hoặc localStorage nếu cần)
-  useEffect(() => {
-    // Lấy userId và token từ localStorage (hoặc context)
-    const storedUserId = localStorage.getItem("userId");
-    const storedToken = localStorage.getItem("token");
-
-    if (storedUserId && storedToken) {
-      setUserId(storedUserId);
-      setToken(storedToken);
-    }
-  }, []);
-
-  // Nếu chưa có userId hoặc token, yêu cầu người dùng đăng nhập
-  if (!userId || !token) {
-    return <div>Please log in to view your favourite recipes.</div>;
-  }
+  const token = localStorage.getItem('token');
+  const user = getUserFromToken();
+  const userId = user.userid;
 
   return (
     <div className="divMain">

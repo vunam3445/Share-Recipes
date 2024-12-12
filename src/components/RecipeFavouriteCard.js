@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import "../styles/main.css";
 
-function RecipeFavouriteCard({ id, name, image, isFavourite, onRemove, onToggleFavourite }) {
+function RecipeFavouriteCard({ id, name, image, isFavourite, serves, time, onRemove, onToggleFavourite }) {
+  console.log(image);
   // Trạng thái "yêu thích" (true/false)
   const [isLiked, setIsLiked] = useState(isFavourite);
 
@@ -51,6 +52,16 @@ function RecipeFavouriteCard({ id, name, image, isFavourite, onRemove, onToggleF
       {/* Tiêu đề món ăn */}
       <div>
         <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">{name}</h3>
+        <div className="info-container">
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="user"></span>
+              <span className="info-text">{serves} servings</span>
+            </div>
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="clock"></span>
+              <span className="info-text">{time} mins</span>
+            </div>
+          </div>
       </div>
 
       {/* Link tới trang chi tiết món ăn (Có thể thay đổi link này) */}
