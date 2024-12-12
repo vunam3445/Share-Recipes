@@ -1,0 +1,67 @@
+/* Đảm bảo rằng container của bảng có kích thước đồng nhất với navbar và footer */
+.order-page {
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa */
+    padding: 20px;
+  }
+  
+  .table-container {
+    overflow-x: auto; /* Đảm bảo có thể cuộn khi màn hình nhỏ */
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse; /* Làm cho các viền của các ô trong bảng khít nhau */
+    background: white;
+    border-radius: 8px; /* Bo tròn góc bảng */
+  }
+  
+  .order-table th,
+  .order-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid #ddd; /* Viền cho các ô trong bảng */
+  }
+  
+  .order-table th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  .order-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Căn giữa nội dung trong các ô trạng thái */
+  .status-active,
+  .status-inactive {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px; /* Căn giữa theo chiều dọc */
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Viền cho trạng thái */
+    margin: 0 auto; /* Căn giữa trạng thái */
+  }
+  
+  .status-active {
+    background-color: #28a745; /* Màu xanh lá */
+    color: #f1f1f1;
+  }
+  
+  .status-inactive {
+    background-color: #dc3545; /* Màu đỏ */
+    color: #f1f1f1;
+  }
+  
+  /* Pagination */
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
