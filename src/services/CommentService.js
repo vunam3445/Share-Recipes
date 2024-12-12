@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8083/foodwed/comments";
-
 // Lấy comments của một recipe (không cần token)
 export const getCommentsByRecipe = async (recipeId) => {
   try {

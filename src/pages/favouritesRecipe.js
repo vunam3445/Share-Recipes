@@ -3,23 +3,30 @@ import Navbar from "../components/Navbar";
 import Header from "../components/HomeHeader";
 import SubscribeSection from "../components/HomeSubscribeSection";
 import Footer from "../components/HomeFooter";
-import RecipeFavouriteList from "../components/RecipeFavouriteList"; // Đảm bảo đã import đúng
-import '../styles/home.css'; // Sử dụng đường dẫn chính xác.
+import RecipeFavouriteList from "../components/RecipeFavouriteList";
+import { getUserFromToken } from "../components/readtoken"; // Hàm giải mã token
+import '../styles/home.css';
 
-// Component chính cho trang yêu thích món ăn
 function FavouritesRecipe() {
   const [userId, setUserId] = useState(null); // Trạng thái cho userId
   const [token, setToken] = useState(null); // Trạng thái cho token
 
-  // Dữ liệu giả lập cho userId và token (Bạn có thể lấy từ context hoặc localStorage nếu cần)
+  // Lấy token từ localStorage và giải mã userId
   useEffect(() => {
-    // Lấy userId và token từ localStorage (hoặc context)
-    const storedUserId = localStorage.getItem("userId");
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem("token"); // Lấy token từ localStorage
 
-    if (storedUserId && storedToken) {
-      setUserId(storedUserId);
-      setToken(storedToken);
+    if (storedToken) {
+      setToken(storedToken); // Lưu token vào state
+      try {
+        const decodedToken = getUserFromToken(storedToken); // Giải mã token
+        if (decodedToken?.userid) {
+          setUserId(decodedToken.userid); // Lưu userId vào state
+        } else {
+          console.error("Invalid token structure.");
+        }
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+      }
     }
   }, []);
 
