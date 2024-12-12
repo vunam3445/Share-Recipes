@@ -19,26 +19,12 @@ function RecipeSuggestionList() {
   }, [recipeId]); // Chỉ gọi lại khi recipeid thay đổi
 
   return (
-    <div className="">
-      <div className="">
-        <h3>Other Recipes You May Like</h3>
-        <div className='list'>
-       
-          {recipes.length > 0 ? (
-            recipes.map((recipe) => (
-              <div className="card">
-              <RecipeCard 
-                key={recipe.id} 
-                name={recipe.name} 
-                image={recipe.image} 
-              />
-              </div>
-            ))
-          ) : (
-            <p>No suggestions available.</p> // Hiển thị khi không có gợi ý
-          )}
-        
-        </div>
+    <div>
+      <h3>Other Recipes You May Like</h3>
+      <div>
+        {recipes.map((recipe) => (
+          <RecipeSuggestionCard key={recipe.id} name={recipe.name} image={recipe.image} />
+        ))}
       </div>
     </div>
   );
