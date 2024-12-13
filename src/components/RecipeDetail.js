@@ -266,13 +266,8 @@ const RecipeDetail = () => {
               {recipe.stepsArray.map((step, index) => (
                 <div key={index} className="uk-grid-small uk-margin-medium-top" data-uk-grid>
                   <div className="uk-width-auto">
-                    <a 
-                      href="#"
-                      className={`uk-step-icon ${completedSteps.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
-                      data-uk-icon="icon: check; ratio: 0.8"
-                      style={{ color: completedSteps.includes(index) ? 'green' : 'orange' }}
-                      onClick={() => toggleStepCompletion(index)}
-                    ></a>
+                  <a href="#" class="uk-step-icon" data-uk-icon="icon: check; ratio: 0.8" 
+                data-uk-toggle="target: #step-2; cls: uk-step-active"></a>
                   </div>
                   <div className="uk-width-expand">
                     <h5 className="uk-step-title uk-text-500 uk-text-uppercase uk-text-primary">{index + 1}. Step</h5>
