@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchService from "../services/SearchService"; // Ensure the service exists for fetching recipes based on search
-import RecipeCard from "../components/RecipeCard"; // Make sure RecipeCard is a functional component that displays recipe data
+import SearchService from "../services/SearchService";
+import RecipeCard from "../components/RecipeCard";
+import "../styles/home.css"
 
 const HomeRecipe = ({ searchQuery }) => {
   const navigate = useNavigate();
@@ -9,11 +10,10 @@ const HomeRecipe = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch recipes based on the selected recipe name (searchQuery)
   const fetchSearchResults = async () => {
     try {
       setLoading(true);
-      const data = await SearchService.searchRecipes(searchQuery); // Assuming SearchService has a searchRecipes function
+      const data = await SearchService.searchRecipes(searchQuery);
       setRecipes(data);
     } catch (err) {
       setError("Failed to fetch recipes");
@@ -22,7 +22,6 @@ const HomeRecipe = ({ searchQuery }) => {
     }
   };
 
-  // Trigger the search when the component mounts or when searchQuery changes
   useEffect(() => {
     if (searchQuery) {
       fetchSearchResults();
@@ -35,13 +34,12 @@ const HomeRecipe = ({ searchQuery }) => {
   return (
     <div style={{ padding: "20px" }}>
       <div style={{ textAlign: "center" }}>
-        {/* Display recipes if found */}
         {recipes.length === 0 ? (
           <p>No recipes found for "{searchQuery}"</p>
         ) : (
           <div className="recipe-grid">
             {recipes.map((recipe) => (
-              <div key={recipe.id}>
+              <div key={recipe.id} className="recipe-card-wrapper">
                 <RecipeCard name={recipe.name} image={recipe.image} />
               </div>
             ))}

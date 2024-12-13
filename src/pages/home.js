@@ -46,8 +46,11 @@ function Home() {
               <RecipeList />
             ) : (
               <div>
-                <p>{selectedRecipe}</p>
-                <button onClick={handleCancel}>Cancel</button>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                  <p style={{width: 400,textAlign: "center"}}>{selectedRecipe}</p>
+                  <button onClick={handleCancel} style={{width: 500}}>Cancel</button>
+                </div>
+                
                 {/* Pass the selected recipe to HomeRecipe for search */}
                 <HomeRecipe searchQuery={selectedRecipe} />
               </div>

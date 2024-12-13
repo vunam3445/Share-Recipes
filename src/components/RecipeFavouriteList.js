@@ -85,4 +85,4 @@ function RecipeFavouriteList({ userId, token }) {
   );
 }
 
-// export default RecipeFavouriteList;
+export default RecipeFavouriteList;
