@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
-import orderService from '../services/OrderService'; // Dịch vụ xóa đơn hàng
-import '../styles/orderdetail.css';  // Đảm bảo bạn import file CSS đã chỉnh sửa
-import { toast } from 'react-toastify'; // Import react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS cho Toast
+import orderService from '../services/OrderService';
 
-const OrderDetailModal = ({ order, onClose }) => {
-  const [loading, setLoading] = useState(false); // Trạng thái loading khi xóa đơn
+const OrderDetailModal = ({ order, onClose, fetchOrders, pageNumber }) => {
+  const [loading, setLoading] = useState(false);
 
   if (!order) return null;
 
-  // Hàm xử lý khi xác nhận hủy đơn
-  const handleCancelOrder = async () => {
-    setLoading(true);
+  const handleCancelClick = async () => {
     try {
-      await orderService.deleteOrder(order.id); // Gọi API xóa đơn hàng
-      toast.success("Đơn hàng đã được hủy."); // Hiển thị thông báo thành công
-      onClose(); // Đóng modal sau khi xóa thành công
+      if (!order || !order.id) {
+        throw new Error('Đơn hàng không hợp lệ!');
+      }
+
+      setLoading(true);
+
+      // Gọi hàm deleteOrder từ OrderService để xóa đơn hàng
+      await orderService.deleteOrder(order.id);
+
+      alert('Đơn hàng đã được hủy thành công!');
+
+      // Gọi lại hàm fetchOrders từ UserOrderTable để cập nhật lại danh sách đơn hàng
+      fetchOrders(pageNumber);
+
+      // Đóng modal (overlay)
+      onClose();
     } catch (error) {
-      console.error("Có lỗi khi xóa đơn hàng", error);
-      toast.error("Đã xảy ra lỗi khi xóa đơn hàng."); // Hiển thị thông báo lỗi
+      alert(error.message || 'Có lỗi khi xóa đơn hàng!');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="overlay">
+    <div className="overlay" onClick={(e) => e.target.classList.contains('overlay') && onClose()}>
       <div className="modal">
-        <button className="close-btn" onClick={onClose}>X</button>
         <h2>Chi tiết đơn hàng</h2>
         <p><strong>ID:</strong> {order.id}</p>
         <p><strong>Ngày đặt:</strong> {order.orderTime}</p>
@@ -39,13 +45,10 @@ const OrderDetailModal = ({ order, onClose }) => {
         <p><strong>Giá:</strong> {order.price}</p>
         <p><strong>Số lượng:</strong> {order.quantity}</p>
         <p><strong>Tổng giá:</strong> {order.totalPrice.toLocaleString()} VND</p>
-        <p><strong>Trạng thái:</strong> {order.isactive ? 'Chờ giao hàng' : 'Đã giao'}</p>
-        
-        {/* Nút hủy đơn */}
+        <p><strong>Trạng thái:</strong> {order.isactive ? 'Đã giao' : 'Chờ giao hàng'}</p>
+
         <div className="modal-actions">
-          <button onClick={handleCancelOrder} disabled={loading}>
-            {loading ? 'Đang xử lý...' : 'Hủy đơn'}
-          </button>
+          <button onClick={handleCancelClick} disabled={loading}>Hủy</button>
           <button>Mua lại</button>
         </div>
       </div>

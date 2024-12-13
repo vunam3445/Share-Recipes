@@ -42,6 +42,7 @@ function App() {
     <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
     <Route path="/order" element={<UserOrderTable />} />
     <Route path="/search" element={<Search/>} />
+    
    </Routes>
    </div>
   );
