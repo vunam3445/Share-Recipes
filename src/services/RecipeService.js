@@ -73,6 +73,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
   //update
   const updateRecipe = async (recipeId, recipeData, selectedCategories) => {
     // Kiểm tra các trường dữ liệu có bị null hoặc trống
+    console.log(recipeData)
     if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
       throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' và 'giá' không được để trống.");
     }
@@ -95,6 +96,8 @@ const createRecipe = async (recipeData, selectedCategories) => {
   
     if (recipeData.image) {
       formData.append("image", recipeData.image); // Nếu có ảnh mới, thêm vào formData
+    }else{
+      formData.append("image", "");
     }
   
     selectedCategories.forEach((categoryId) => {
@@ -104,13 +107,14 @@ const createRecipe = async (recipeData, selectedCategories) => {
       console.log(`${key}:`, value);
   }
     try {
+
       const response = await axios.put(`${BASE_URL}/update`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+         "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data)
+      console.log("aaa",response.data)
       return response.data;
     } catch (error) {
       console.error("Error updating recipe:", error.response?.data || error.message);

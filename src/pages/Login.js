@@ -30,9 +30,9 @@ const Login = () => {
           const userScope = decoder.scope;
 
           if (userScope === 'ADMIN') {
-            setTimeout(() => navigate('/admin'), 1000);
+            setTimeout(() => navigate('/admin'), 250);
           } else {
-            setTimeout(() => navigate('/'), 1000);
+            setTimeout(() => navigate('/'), 250);
           }
         } else {
           setError('Token không hợp lệ!');
@@ -67,7 +67,7 @@ const Login = () => {
             console.log('Thông tin người dùng:', user);
             console.log('Token:', user.token);
 
-            setTimeout(() => navigate('/'), 1000);
+            setTimeout(() => navigate('/'), 250);
         } else {
             setError('Đăng nhập Google thất bại.');
         }

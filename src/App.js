@@ -17,10 +17,11 @@ import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
 import ForgotPassword from './pages/ForgotPassword';
 
+import UserOrderTable from './components/Order';
 import './App.css';
 import './styles/main.css';
 import './styles/home.css';
-import UserOrderTable from './components/Order';
+
 UIkit.use(Icons)
 function App() {
   return (

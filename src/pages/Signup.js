@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Input from '../components/Input';
 import { registerUser } from '../services/authservice';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [fullname, setFullname] = useState('');
@@ -9,12 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
 
+    
     if (password.length < 8) {
       setError('Mật khẩu phải có ít nhất 8 ký tự.');
       return;
@@ -27,6 +30,7 @@ const Register = () => {
 
       if (response.status === 'success') {
         setSuccess(`Đăng ký thành công! Người Dùng: ${response.result.fullname}`);
+        setTimeout(() => navigate('/login'), 250);
       } else if (response.status === 'fail') {
         setError(response.message);
       }

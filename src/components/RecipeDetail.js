@@ -67,12 +67,48 @@ const RecipeDetail = () => {
         toast.error("Lỗi khi tải công thức!");
       }
     };
-
+    const checkIfSaved = async () => {
+      try {
+        const decoder = getUserFromToken();
+  const userId = decoder.userid;
+        console.log(userId,recipeId)
+        await isExit(); // Gọi hàm isExit
+      } catch (error) {
+        console.error('Error checking if recipe is saved:', error);
+      }
+    };
+  
     if (recipeId) {
       fetchRecipe();
+      checkIfSaved();
     }
   }, [recipeId]);
-
+  const isExit = async () => {
+    try {
+      const token = getToken();
+      const userId = getUserId();
+  
+      if (!userId || !token) {
+        
+        return;
+      }
+  
+      const result = await FavouriteService.isExit(recipeId);
+      console.log("day laf",result); // In ra kết quả từ API
+  
+      if (result) {
+        setIsSaved(true);
+        
+      } else {
+        setIsSaved(false);
+        
+      }
+    } catch (error) {
+      console.error('Lỗi khi thêm vào yêu thích:', error);
+      
+      
+    }
+  };
   const toggleStepCompletion = (index) => {
     setCompletedSteps(prev => 
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
@@ -96,18 +132,19 @@ const RecipeDetail = () => {
       }
   
       const result = await FavouriteService.addFavourite(recipeId);
-      console.log(result); // In ra kết quả từ API
+      console.log("day laf",result); // In ra kết quả từ API
   
-      if (!result) {
-        
-        toast.error("Thêm vào danh sách yêu thích không thành công!");
-      } else {
+      if (result) {
         setIsSaved(prev => !prev);
-        toast.success("Không thể thêm vào danh sách yêu thích!");
+        toast.success("Thêm vào danh sách yêu thích không thành công!");
+      } else {
+        
+        toast.error("Không thể thêm vào danh sách yêu thích!");
       }
     } catch (error) {
       console.error('Lỗi khi thêm vào yêu thích:', error);
-      toast.success("Thêm vào danh sách yêu thích thành công!");
+      
+      
     }
   };
 
@@ -229,13 +266,8 @@ const RecipeDetail = () => {
               {recipe.stepsArray.map((step, index) => (
                 <div key={index} className="uk-grid-small uk-margin-medium-top" data-uk-grid>
                   <div className="uk-width-auto">
-                    <a 
-                      href="#"
-                      className={`uk-step-icon ${completedSteps.includes(index) ? 'uk-icon-check-circle' : 'uk-icon-circle'}`}
-                      data-uk-icon="icon: check; ratio: 0.8"
-                      style={{ color: completedSteps.includes(index) ? 'green' : 'orange' }}
-                      onClick={() => toggleStepCompletion(index)}
-                    ></a>
+                  <a href="#" class="uk-step-icon" data-uk-icon="icon: check; ratio: 0.8" 
+                data-uk-toggle="target: #step-2; cls: uk-step-active"></a>
                   </div>
                   <div className="uk-width-expand">
                     <h5 className="uk-step-title uk-text-500 uk-text-uppercase uk-text-primary">{index + 1}. Step</h5>
