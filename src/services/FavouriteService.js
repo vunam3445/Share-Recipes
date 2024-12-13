@@ -92,18 +92,53 @@ const FavouriteService = {
 
       const data = response.data;
       console.log("service", data)
-      if (data.status === 'success') {
-        return data.result;
+      if (data) {
+        return data;
       } else {
         console.error('Unexpected API response format:', data);
-        throw new Error('Có lỗi khi thêm món ăn vào danh sách yêu thích.');
+        
       }
     } catch (error) {
       console.error('Failed to add to favourites:', error);
-      throw new Error('Có lỗi khi thêm món ăn vào danh sách yêu thích.');
+      
     }
   },
+  isExit: async (recipeId) => {
+    const token = getToken();
+    const userId = getUserId();
 
+    if (!userId || !recipeId || !token) {
+      return
+    }
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/isExits`, 
+        {}, // Không gửi dữ liệu trong body
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          params: {
+            recipeId, // Truyền `recipeId` dưới dạng query parameter
+            userId,   // Truyền `userId` dưới dạng query parameter
+          },
+        }
+      );
+
+      
+      if (response.data) {
+        return true;
+      } else {
+        return false;
+        
+      }
+    } catch (error) {
+      console.error('Failed to add to favourites:', error);
+      
+    }
+  },
   /**
    * Xóa một recipe khỏi danh sách yêu thích
    * @param {string} recipeId - ID món ăn

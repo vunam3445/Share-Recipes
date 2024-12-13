@@ -44,6 +44,7 @@ function App() {
     <Route path="/forgot-password" element={<ForgotPassword/>} />
     <Route path="/admin/gmail" element={<Gmail/>} />
     <Route path="/order" element={<UserOrderTable />} />
+    <Route path="/search" element={<Search />} />
    </Routes>
    </div>
   );
