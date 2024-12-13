@@ -5,6 +5,7 @@ import "../styles/main.css";
 function RecipeSuggestionCard({ id, name, image, serves, time }) {
   return (
     <div className="uk-card">
+     <a href={`/recipe/${id}`}>
       <div className="uk-card-media-top uk-inline uk-light">
         <img
           className="uk-border-rounded-medium"
@@ -29,6 +30,7 @@ function RecipeSuggestionCard({ id, name, image, serves, time }) {
             </div>
           </div>
       </div>
+      </a>
     </div>
   );
 }

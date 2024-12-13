@@ -73,6 +73,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
   //update
   const updateRecipe = async (recipeId, recipeData, selectedCategories) => {
     // Kiểm tra các trường dữ liệu có bị null hoặc trống
+    console.log(recipeData)
     if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
       throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' và 'giá' không được để trống.");
     }
