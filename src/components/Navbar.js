@@ -36,7 +36,7 @@ function Navbar() {
           <div className="uk-container">
             <div className="uk-position-z-index" data-uk-navbar>
               <div className="uk-navbar-left">
-                <a className="uk-navbar-item uk-logo" href="/">Kocina</a>
+                <a className="uk-navbar-item uk-logo" href="/">DailyCook</a>
                 <ul className="uk-navbar-nav uk-visible@m uk-margin-large-left">
                   <li className="uk-active"><a href="/">Home</a></li>
                   <li><a href="/recipe">Recipe</a></li>

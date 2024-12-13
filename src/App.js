@@ -42,6 +42,8 @@ function App() {
     <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
     <Route path="/forgot-password" element={<ForgotPassword/>} />
     <Route path="/admin/gmail" element={<Gmail/>} />
+    <Route path="/order" element={<Order/>} />
+    <Route path="/search" element={<Search/>} />
    </Routes>
    </div>
   );
