@@ -45,13 +45,18 @@ const createRecipe = async (recipeData, selectedCategories) => {
   formData.append("serves", recipeData.serves);
   formData.append("price", recipeData.price);
   formData.append("image", recipeData.image); // File ảnh
-
+  console.log(selectedCategories)
   // Append từng phần tử của selectedCategories vào formData
   selectedCategories.forEach((categoryId) => {
     formData.append("categoryids", categoryId); // Thêm từng categoryId vào formData
+    
   });
 
   try {
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+  }
+  console.log(token)
     const response = await axios.post(BASE_URL + "/create", formData, {
       headers: {
         "Content-Type": "multipart/form-data",

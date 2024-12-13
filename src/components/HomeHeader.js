@@ -23,7 +23,7 @@ function Header() {
               </p>
               <a
                 className="uk-text-secondary uk-text-bold uk-text-medium hvr-forward"
-                href="/sign-up"
+                href="/signup"
               >
                 Sign up today
                 <span

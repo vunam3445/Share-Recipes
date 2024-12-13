@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const RecipeSidebar = () => {
+const RecipeSidebar = ({ onItemClick }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const categories = [
-    { title: "bữa sáng", items: ["bánh mì", "bánh giò", "bánh cuốn", "phở", "cháo lòng"] },
-    { title: "bữa trưa", items: ["cơm tấm", "bún bò", "bánh xèo", "gỏi cuốn", "bún thịt nướng"] },
+    { title: "bữa sáng", items: [ "trứng","bánh mì", "bánh giò", "bánh cuốn", "phở"] },
+    { title: "bữa trưa", items: ["bò","cơm tấm", "bún bò", "bánh xèo", "gỏi cuốn", "bún thịt nướng"] },
     { title: "bữa tối", items: ["lẩu gà", "lẩu thái", "cơm chiên", "mì xào", "bò kho"] },
     { title: "ăn nhẹ", items: ["bánh tráng trộn", "bánh flan", "kem dừa", "chè thập cẩm", "xoài lắc"] },
     { title: "món chay", items: ["đậu hũ chiên", "rau xào thập cẩm", "cơm chiên chay", "gỏi ngó sen", "bún riêu chay"] },
@@ -49,6 +49,10 @@ const RecipeSidebar = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const handleItemClick = (item) => {
+    if (onItemClick) onItemClick(item); // Gửi tên item được click lên trên
+  };
+
   return (
     <div style={styles.sidebar}>
       <h2 style={styles.heading}>Recipes</h2>
@@ -65,7 +69,9 @@ const RecipeSidebar = () => {
               <ul style={styles.subItems}>
                 {category.items.map((item, idx) => (
                   <li key={idx} style={styles.subItem}>
-                    <a href={`#${item.toLowerCase().replace(/ /g, "-")}`} style={styles.link}>
+                    <a href={`#${item.toLowerCase().replace(/ /g, "-")}`} style={styles.link} 
+                    onClick={() => handleItemClick(item)} // Gọi hàm khi item được click
+                    >
                       {item}
                     </a>
                   </li>

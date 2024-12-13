@@ -18,6 +18,8 @@ const SendEmailForm = () => {
     await sendBulkEmails(subject, message);
   };
 
+    
+
   return (
     <div>
       <h1>Quản lý Email</h1>
