@@ -3,7 +3,7 @@ import "../styles/main.css";
 import FavouriteService from '../services/FavouriteService';
 import { Link } from "react-router-dom";
 
-function RecipeFavouriteCard({ id, name, image, isFavourite, onRemove, onToggleFavourite }) {
+function RecipeFavouriteCard({ id, name, image, isFavourite, onRemove, onToggleFavourite,serves,time }) {
   const [isLiked, setIsLiked] = useState(isFavourite);
 
   const handleLikeClick = () => {
@@ -59,6 +59,16 @@ function RecipeFavouriteCard({ id, name, image, isFavourite, onRemove, onToggleF
       </div>
       <div>
         <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">{name}</h3>
+        <div className="info-container">
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="user"></span>
+              <span className="info-text">{serves} servings</span>
+            </div>
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="clock"></span>
+              <span className="info-text">{time} mins</span>
+            </div>
+          </div>
       </div>
       <a href={`recipe/${id}`} className="uk-position-cover"></a>
     </div>

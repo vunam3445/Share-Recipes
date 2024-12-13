@@ -5,6 +5,8 @@ import "../styles/main.css";
 
 function RecipeFavouriteList({ userId, token }) {
   const [favourites, setFavourites] = useState([]);
+  const [loading, setLoading] = useState(true); // Quản lý trạng thái loading
+  const [error, setError] = useState(null); // Quản lý lỗi
 
   useEffect(() => {
     const fetchFavourites = async () => {
@@ -50,6 +52,14 @@ function RecipeFavouriteList({ userId, token }) {
       console.error('Error toggling favourite:', error);
     }
   };
+
+  if (loading) {
+    return <div>Loading your favourite recipes...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching favourite recipes: {error.message}</div>;
+  }
 
   if (favourites.length === 0) {
     return <div>No favourite recipes found.</div>; // Show a message when no favourites are found

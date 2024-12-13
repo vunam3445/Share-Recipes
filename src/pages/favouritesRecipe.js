@@ -53,4 +53,4 @@
 //   );
 // }
 
-// export default FavouritesRecipe;
+export default FavouritesRecipe;
