@@ -1,49 +1,56 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Header from "../components/HomeHeader";
-import SubscribeSection from "../components/HomeSubscribeSection";
-import Footer from "../components/HomeFooter";
-import RecipeFavouriteList from "../components/RecipeFavouriteList"; // Đảm bảo đã import đúng
-import '../styles/home.css'; // Sử dụng đường dẫn chính xác.
+// import React, { useEffect, useState } from "react";
+// import Navbar from "../components/Navbar";
+// import Header from "../components/HomeHeader";
+// import SubscribeSection from "../components/HomeSubscribeSection";
+// import Footer from "../components/HomeFooter";
+// import RecipeFavouriteList from '../components/RecipeFavouriteList';
+// import { getUserFromToken } from "../components/readtoken"; // Hàm giải mã token
+// import '../styles/home.css';
 
-// Component chính cho trang yêu thích món ăn
-function FavouritesRecipe() {
-  const [userId, setUserId] = useState(null); // Trạng thái cho userId
-  const [token, setToken] = useState(null); // Trạng thái cho token
+// function FavouritesRecipe() {
+//   const [userId, setUserId] = useState(null); // Trạng thái cho userId
+//   const [token, setToken] = useState(null); // Trạng thái cho token
 
-  // Dữ liệu giả lập cho userId và token (Bạn có thể lấy từ context hoặc localStorage nếu cần)
-  useEffect(() => {
-    // Lấy userId và token từ localStorage (hoặc context)
-    const storedUserId = localStorage.getItem("userId");
-    const storedToken = localStorage.getItem("token");
+//   // Lấy token từ localStorage và giải mã userId
+//   useEffect(() => {
+//     const storedToken = localStorage.getItem("token"); // Lấy token từ localStorage
 
-    if (storedUserId && storedToken) {
-      setUserId(storedUserId);
-      setToken(storedToken);
-    }
-  }, []);
+//     if (storedToken) {
+//       setToken(storedToken); // Lưu token vào state
+//       try {
+//         const decodedToken = getUserFromToken(storedToken); // Giải mã token
+//         if (decodedToken?.userid) {
+//           setUserId(decodedToken.userid); // Lưu userId vào state
+//         } else {
+//           console.error("Invalid token structure.");
+//         }
+//       } catch (error) {
+//         console.error("Failed to decode token:", error);
+//       }
+//     }
+//   }, []);
 
-  // Nếu chưa có userId hoặc token, yêu cầu người dùng đăng nhập
-  if (!userId || !token) {
-    return <div>Please log in to view your favourite recipes.</div>;
-  }
+//   // Nếu chưa có userId hoặc token, yêu cầu người dùng đăng nhập
+//   if (!userId || !token) {
+//     return <div>Please log in to view your favourite recipes.</div>;
+//   }
 
-  return (
-    <div className="divMain">
-      <div className="divHome">
-        <Navbar />
-        <Header />
-        <div className="mainContent">
-          <div className="recipeLayout">
-            {/* Truyền userId và token vào RecipeFavouriteList */}
-            <RecipeFavouriteList userId={userId} token={token} />
-          </div>
-        </div>
-        <SubscribeSection />
-        <Footer />
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className="divMain">
+//       <div className="divHome">
+//         <Navbar />
+//         <Header />
+//         <div className="mainContent">
+//           <div className="recipeLayout">
+//             {/* Truyền userId và token vào RecipeFavouriteList */}
+//             <RecipeFavouriteList userId={userId} token={token} />
+//           </div>
+//         </div>
+//         <SubscribeSection />
+//         <Footer />
+//       </div>
+//     </div>
+//   );
+// }
 
-export default FavouritesRecipe;
+// export default FavouritesRecipe;

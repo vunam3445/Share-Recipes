@@ -42,6 +42,7 @@ function Navbar() {
                   <li><a href="/recipe">Recipe</a></li>
                   <li><a href="/contact">Contact</a></li>
                   <li><a href='/order'>Order</a></li>
+                  <li><a href="/favourites">Favourite</a></li>
                 </ul>
               </div>
 
@@ -65,7 +66,12 @@ function Navbar() {
             {/* Hiển thị nút tùy thuộc vào trạng thái token */}
             <ul className="uk-navbar-nav uk-visible@m">
               {token ? (
-                <li><button className="uk-button uk-button-primary" onClick={handleLogout}>Logout</button></li>
+                <>
+                  <li><a href="/changepassword">Change Password</a></li>
+                  <div className="uk-navbar-item">
+                    <button className="uk-button uk-button-primary" onClick={handleLogout}>Logout</button>
+                  </div>
+                </>
               ) : (
                 <>
                   <li><a href="/login">Login</a></li>

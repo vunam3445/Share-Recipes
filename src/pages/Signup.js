@@ -40,7 +40,7 @@ const Register = () => {
       <div className="uk-width-1-2@m uk-padding-large uk-flex uk-flex-middle uk-flex-center" data-uk-height-viewport>
         <div className="uk-width-3-4@s">
           <div className="uk-text-center uk-margin-bottom">
-            <Link className="uk-logo uk-text-primary uk-text-bold" to="/">Kocina</Link>
+            <Link className="uk-logo uk-text-primary uk-text-bold" to="/">Daily Cook</Link>
           </div>
           <div className="uk-text-center uk-margin-medium-bottom">
             <h1 className="uk-h2 uk-letter-spacing-small">Create an Account</h1>

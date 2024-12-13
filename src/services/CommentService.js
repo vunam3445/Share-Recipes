@@ -21,7 +21,7 @@ export const addComment = async (commentData) => {
   }
 
   try {
-    const response = await axios.post(`${BASE_URL}/addcomments`, commentData, {
+    const response = await axios.post(`${BASE_URL}`, commentData, {
       headers: {
         Authorization: `Bearer ${token}`,  // Thêm token vào header của request
         'Content-Type': 'application/json',  // Đảm bảo content type là JSON

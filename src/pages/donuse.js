@@ -4,31 +4,37 @@ import { useParams } from "react-router-dom";
 import Comments from "../components/Comment";
 import FavouriteService from '../services/FavouriteService';
 import { getUserFromToken } from "../components/readtoken";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import RecipeSuggestionList from './RecipeSuggestionList';
+
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [completedSteps, setCompletedSteps] = useState([]);
-  const [completedIngredients, setCompletedIngredients] = useState([]);
-  const [isSaved, setIsSaved] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState([]);  // Trạng thái lưu các bước đã hoàn thành
+  const [completedIngredients, setCompletedIngredients] = useState([]);  // Trạng thái lưu các nguyên liệu đã chọn
+  const [isSaved, setIsSaved] = useState(false); // Trạng thái "saved"
+  const [isInCart, setIsInCart] = useState(false); // Trạng thái "giỏ hàng"
+   /**
+ * Hàm tiện ích để lấy token từ localStorage
+ * @returns {string|null} Token hoặc null nếu không tồn tại
+ */
+const getToken = () => {
+  return localStorage.getItem("token");
+};
 
-  const getToken = () => {
-    return localStorage.getItem("token");
-  };
-
-  const getUserId = () => {
-    const token = getToken();
-    if (token) {
-      const decoder = getUserFromToken(token);
-      return decoder?.userid || null;
-    }
-    return null;
-  };
+/**
+ * Hàm tiện ích để lấy userId từ token
+ * @returns {string|null} UserId hoặc null nếu không thể giải mã
+ */
+const getUserId = () => {
+  const token = getToken();
+  if (token) {
+    const decoder = getUserFromToken(token); // Cần phải pass token vào getUserFromToken
+    return decoder?.userid || null; // Trả về userId nếu tồn tại
+  }
+  return null;
+};
   const [isFormVisible, setIsFormVisible] = useState(false); // Trạng thái hiển thị form
   const [formData, setFormData] = useState({
     name: '',
@@ -64,7 +70,6 @@ const RecipeDetail = () => {
         setCategories(categories);
       } catch (error) {
         console.error('Error fetching recipe:', error);
-        toast.error("Lỗi khi tải công thức!");
       }
     };
 
@@ -73,44 +78,51 @@ const RecipeDetail = () => {
     }
   }, [recipeId]);
 
+  // Hàm xử lý khi người dùng tích vào bước
   const toggleStepCompletion = (index) => {
     setCompletedSteps(prev => 
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
 
+  // Hàm xử lý khi người dùng tích vào nguyên liệu
   const toggleIngredientCompletion = (index) => {
     setCompletedIngredients(prev => 
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
 
-  const toggleSave = async () => {
+   // Hàm xử lý khi người dùng nhấn vào Save
+   const toggleSave = async () => {
     try {
+      // Kiểm tra xem đã có userId và token chưa
       const token = getToken();
       const userId = getUserId();
-  
+      
       if (!userId || !token) {
-        toast.error('Vui lòng đăng nhập để thêm vào yêu thích.');
+        console.error('User ID and token are required.');
         return;
       }
   
+      // Gọi hàm addFavourite từ FavouriteService để thêm vào danh sách yêu thích
       const result = await FavouriteService.addFavourite(recipeId);
-      console.log(result); // In ra kết quả từ API
   
-      if (!result) {
-        
-        toast.error("Thêm vào danh sách yêu thích không thành công!");
-      } else {
+      if (result) {
+        // Nếu thêm thành công, đảo trạng thái "Saved"
         setIsSaved(prev => !prev);
-        toast.success("Không thể thêm vào danh sách yêu thích!");
       }
     } catch (error) {
       console.error('Lỗi khi thêm vào yêu thích:', error);
-      toast.success("Thêm vào danh sách yêu thích thành công!");
     }
   };
+  
 
+  // Hàm xử lý khi người dùng thêm vào giỏ hàng
+  const toggleCart = () => {
+    setIsInCart(prev => !prev); // Đảo trạng thái "In Cart"
+  };
+
+  // Hàm xử lý submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -157,7 +169,7 @@ const RecipeDetail = () => {
       console.error('Error submitting order:', error);
     }
   };
-
+  
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -168,9 +180,9 @@ const RecipeDetail = () => {
       {/* Recipe Details */}
       <div className="uk-container">
         <div data-uk-grid>
-        <div className="uk-width-1-2@s">
+          <div className="uk-width-1-2@s">
             <img className="uk-border-rounded-large" src={require(`../assests/images/${recipe.image}`)} alt={recipe.name} />
-        </div>
+          </div>
           <div className="uk-width-expand@s uk-flex uk-flex-middle">
             <div>
               <h1>{recipe.name}</h1>
@@ -210,7 +222,7 @@ const RecipeDetail = () => {
                     onClick={toggleFormVisibility}
                   >
                     <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span> 
-                    {isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                    Add to Cart
                   </button>
                 </div>
               </div>
@@ -266,7 +278,8 @@ const RecipeDetail = () => {
           </div>
         </div>
       </div>
-      {/* Form Overlay */}
+
+{/* Form Overlay */}
 {isFormVisible && (
   <div className="overlay" onClick={toggleFormVisibility}>
     <div className="form-container" onClick={e => e.stopPropagation()}>
@@ -307,31 +320,20 @@ const RecipeDetail = () => {
   </div>
 )}
 
-      {/* Categories */}
-      <div className="uk-container uk-margin-top">
-        <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
-          <div className="uk-width-1-1">
-            <h3>Tags</h3>
-            <div className="uk-margin-medium-top">
-              {categories.map((category) => (
-                <a
-                  key={category.categoryid}
-                  href="#"
-                  className="uk-label uk-label-primary uk-margin-small-right"
-                  style={{ marginBottom: '5px' }}
-                >
-                  {category.name}
-                </a>
-              ))}
-            </div>
-          </div>
+
+      {/* Comments Section */}
+      <div className="uk-section uk-section-muted">
+        <div className="uk-container uk-container-small">
+          <Comments recipeId={recipeId} />
         </div>
       </div>
 
-      {/* Comment Section */}
-      <Comments recipeId={recipeId} />
-
-      <ToastContainer />
+      {/* Recipe Suggestions */}
+      <div className="uk-section uk-section-default">
+        <div className="uk-container uk-container-small">
+          <RecipeSuggestionList categories={categories} currentRecipeId={recipeId} />
+        </div>
+      </div>
     </div>
   );
 };
