@@ -18,6 +18,7 @@ import ChangePassword from './pages/ChangePassword';
 import './App.css';
 import './styles/main.css';
 import './styles/home.css';
+import UserOrderTable from './components/Order';
 UIkit.use(Icons)
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
     <Route path="/changepassword" element={<ChangePassword/>} />
     <Route path="/favourites" element={<FavouritesRecipe/>} />
     <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
-
+    <Route path="/order" element={<UserOrderTable />} />
+    <Route path="/search" element={<Search/>} />
    </Routes>
    </div>
   );

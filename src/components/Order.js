@@ -4,9 +4,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/HomeFooter';
 import '../styles/orderlist.css';
 import { getUserFromToken } from "../components/readtoken";
-import ModalLogin from '../components/modallogin'; // Import ModalLogin
-import { useNavigate } from "react-router-dom";
-import OrderDetailModal from '../components/OrderDetail'; // Import OrderDetailModal
+import ModalLogin from '../components/modallogin';
+import OrderDetailModal from '../components/OrderDetail';
 
 const UserOrderTable = () => {
   const [orders, setOrders] = useState([]);
@@ -14,21 +13,29 @@ const UserOrderTable = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showLoginModal, setShowLoginModal] = useState(false); // State cho modal
-  const [selectedOrder, setSelectedOrder] = useState(null); // State để lưu đơn hàng đã chọn
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [filter, setFilter] = useState('all'); // Default filter state is "all"
 
   const fetchOrders = async (page = 0, size = 6) => {
     const decoder = getUserFromToken();
     if (!decoder) {
       setError("Vui lòng đăng nhập để xem đơn hàng.");
-      setShowLoginModal(true); // Hiển thị modal khi chưa đăng nhập
+      setShowLoginModal(true); // Show modal if user is not logged in
       return;
     }
     const userId = decoder.userid;
     setLoading(true);
     setError(null);
     try {
-      const result = await orderService.getOrderByUser(userId, page, size);
+      let result;
+      if (filter === 'all') {
+        result = await orderService.getOrderByUser(userId, page, size);
+      } else if (filter === 'active') {
+        result = await orderService.getActiveOrder(userId, page, size);
+      } else if (filter === 'inactive') {
+        result = await orderService.getInActiveOrder(userId, page, size);
+      }
       setOrders(result.content);
       setPageNumber(result.pageNumber);
       setTotalPages(result.totalPages);
@@ -42,7 +49,12 @@ const UserOrderTable = () => {
 
   useEffect(() => {
     fetchOrders(pageNumber);
-  }, [pageNumber]);
+  }, [pageNumber, filter]);
+
+  const handleRadioChange = (e) => {
+    setFilter(e.target.value);
+    setPageNumber(0); // Reset to first page when filter changes
+  };
 
   const handlePreviousPage = () => {
     if (pageNumber > 0) setPageNumber(pageNumber - 1);
@@ -55,14 +67,13 @@ const UserOrderTable = () => {
   const handleOrderClick = async (orderId) => {
     const user = getUserFromToken();
     if (!user) {
-      setShowLoginModal(true); // Hiển thị modal khi chưa đăng nhập
+      setShowLoginModal(true); // Show login modal if user is not logged in
       return;
     }
 
-    // Gọi API để lấy chi tiết đơn hàng
     try {
-      const response = await orderService.getOrderDetail(orderId); // API lấy chi tiết đơn hàng
-      setSelectedOrder(response.result); // Cập nhật order được chọn
+      const response = await orderService.getOrderDetail(orderId); // Fetch order details
+      setSelectedOrder(response.result); // Update selected order
     } catch (error) {
       console.error('Có lỗi khi lấy chi tiết đơn hàng', error);
     }
@@ -73,6 +84,42 @@ const UserOrderTable = () => {
       <Navbar />
       <div className="order-page uk-container">
         <h2>Danh sách đơn hàng</h2>
+
+        {/* Radio Button Filter */}
+        <div className="radio-input">
+          <input
+            type="radio"
+            id="value-all"
+            name="value-radio"
+            value="all"
+            checked={filter === 'all'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="value-all">TẤT CẢ</label>
+
+          <input
+            type="radio"
+            id="value-active"
+            name="value-radio"
+            value="active"
+            checked={filter === 'active'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="value-active">ĐÃ GIAO</label>
+
+          <input
+            type="radio"
+            id="value-inactive"
+            name="value-radio"
+            value="inactive"
+            checked={filter === 'inactive'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="value-inactive">CHỜ GIAO HÀNG</label>
+
+          <div className="selection"></div>
+        </div>
+
         {loading ? (
           <p className="loading">Đang tải dữ liệu...</p>
         ) : error ? (
@@ -94,8 +141,8 @@ const UserOrderTable = () => {
                     <td>{order.uname}</td>
                     <td>{order.recipename}</td>
                     <td>{order.totalPrice.toLocaleString()} VND</td>
-                    <td className={order.isactive ? 'status-active' : 'status-inactive'}>
-                      {order.isactive ? 'Đã giao' : 'Chờ giao hàng'}
+                    <td className={order.active === true ? 'status-active' : 'status-inactive'}>
+                      {order.active === true ? 'Đã giao' : 'Chờ giao hàng'}
                     </td>
                   </tr>
                 ))}
@@ -113,10 +160,10 @@ const UserOrderTable = () => {
         )}
       </div>
 
-      {/* Hiển thị Modal khi chưa đăng nhập */}
+      {/* Show Login Modal if user is not logged in */}
       <ModalLogin show={showLoginModal} onClose={() => setShowLoginModal(false)} />
 
-      {/* Hiển thị Modal chi tiết đơn hàng */}
+      {/* Show Order Detail Modal */}
       <OrderDetailModal order={selectedOrder} onClose={() => setSelectedOrder(null)} />
 
       <Footer />
