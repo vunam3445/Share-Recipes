@@ -129,7 +129,7 @@ const Search = () => {
             <div className="uk-grid uk-grid-small uk-child-width-1-3@s uk-child-width-1-4@m">
               {recipes.slice(0, visibleCount).map((recipe) => (
                 <div key={recipe.id}>
-                  <RecipeCard name={recipe.name} image={recipe.image} />
+                  <RecipeCard name={recipe.name} image={recipe.image} serves={recipe.serves} time={recipe.time}/>
                 </div>
               ))}
             </div>
