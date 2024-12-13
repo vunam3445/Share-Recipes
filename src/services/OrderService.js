@@ -77,6 +77,39 @@ const getOrderByUser = async (uid, page = 0, size = 6) => {
     });
     console.log(uid)
     console.log(response.data.result);
+    console.log(response.data.result)
+    return response.data.result;
+  } catch (error) {
+    console.error('Error fetching orders for user:', error);
+    throw new Error('Có lỗi khi lấy danh sách đơn hàng của người dùng.');
+  }
+};
+
+const getActiveOrder = async (uid, page = 0, size = 6) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/uorder/${uid}/Active`, {
+      params: { page, size },
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log(response.data.result)
+    return response.data.result;
+  } catch (error) {
+    console.error('Error fetching orders for user:', error);
+    throw new Error('Có lỗi khi lấy danh sách đơn hàng đã giao của người dùng.');
+  }
+};
+
+const getInActiveOrder = async (uid, page = 0, size = 6) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/uorder/${uid}/InActive`, {
+      params: { page, size },
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log(response.data.result)
     return response.data.result;
   } catch (error) {
     console.error('Error fetching orders for user:', error);
@@ -105,5 +138,7 @@ export default {
   updateOrder,
   deleteOrder,
   getOrderByUser,
-  getOrderDetail
+  getOrderDetail,
+  getActiveOrder,
+  getInActiveOrder
 };
