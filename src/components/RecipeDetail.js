@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RecipeSuggestionList from './RecipeSuggestionList';
 
+
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -149,28 +150,25 @@ const RecipeDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const decoder = getUserFromToken();
-    const userId = decoder.userid;
+     
+
     // Tạo đối tượng orderData
-    const orderData = {
-      uid: userId,
-      recipeid: recipeId,
-      recipename: recipe.name,
-      ...formData,
-      price: recipe.price,
-      ingredien: recipe.ingredien,
-      totalPrice: recipe.price * formData.quantity,
-      isactive: false
-    };
 
     try {
       const token = localStorage.getItem('token');
+      const userId = getUserId();
+      const orderData = {
+        uid: userId,
+        recipeid: recipeId,
+        recipename: recipe.name,
+        ...formData,
+        price: recipe.price,
+        ingredien: recipe.ingredien,
+        totalPrice: recipe.price * formData.quantity,
+        isactive: false
+      };
 
-      // Kiểm tra xem token có tồn tại không
-      if (!token) {
-        console.error('Token not found in local storage');
-        return;
-      }
+
 
       // Gửi yêu cầu POST với token trong headers
       const response = await fetch('http://localhost:8083/foodwed/order/create', {
@@ -244,7 +242,14 @@ const RecipeDetail = () => {
                 <div>
                   <button
                     className="uk-button uk-button-default"
-                    onClick={toggleFormVisibility}
+                    onClick={() => {
+                      const userId = getUserId();
+                      if (!userId) {
+                        toast.error('Vui lòng đăng nhập để mua hàng.');
+                      } else {
+                        toggleFormVisibility(); // Hiện form đặt hàng nếu đã đăng nhập
+                      }
+                    }}
                   >
                     <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span>
                     {isInCart ? 'Remove from Cart' : 'Buy'}
