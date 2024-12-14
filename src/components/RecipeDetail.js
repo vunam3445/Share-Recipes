@@ -43,8 +43,7 @@ const RecipeDetail = () => {
   };
 
   const toggleFormVisibility = () => setIsFormVisible(prev => !prev);
-  const decoder = getUserFromToken();
-  const userId = decoder.userid;
+
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -70,14 +69,14 @@ const RecipeDetail = () => {
     const checkIfSaved = async () => {
       try {
         const decoder = getUserFromToken();
-  const userId = decoder.userid;
-        console.log(userId,recipeId)
+        const userId = decoder.userid;
+        console.log(userId, recipeId)
         await isExit(); // Gọi hàm isExit
       } catch (error) {
         console.error('Error checking if recipe is saved:', error);
       }
     };
-  
+
     if (recipeId) {
       fetchRecipe();
       checkIfSaved();
@@ -87,36 +86,36 @@ const RecipeDetail = () => {
     try {
       const token = getToken();
       const userId = getUserId();
-  
+
       if (!userId || !token) {
-        
+
         return;
       }
-  
+
       const result = await FavouriteService.isExit(recipeId);
-      console.log("day laf",result); // In ra kết quả từ API
-  
+      console.log("day laf", result); // In ra kết quả từ API
+
       if (result) {
         setIsSaved(true);
-        
+
       } else {
         setIsSaved(false);
-        
+
       }
     } catch (error) {
       console.error('Lỗi khi thêm vào yêu thích:', error);
-      
-      
+
+
     }
   };
   const toggleStepCompletion = (index) => {
-    setCompletedSteps(prev => 
+    setCompletedSteps(prev =>
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
 
   const toggleIngredientCompletion = (index) => {
-    setCompletedIngredients(prev => 
+    setCompletedIngredients(prev =>
       prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
     );
   };
@@ -125,32 +124,33 @@ const RecipeDetail = () => {
     try {
       const token = getToken();
       const userId = getUserId();
-  
+
       if (!userId || !token) {
         toast.error('Vui lòng đăng nhập để thêm vào yêu thích.');
         return;
       }
-  
+
       const result = await FavouriteService.addFavourite(recipeId);
-      console.log("day laf",result); // In ra kết quả từ API
-  
+      console.log("day laf", result); // In ra kết quả từ API
+
       if (result) {
         setIsSaved(prev => !prev);
         toast.success("Thêm vào danh sách yêu thích không thành công!");
       } else {
-        
+
         toast.error("Không thể thêm vào danh sách yêu thích!");
       }
     } catch (error) {
       console.error('Lỗi khi thêm vào yêu thích:', error);
-      
-      
+
+
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    const decoder = getUserFromToken();
+    const userId = decoder.userid;
     // Tạo đối tượng orderData
     const orderData = {
       uid: userId,
@@ -162,16 +162,16 @@ const RecipeDetail = () => {
       totalPrice: recipe.price * formData.quantity,
       isactive: false
     };
-  
+
     try {
       const token = localStorage.getItem('token');
-  
+
       // Kiểm tra xem token có tồn tại không
       if (!token) {
         console.error('Token not found in local storage');
         return;
       }
-  
+
       // Gửi yêu cầu POST với token trong headers
       const response = await fetch('http://localhost:8083/foodwed/order/create', {
         method: 'POST',
@@ -181,7 +181,7 @@ const RecipeDetail = () => {
         },
         body: JSON.stringify(orderData)
       });
-  
+
       if (response.ok) {
         // Đặt trạng thái để đóng form và hiển thị thông báo thành công
         setIsFormVisible(false);
@@ -205,9 +205,9 @@ const RecipeDetail = () => {
       {/* Recipe Details */}
       <div className="uk-container">
         <div data-uk-grid>
-        <div className="uk-width-1-2@s">
+          <div className="uk-width-1-2@s">
             <img className="uk-border-rounded-large" src={require(`../assests/images/${recipe.image}`)} alt={recipe.name} />
-        </div>
+          </div>
           <div className="uk-width-expand@s uk-flex uk-flex-middle">
             <div>
               <h1>{recipe.name}</h1>
@@ -233,21 +233,21 @@ const RecipeDetail = () => {
               {/* Save and Cart Buttons */}
               <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
                 <div>
-                  <button 
+                  <button
                     className="uk-button uk-button-primary"
                     onClick={toggleSave}
                   >
-                    <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`} style={{ color: isSaved ? 'red' : 'gray' }}></span> 
+                    <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`} style={{ color: isSaved ? 'red' : 'gray' }}></span>
                     {isSaved ? 'Saved' : 'Save'}
                   </button>
                 </div>
                 <div>
-                  <button 
+                  <button
                     className="uk-button uk-button-default"
                     onClick={toggleFormVisibility}
                   >
-                    <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span> 
-                    {isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                    <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span>
+                    {isInCart ? 'Remove from Cart' : 'Buy'}
                   </button>
                 </div>
               </div>
@@ -266,8 +266,8 @@ const RecipeDetail = () => {
               {recipe.stepsArray.map((step, index) => (
                 <div key={index} className="uk-grid-small uk-margin-medium-top" data-uk-grid>
                   <div className="uk-width-auto">
-                  <a href="#" class="uk-step-icon" data-uk-icon="icon: check; ratio: 0.8" 
-                data-uk-toggle="target: #step-2; cls: uk-step-active"></a>
+                    <a href="#" class="uk-step-icon" data-uk-icon="icon: check; ratio: 0.8"
+                      data-uk-toggle="target: #step-2; cls: uk-step-active"></a>
                   </div>
                   <div className="uk-width-expand">
                     <h5 className="uk-step-title uk-text-500 uk-text-uppercase uk-text-primary">{index + 1}. Step</h5>
@@ -299,45 +299,45 @@ const RecipeDetail = () => {
         </div>
       </div>
       {/* Form Overlay */}
-{isFormVisible && (
-  <div className="overlay" onClick={toggleFormVisibility}>
-    <div className="form-container" onClick={e => e.stopPropagation()}>
-      <h3>Enter your information</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
-        </div>
-        <div className="form-group">
-          <label>Phone:</label>
-          <input type="text" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea name="address" placeholder="Your address" value={formData.address} onChange={handleInputChange}></textarea>
-        </div>
-        <div className="form-group">
-          <label>Quantity:</label>
-          <input type="number" name="quantity" placeholder="Enter quantity" min="1" value={formData.quantity} onChange={handleInputChange} />
-        </div>
-        {/* Additional info */}
-        <div className="form-group">
-          <label>Total Price:</label>
-          <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
-        </div>
+      {isFormVisible && (
+        <div className="overlay" onClick={toggleFormVisibility}>
+          <div className="form-container" onClick={e => e.stopPropagation()}>
+            <h3>Enter your information</h3>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
+              </div>
+              <div className="form-group">
+                <label>Phone:</label>
+                <input type="text" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
+              </div>
+              <div className="form-group">
+                <label>Address:</label>
+                <textarea name="address" placeholder="Your address" value={formData.address} onChange={handleInputChange}></textarea>
+              </div>
+              <div className="form-group">
+                <label>Quantity:</label>
+                <input type="number" name="quantity" placeholder="Enter quantity" min="1" value={formData.quantity} onChange={handleInputChange} />
+              </div>
+              {/* Additional info */}
+              <div className="form-group">
+                <label>Total Price:</label>
+                <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
+              </div>
 
-        {/* Check if all required fields are filled */}
-        {!formData.name || !formData.phone || !formData.address || !formData.quantity ? (
-          <div className="error-message">Please fill in all required fields before submitting.</div>
-        ) : null}
+              {/* Check if all required fields are filled */}
+              {!formData.name || !formData.phone || !formData.address || !formData.quantity ? (
+                <div className="error-message">Please fill in all required fields before submitting.</div>
+              ) : null}
 
-        <button type="submit" className="uk-button uk-button-primary" disabled={!formData.name || !formData.phone || !formData.address || !formData.quantity}>
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-)}
+              <button type="submit" className="uk-button uk-button-primary" disabled={!formData.name || !formData.phone || !formData.address || !formData.quantity}>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Categories */}
       <div className="uk-container uk-margin-top">

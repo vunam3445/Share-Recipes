@@ -40,7 +40,7 @@ const HomeRecipe = ({ searchQuery }) => {
           <div className="recipe-grid">
             {recipes.map((recipe) => (
               <div key={recipe.id} className="recipe-card-wrapper">
-                <RecipeCard name={recipe.name} image={recipe.image} />
+                <RecipeCard id={recipe.id} name={recipe.name} image={recipe.image} serves={recipe.serves} time={recipe.time}/>
               </div>
             ))}
           </div>

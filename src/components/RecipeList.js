@@ -108,7 +108,7 @@ const RecipeList = () => {
       <div className="uk-grid uk-grid-small uk-child-width-1-3@s uk-child-width-1-4@m">
         {recipes.map((recipe) => (
           <div key={recipe.id}>
-            <RecipeCard name={recipe.name} image={recipe.image} recipeId={recipe.id} serves={recipe.serves} time={recipe.time} />
+            <RecipeCard id={recipe.id} name={recipe.name} image={recipe.image}  serves={recipe.serves} time={recipe.time} />
           </div>
         ))}
       </div>
