@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { getUserFromToken } from "../components/readtoken";
 import { changePassword } from '../services/userservice'; // Đảm bảo có hàm API này trong service của bạn
 
-
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -38,8 +37,6 @@ const ChangePassword = () => {
       return;
     }
 
-    
-
     try {
       // Gửi yêu cầu đổi mật khẩu
       const response = await changePassword({
@@ -65,12 +62,11 @@ const ChangePassword = () => {
       console.error('Error:', error); // In ra lỗi chi tiết
       setError('Đã xảy ra lỗi. Vui lòng thử lại!');
     }
-    
   };
 
   return (
     <div className="uk-section uk-flex uk-flex-center uk-flex-middle" style={{ minHeight: "100vh" }}>
-      <div className="uk-card uk-card-default uk-card-body uk-width-1-3@m uk-box-shadow-medium">
+      <div className="uk-card uk-card-default uk-card-body uk-width-1-3@m uk-box-shadow-medium uk-flex uk-flex-column uk-flex-center">
         <h2 className="uk-text-center uk-heading-line">
           <span>Đổi Mật Khẩu</span>
         </h2>
@@ -139,7 +135,6 @@ const ChangePassword = () => {
       </div>
     </div>
   );
-  
 };
 
 export default ChangePassword;
