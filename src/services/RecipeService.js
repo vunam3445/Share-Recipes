@@ -3,9 +3,10 @@ import axios from 'axios';
 // URL của API
 const BASE_URL = 'http://localhost:8083/foodwed/recipe';
 // token
-const token = localStorage.getItem("token");
+
 // Hàm lấy thông tin các recipe với phân trang và Bearer token
 const getRecipes = async (page = 0, size = 10) => {
+  const token = localStorage.getItem("token");
   try {
     // Gửi yêu cầu GET với token trong header Authorization
     
@@ -27,6 +28,7 @@ const getRecipes = async (page = 0, size = 10) => {
 };
 // Hàm gửi yêu cầu POST để tạo một recipe mới
 const createRecipe = async (recipeData, selectedCategories) => {
+  const token = localStorage.getItem("token");
   // Kiểm tra các trường dữ liệu có bị null hoặc trống
   if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
     throw new Error("Các trường 'Tên', 'Mô tả', 'Nguyên liệu', 'Các bước', 'Thời gian' và 'Số lượng' và 'giá' không được để trống.");
@@ -72,6 +74,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
 
   //update
   const updateRecipe = async (recipeId, recipeData, selectedCategories) => {
+    const token = localStorage.getItem("token");
     // Kiểm tra các trường dữ liệu có bị null hoặc trống
     console.log(recipeData)
     if (!recipeData.name || !recipeData.description || !recipeData.ingredien || !recipeData.step || !recipeData.time || !recipeData.serves || !recipeData.price) {
@@ -124,6 +127,7 @@ const createRecipe = async (recipeData, selectedCategories) => {
   
 // Hàm xóa recipe
 const deleteRecipe = async (recipeId) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.delete(`${BASE_URL}/delete/${recipeId}`, {
       headers: {

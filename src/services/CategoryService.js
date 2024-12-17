@@ -3,8 +3,6 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8083/foodwed/category';
-const token = localStorage.getItem("token");
-console.log(token)
 const CategoryService = {
   // Lấy danh sách categories với phân trang
   getCategories: async (pageNumber = 0, pageSize = 4) => {
@@ -53,6 +51,7 @@ const CategoryService = {
 
   // Thêm category mới
   createCategory: async (categoryName) => {
+    const token = localStorage.getItem("token");
     try {
       // Thêm token vào header của yêu cầu
 
@@ -80,6 +79,7 @@ const CategoryService = {
 
   // Cập nhật category
   updateCategory: async (categoryId, categoryName) => {
+    const token = localStorage.getItem("token");
     try {
 
       if (!token) {
@@ -106,6 +106,7 @@ const CategoryService = {
 
   // Xóa category
   deleteCategory: async (categoryId) => {
+    const token = localStorage.getItem("token");
     try {
 
       if (!token) {

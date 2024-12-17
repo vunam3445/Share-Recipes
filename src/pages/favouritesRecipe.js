@@ -6,10 +6,12 @@ import Footer from "../components/HomeFooter";
 import RecipeFavouriteList from "../components/RecipeFavouriteList";
 import { getUserFromToken } from "../components/readtoken"; // Hàm giải mã token
 import '../styles/home.css';
+import ModalLogin from '../components/modallogin';
 
 function FavouritesRecipe() {
   const [userId, setUserId] = useState(null); // Trạng thái cho userId
   const [token, setToken] = useState(null); // Trạng thái cho token
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Lấy token từ localStorage và giải mã userId
   useEffect(() => {
@@ -28,13 +30,11 @@ function FavouritesRecipe() {
         console.error("Failed to decode token:", error);
       }
     }
+    if(!storedToken){
+      setShowLoginModal(true);
+      return;
+    }
   }, []);
-
-  // Nếu chưa có userId hoặc token, yêu cầu người dùng đăng nhập
-  if (!userId || !token) {
-    return <div>Please log in to view your favourite recipes.</div>;
-  }
-
   return (
     <div className="divMain">
       <div className="divHome">
@@ -45,6 +45,7 @@ function FavouritesRecipe() {
             {/* Truyền userId và token vào RecipeFavouriteList */}
             <RecipeFavouriteList userId={userId} token={token} />
           </div>
+          <ModalLogin show={showLoginModal} onClose={() => setShowLoginModal(false)} />
         </div>
         <SubscribeSection />
         <Footer />
@@ -54,6 +55,3 @@ function FavouritesRecipe() {
 }
 
 export default FavouritesRecipe;
-=========
-// export default FavouritesRecipe;
->>>>>>>>> Temporary merge branch 2

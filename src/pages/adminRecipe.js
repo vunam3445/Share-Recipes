@@ -188,31 +188,43 @@ function AdminRecipe() {
                 onChange={handleImageChange}
               />
 
-              <label htmlFor="time">Thời gian nấu (phút):</label>
-              <input
-                type="number"
-                id="time"
-                placeholder="Nhập thời gian nấu ăn"
-                value={recipeData.time}
-                onChange={handleInputChange}
-              />
+<label htmlFor="time">Thời gian nấu (phút):</label>
+<input
+  type="number"
+  id="time"
+  placeholder="Nhập thời gian nấu ăn"
+  value={recipeData.time}
+  onChange={(e) => {
+    const value = Math.max(0, Math.floor(Number(e.target.value) || 0));
+    setRecipeData({ ...recipeData, time: value });
+  }}
+/>
 
-              <label htmlFor="serves">Số lượng người phục vụ:</label>
-              <input
-                type="number"
-                id="serves"
-                placeholder="Nhập số người phục vụ"
-                value={recipeData.serves}
-                onChange={handleInputChange}
-              />
-                 <label htmlFor="price">Giá nguyên liệu:</label>
-              <input
-                type="number"
-                id="price"
-                placeholder="Nhập giá nguyên liệu"
-                value={recipeData.price}
-                onChange={handleInputChange}
-              />
+<label htmlFor="serves">Số lượng người phục vụ:</label>
+<input
+  type="number"
+  id="serves"
+  placeholder="Nhập số người phục vụ"
+  value={recipeData.serves}
+  onChange={(e) => {
+    const value = Math.max(0, Math.floor(Number(e.target.value) || 0));
+    setRecipeData({ ...recipeData, serves: value });
+  }}
+/>
+
+<label htmlFor="price">Giá nguyên liệu:</label>
+<input
+  type="number"
+  id="price"
+  placeholder="Nhập giá nguyên liệu"
+  value={recipeData.price}
+  onChange={(e) => {
+    const value = Math.max(0, Math.floor(Number(e.target.value) || 0));
+    setRecipeData({ ...recipeData, price: value });
+  }}
+/>
+
+
 
               <ListCategoryCheckBox
                 selectedCategories={selectedCategories}
