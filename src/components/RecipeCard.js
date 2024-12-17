@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/main.css";  // Đảm bảo bạn import file CSS đã chỉnh sửa
 import { Link } from "react-router-dom";
 
-const RecipeCard = ({ name, image, recipeId }) => {
+const RecipeCard = ({ name, image, recipeId, serves, time }) => {
   return (
     <Link to={`/recipe/${recipeId}`} className="uk-card" style={{ textDecoration: "none" }}>
       <div className="uk-card">
@@ -17,12 +17,21 @@ const RecipeCard = ({ name, image, recipeId }) => {
             <a href="#" className="uk-icon-button uk-like uk-position-z-index uk-position-relative" data-uk-icon="heart"></a>
           </div>
         </div>
-
         <div>
           <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">{name}</h3>
+          <div className="info-container">
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="user"></span>
+              <span className="info-text">{serves} servings</span>
+            </div>
+            <div className="info-item">
+              <span className="uk-icon" uk-icon="clock"></span>
+              <span className="info-text">{time} mins</span>
+            </div>
+          </div>
         </div>
-      </div>  
-    </Link>  
+      </div>
+    </Link>
   );
 };
 
