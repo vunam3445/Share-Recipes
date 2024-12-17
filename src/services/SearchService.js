@@ -12,6 +12,7 @@ const searchRecipes = async (query, categoryId = '') => {
 
     // Kiểm tra nếu response.data chứa kết quả hợp lệ
     if (response.data && Array.isArray(response.data)) {
+      console.log("data", response.data);
       return response.data; // Trả về mảng các công thức
     } else {
       return []; // Trả về mảng rỗng nếu dữ liệu không hợp lệ

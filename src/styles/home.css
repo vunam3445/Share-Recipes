@@ -113,3 +113,32 @@ body {
   }
   
 
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 items per row */
+  gap: 20px;
+  /* space between items */
+  margin-top: 20px;
+}
+
+@media (max-width: 1200px) {
+  .recipe-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 items per row on medium screens */
+  }
+}
+
+@media (max-width: 900px) {
+  .recipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 items per row on small screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-grid {
+    grid-template-columns: 1fr;
+    /* 1 item per row on very small screens */
+  }
+}

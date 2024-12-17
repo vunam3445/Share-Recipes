@@ -2,9 +2,9 @@ import React from "react";
 import "../styles/main.css";  // Đảm bảo bạn import file CSS đã chỉnh sửa
 import { Link } from "react-router-dom";
 
-const RecipeCard = ({ name, image, recipeId, serves, time }) => {
+const RecipeCard = ({ id,name, image, serves, time }) => {
   return (
-    <Link to={`/recipe/${recipeId}`} className="uk-card" style={{ textDecoration: "none" }}>
+    <Link to={`/recipe/${id}`} className="uk-card">
       <div className="uk-card">
         <div className="uk-card-media-top uk-inline uk-light">
           <img
@@ -22,7 +22,7 @@ const RecipeCard = ({ name, image, recipeId, serves, time }) => {
           <div className="info-container">
             <div className="info-item">
               <span className="uk-icon" uk-icon="user"></span>
-              <span className="info-text">{serves} servings</span>
+              <span className="info-text">{serves} serves</span>
             </div>
             <div className="info-item">
               <span className="uk-icon" uk-icon="clock"></span>
@@ -30,8 +30,10 @@ const RecipeCard = ({ name, image, recipeId, serves, time }) => {
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+        {/* <a href={`recipe/${id}`} className="uk-position-cover"></a> */}
+      </div>  
+      </Link>
+    
   );
 };
 

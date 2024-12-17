@@ -18,7 +18,7 @@ const SendEmailForm = () => {
     await sendBulkEmails(subject, message);
   };
 
-    
+    // Chuyển trang
 
   return (
     <div>

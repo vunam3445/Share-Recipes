@@ -10989,7 +10989,7 @@ iframe.uk-cover {
 .uk-flex {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  
 }
 
 .uk-margin-right {
@@ -11024,4 +11024,17 @@ iframe.uk-cover {
 /* Text styling */
 .info-text {
   font-weight: 500;
+}
+.list{
+  display : flex;
+  flex-wrap: wrap;
+}
+.card{
+  width: 25%
+}
+.uk-card-media-top.uk-inline.uk-light{
+  width: 90%
+}
+ul.uk-list.uk-list-large.uk-list-divider.uk-margin-medium-top{
+  display : block;
 }

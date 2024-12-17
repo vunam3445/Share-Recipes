@@ -17,9 +17,11 @@ import Login from './pages/Login';
 import ChangePassword from './pages/ChangePassword';
 import ForgotPassword from './pages/ForgotPassword';
 
+import UserOrderTable from './components/Order';
 import './App.css';
 import './styles/main.css';
 import './styles/home.css';
+
 UIkit.use(Icons)
 function App() {
   return (
@@ -42,8 +44,9 @@ function App() {
     <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
     <Route path="/forgot-password" element={<ForgotPassword/>} />
     <Route path="/admin/gmail" element={<Gmail/>} />
-    <Route path="/order" element={<Order/>} />
+    <Route path="/order" element={<UserOrderTable />} />
     <Route path="/search" element={<Search/>} />
+    
    </Routes>
    </div>
   );

@@ -53,9 +53,9 @@ function RecipeFavouriteList({ userId, token }) {
     }
   };
 
-  if (loading) {
-    return <div>Loading your favourite recipes...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading your favourite recipes...</div>;
+  // }
 
   if (error) {
     return <div>Error fetching favourite recipes: {error.message}</div>;
@@ -75,6 +75,8 @@ function RecipeFavouriteList({ userId, token }) {
             id={recipe.recipeId}
             name={recipe.recipeName}
             image={recipe.recipeImage}
+            serves={recipe.serves}
+            time={recipe.time}
             isFavourite={recipe.isFavourite}
             onRemove={handleRemoveFavourite}
             onToggleFavourite={handleToggleFavourite}

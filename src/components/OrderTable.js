@@ -129,7 +129,7 @@ const OrderTable = ({ filterStatus }) => {
       quantity,
     } = orderData;
 
-    if (!uid || !recipeid || !recipename || !name || !address || !phone || !ingredien || !price || !quantity) {
+    if (  !recipename || !name || !address || !phone || !ingredien || !price || !quantity) {
       alert("vui lòng nhập đầy đủ thông tin!")
       return false;
     }

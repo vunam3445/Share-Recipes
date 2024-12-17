@@ -10,6 +10,7 @@ function Admin() {
         <Link to="/admin/recipe">Manage Recipes</Link>
         <Link to="/admin/order">Manage Orders</Link>
         <Link to="/admin/gmail">Send Email</Link>
+        <Link to="/">Home</Link>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Header from "../components/HomeHeader";
 import SubscribeSection from "../components/HomeSubscribeSection";
 import Footer from "../components/HomeFooter";
-import RecipeFavouriteList from '../components/RecipeFavouriteList';
+import RecipeFavouriteList from "../components/RecipeFavouriteList";
 import { getUserFromToken } from "../components/readtoken"; // Hàm giải mã token
 import '../styles/home.css';
 
@@ -54,3 +54,6 @@ function FavouritesRecipe() {
 }
 
 export default FavouritesRecipe;
+=========
+// export default FavouritesRecipe;
+>>>>>>>>> Temporary merge branch 2

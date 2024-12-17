@@ -26,6 +26,7 @@ const Search = () => {
     try {
       setLoading(true);
       const data = await SearchService.searchRecipes(query, categoryId || ""); // Lấy kết quả tìm kiếm
+      console.log("data",data)
       setRecipes(data);
     } catch (err) {
       setError(err.message);
@@ -105,19 +106,6 @@ const Search = () => {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-
-      {/* Kết quả tìm kiếm */}
-      {recipes.length === 0 ? (
-        <p>No recipes found for "{searchQuery}"</p>
-      ) : (
-        <div className="uk-grid uk-grid-small uk-child-width-1-3@s uk-child-width-1-4@m">
-          {recipes.map((recipe) => (
-            <div key={recipe.id}>
-              <RecipeCard name={recipe.name} image={recipe.image} />
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
