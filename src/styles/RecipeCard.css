@@ -1,0 +1,37 @@
+.uk-icon-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white; /* Mặc định màu trắng */
+    background-color: transparent; /* Nền trong suốt */
+    border: none; /* Không viền */
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+  }
+  
+  /* Trái tim khi đã yêu thích (màu đỏ cả icon) */
+  .uk-button-danger {
+    color: white !important;
+    background-color: red !important; /* Màu nền đỏ */
+    border-radius: 50%; /* Tạo cảm giác nút tròn */
+  }
+  
+  /* Trái tim khi chưa yêu thích (màu trắng cả icon) */
+  .uk-button-default {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Nền mờ */
+    border-radius: 50%; /* Tạo cảm giác nút tròn */
+  }
+  
+  /* Hover hiệu ứng cho trái tim đã yêu thích */
+  .uk-button-danger:hover {
+    background-color: darkred !important; /* Đổi màu nền thành đỏ đậm khi hover */
+  }
+  
+  /* Hover hiệu ứng cho trái tim chưa yêu thích */
+  .uk-button-default:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important; /* Nền mờ hơn khi hover */
+  }
+  

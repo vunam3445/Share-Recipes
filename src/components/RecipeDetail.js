@@ -136,7 +136,7 @@ const RecipeDetail = () => {
 
       if (result) {
         setIsSaved(prev => !prev);
-        toast.success("Thêm vào danh sách yêu thích không thành công!");
+        toast.success("Thêm vào danh sách yêu thích thành công!");
       } else {
 
         toast.error("Không thể thêm vào danh sách yêu thích!");
