@@ -4,12 +4,12 @@ const RecipeSidebar = ({ onItemClick }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const categories = [
-    { title: "bữa sáng", items: [ "trứng","bánh mì", "bánh giò", "bánh cuốn", "phở"] },
-    { title: "bữa trưa", items: ["bò","cơm tấm", "bún bò", "bánh xèo", "gỏi cuốn", "bún thịt nướng"] },
-    { title: "bữa tối", items: ["lẩu gà", "lẩu thái", "cơm chiên", "mì xào", "bò kho"] },
-    { title: "ăn nhẹ", items: ["bánh tráng trộn", "bánh flan", "kem dừa", "chè thập cẩm", "xoài lắc"] },
-    { title: "món chay", items: ["đậu hũ chiên", "rau xào thập cẩm", "cơm chiên chay", "gỏi ngó sen", "bún riêu chay"] },
-    { title: "đồ uống", items: ["trà sữa", "sinh tố", "nước mía", "trà chanh", "cà phê sữa đá"] }
+    { title: "Bữa sáng", items: [ "Trứng","Bánh mì", "Bánh giò", "Bánh cuốn", "Phở"] },
+    { title: "Bữa trưa", items: ["Bò","Cơm tấm", "Bún Bò", "Bánh xèo", "Gỏi cuốn", "Bún thịt nướng"] },
+    { title: "Bữa tối", items: ["Lẩu gà", "Lẩu thái", "Cơm chiên", "Mì xào", "Bò kho"] },
+    { title: "Ăn nhẹ", items: ["Bánh tráng trộn", "Bánh flan", "Kem dừa", "Chè thập cẩm", "Xoài lắc"] },
+    { title: "Món chay", items: ["Đậu hũ chiên", "Rau xào thập cẩm", "Cơm chiên chay", "Gỏi ngó sen", "Bún riêu Chay"] },
+    { title: "Đồ uống", items: ["Trà sữa", "Sinh tố", "Nước mía", "Trà chanh", "Cà phê sữa đá"] }
   ];
 
   const styles = {
