@@ -5,6 +5,7 @@ import Comments from "../components/Comment";
 import FavouriteService from '../services/FavouriteService';
 import { getUserFromToken } from "../components/readtoken";
 import { toast, ToastContainer } from 'react-toastify';
+import "../styles/detail.css";
 import 'react-toastify/dist/ReactToastify.css';
 import RecipeSuggestionList from './RecipeSuggestionList';
 
@@ -230,32 +231,71 @@ const RecipeDetail = () => {
               <hr />
               {/* Save and Cart Buttons */}
               <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
-                <div>
-                  <button
-                    className="uk-button uk-button-primary"
-                    onClick={toggleSave}
-                  >
-                    <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`} style={{ color: isSaved ? 'red' : 'gray' }}></span>
-                    {isSaved ? 'Saved' : 'Save'}
-                  </button>
+                  {/* Nút Save */}
+                  <div>
+                    <button
+                      className="uk-button"
+                      onClick={toggleSave}
+                      style={{
+                        backgroundColor: isSaved ? '#FF6F61' : '#D3D3D3', // Cam nếu đã lưu, xám nếu chưa
+                        border: `2px solid ${isSaved ? '#FF4500' : '#808080'}`, // Viền cam nếu đã lưu
+                        color: isSaved ? 'white' : 'black', // Màu chữ
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSaved) {
+                          e.target.style.backgroundColor = '#FF6F61'; // Cam khi hover nếu chưa lưu
+                          e.target.style.color = 'white';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSaved) {
+                          e.target.style.backgroundColor = '#D3D3D3'; // Quay về xám nếu chưa lưu
+                          e.target.style.color = 'black';
+                        }
+                      }}
+                    >
+                      <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`}></span>
+                      {isSaved ? 'Saved' : 'Save'}
+                    </button>
+                  </div>
+
+                  {/* Nút Buy */}
+                  <div>
+                    <button
+                      className="uk-button"
+                      onClick={() => {
+                        const userId = getUserId();
+                        if (!userId) {
+                          toast.error('Vui lòng đăng nhập để mua hàng.');
+                        } else {
+                          toggleFormVisibility(); // Hiện form đặt hàng nếu đã đăng nhập
+                        }
+                      }}
+                      style={{
+                        backgroundColor: isInCart ? '#32CD32' : '#D3D3D3', // Xanh lá nếu trong giỏ, xám nếu chưa
+                        border: `2px solid ${isInCart ? '#228B22' : '#808080'}`, // Viền xanh lá nếu trong giỏ
+                        color: isInCart ? 'white' : 'black', // Màu chữ
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isInCart) {
+                          e.target.style.backgroundColor = '#FF6F61'; // Cam khi hover nếu chưa thêm
+                          e.target.style.color = 'white';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isInCart) {
+                          e.target.style.backgroundColor = '#D3D3D3'; // Quay về xám nếu chưa thêm
+                          e.target.style.color = 'black';
+                        }
+                      }}
+                    >
+                      <span data-uk-icon={`icon: ${isInCart ? 'cart' : 'cart-o'}; ratio: 1.5`}></span>
+                      {isInCart ? 'Remove from Cart' : 'Buy'}
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button
-                    className="uk-button uk-button-default"
-                    onClick={() => {
-                      const userId = getUserId();
-                      if (!userId) {
-                        toast.error('Vui lòng đăng nhập để mua hàng.');
-                      } else {
-                        toggleFormVisibility(); // Hiện form đặt hàng nếu đã đăng nhập
-                      }
-                    }}
-                  >
-                    <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span>
-                    {isInCart ? 'Remove from Cart' : 'Buy'}
-                  </button>
-                </div>
-              </div>
+
+
             </div>
           </div>
         </div>
