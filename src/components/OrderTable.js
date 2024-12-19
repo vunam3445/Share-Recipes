@@ -204,14 +204,20 @@ const OrderTable = ({ filterStatus }) => {
             name="price"
             placeholder="Giá"
             value={orderData.price}
-            onChange={handleInputChange}
+            onChange={(e) => {
+    const value = Math.max(0, Math.floor(Number(e.target.value) || 0));
+    setOrderData({ ...orderData, price: value });
+  }}
           />
           <input
             type="number"
             name="quantity"
             placeholder="Số lượng"
             value={orderData.quantity}
-            onChange={handleInputChange}
+            onChange={(e) => {
+    const value = Math.max(0, Math.floor(Number(e.target.value) || 0));
+    setOrderData({ ...orderData, quantity: value });
+  }}
           />
           <input
             type="number"

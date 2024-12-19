@@ -7,6 +7,8 @@ import { getUserFromToken } from "../components/readtoken";
 import "../styles/detail.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ModalLogin from '../components/modallogin';
 import RecipeSuggestionList from './RecipeSuggestionList';
 
 
@@ -17,6 +19,7 @@ const RecipeDetail = () => {
   const [completedSteps, setCompletedSteps] = useState([]);
   const [completedIngredients, setCompletedIngredients] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
   const getToken = () => {
@@ -354,9 +357,27 @@ const RecipeDetail = () => {
                 <input type="text" name="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
               </div>
               <div className="form-group">
-                <label>Phone:</label>
-                <input type="text" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
-              </div>
+  <label>Phone:</label>
+  <input
+    type="text"
+    name="phone"
+    placeholder="Your phone number"
+    value={formData.phone}
+    onChange={handleInputChange}
+    onInput={(e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Chỉ cho phép nhập số
+    }}
+    onBlur={(e) => {
+      const phoneNumber = e.target.value;
+      if (!/^0\d{9}$/.test(phoneNumber)) {
+        alert("Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số.");
+        e.target.value = ""; // Xóa giá trị không hợp lệ
+      }
+    }}
+  />
+</div>
+
+
               <div className="form-group">
                 <label>Address:</label>
                 <textarea name="address" placeholder="Your address" value={formData.address} onChange={handleInputChange}></textarea>
@@ -407,6 +428,7 @@ const RecipeDetail = () => {
 
       {/* Comment Section */}
       <Comments recipeId={recipeId} />
+      <ModalLogin show={showLoginModal} onClose={() => setShowLoginModal(false)} />
 
       <ToastContainer />
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCommentsByRecipe, addComment } from "../services/CommentService";
 import { getUserFromToken } from "../components/readtoken";
 import "../styles/comment.css";
+import ModalLogin from '../components/modallogin';
 
 const Comments = ({ recipeId }) => {
   const [allComments, setAllComments] = useState([]); // Danh sách tất cả comments
@@ -10,6 +11,7 @@ const Comments = ({ recipeId }) => {
   const [replyContent, setReplyContent] = useState(""); // Nội dung reply
   const [replyingTo, setReplyingTo] = useState(null); // ID của comment/reply đang trả lời
   const [loading, setLoading] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [commentsToDisplay, setCommentsToDisplay] = useState(5); // Số lượng comment cần hiển thị
 
   const decoder = getUserFromToken();
@@ -45,7 +47,7 @@ const Comments = ({ recipeId }) => {
   // Thêm comment mới và tải lại danh sách comment
   const handleAddComment = async () => {
     if (!userId) {
-      alert("Bạn cần đăng nhập để comment!");
+      setShowLoginModal(true);
       return;
     }
 
@@ -74,6 +76,10 @@ const Comments = ({ recipeId }) => {
   // Thêm reply vào comment
   const handleReply = async () => {
     if (!replyContent.trim() || !replyingTo) return;
+    if (!userId) {
+      setShowLoginModal(true);
+      return;
+    }
 
     try {
       const replyData = {
@@ -165,6 +171,8 @@ const Comments = ({ recipeId }) => {
           Tải thêm
         </button>
       )}
+
+      <ModalLogin show={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </div>
   );
 };
