@@ -137,7 +137,7 @@ const Search = () => {
 
           {/* Load more button */}
           {recipes.length > visibleCount && (
-            <button onClick={loadMoreRecipes} className="uk-button uk-button-default uk-margin-top">
+            <button onClick={loadMoreRecipes} className="btnLoadmore">
               Load More
             </button>
           )}

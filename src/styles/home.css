@@ -142,3 +142,13 @@ body {
     /* 1 item per row on very small screens */
   }
 }
+
+.btnLoadmore {
+  margin-top: 20px;
+  border: solid 1px #eb4a36;
+}
+
+.btnLoadmore:hover {
+  background-color: #c22611;
+  border: solid 1px #eb4a36;
+}

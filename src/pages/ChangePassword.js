@@ -12,13 +12,14 @@ const ChangePassword = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const decoder = getUserFromToken();
-  const userId = decoder.userid;
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    const decoder = getUserFromToken();
+    const userId = decoder.userid;
 
     // Kiểm tra tính hợp lệ của mật khẩu mới
     if (newPassword !== confirmPassword) {
@@ -51,7 +52,7 @@ const ChangePassword = () => {
       if (response.status === 'success') {
         setSuccess('Đổi mật khẩu thành công!');
         // Điều hướng về trang chủ sau 2 giây
-        setTimeout(() => navigate('/'), 2000);
+        setTimeout(() => navigate('/'), 500);
       } else if (response.status === 'fail') {
         setError(response.message); // Hiển thị thông báo lỗi từ API
       } else {
@@ -127,7 +128,7 @@ const ChangePassword = () => {
   
           {/* Nút quay lại trang chủ */}
           <div className="uk-margin">
-            <Link to="/" className="uk-button uk-button-default uk-width-1-1">
+            <Link to="/" className="uk-button uk-button-primary uk-width-1-1">
               Quay lại trang chủ
             </Link>
           </div>

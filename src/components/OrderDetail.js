@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import orderService from '../services/OrderService';
+import { useNavigate } from 'react-router-dom';
 
 const OrderDetailModal = ({ order, onClose, fetchOrders, pageNumber }) => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Sử dụng useNavigate
 
   if (!order) return null;
+
+  const handleMuaLai = async () => {
+    try {
+      if (!order || !order.id) {
+        throw new Error('Thông tin đơn hàng không hợp lệ!');
+      }
+      // Điều hướng đến trang công thức dựa trên ID
+      navigate(`/recipe/${order.recipeid}`);
+    } catch (error) {
+      alert(error.message || 'Có lỗi xảy ra khi thực hiện mua lại!');
+    }
+  };
 
   const handleCancelClick = async () => {
     try {
       if (!order || !order.id) {
         throw new Error('Đơn hàng không hợp lệ!');
       }
-      if(order.isactive == true){
+      if (order.isactive) {
         throw new Error('Đơn hàng đã giao không thể hủy!');
-        return;
       }
 
       setLoading(true);
@@ -53,7 +66,7 @@ const OrderDetailModal = ({ order, onClose, fetchOrders, pageNumber }) => {
 
         <div className="modal-actions">
           <button onClick={handleCancelClick} disabled={loading}>Hủy</button>
-          <button>Mua lại</button>
+          <button onClick={handleMuaLai}>Mua lại</button>
         </div>
       </div>
     </div>

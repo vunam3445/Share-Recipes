@@ -85,6 +85,7 @@ const RecipeCard = ({ id, name, image, serves, time }) => {
 
   return (
     <div className="uk-card">
+    <Link to={`/recipe/${id}`} className="uk-card-body">
       <div className="uk-card-media-top uk-inline uk-light">
         <img
           className="uk-border-rounded-medium fixed-img"
@@ -103,7 +104,7 @@ const RecipeCard = ({ id, name, image, serves, time }) => {
           ></button>
         </div>
       </div>
-      <Link to={`/recipe/${id}`} className="uk-card-body">
+      
         <h3 className="uk-card-title uk-text-500 uk-margin-small-bottom uk-margin-top">
           {name}
         </h3>
