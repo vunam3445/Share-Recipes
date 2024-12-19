@@ -116,11 +116,11 @@ const Search = () => {
           </div>
 
           {/* Filter by category */}
-          <FilterBar
+          {/* <FilterBar
             categories={categories}
             selectedCategory={selectedCategory}
             onCategoryChange={handleCategoryChange}
-          />
+          /> */}
 
           {/* Search results */}
           {recipes.length === 0 ? (

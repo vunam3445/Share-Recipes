@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import Comments from "../components/Comment";
 import FavouriteService from '../services/FavouriteService';
 import { getUserFromToken } from "../components/readtoken";
+import "../styles/detail.css";
+import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalLogin from '../components/modallogin';
@@ -138,7 +140,7 @@ const RecipeDetail = () => {
 
       if (result) {
         setIsSaved(prev => !prev);
-        toast.success("Thêm vào danh sách yêu thích không thành công!");
+        toast.success("Thêm vào danh sách yêu thích thành công!");
       } else {
 
         toast.error("Không thể thêm vào danh sách yêu thích!");
@@ -226,38 +228,77 @@ const RecipeDetail = () => {
                 <div>
                   <span data-uk-icon="icon: credit-card; ratio: 1.4"></span>
                   <h5>Price</h5>
-                  <span>{recipe.price} USD</span>
+                  <span>{recipe.price} VND</span>
                 </div>
               </div>
               <hr />
               {/* Save and Cart Buttons */}
               <div className="uk-grid-small uk-child-width-auto" data-uk-grid>
-                <div>
-                  <button
-                    className="uk-button uk-button-primary"
-                    onClick={toggleSave}
-                  >
-                    <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`} style={{ color: isSaved ? 'red' : 'gray' }}></span>
-                    {isSaved ? 'Saved' : 'Save'}
-                  </button>
+                  {/* Nút Save */}
+                  <div>
+                    <button
+                      className="uk-button"
+                      onClick={toggleSave}
+                      style={{
+                        backgroundColor: isSaved ? '#FF6F61' : '#D3D3D3', // Cam nếu đã lưu, xám nếu chưa
+                        border: `2px solid ${isSaved ? '#FF4500' : '#808080'}`, // Viền cam nếu đã lưu
+                        color: isSaved ? 'white' : 'black', // Màu chữ
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSaved) {
+                          e.target.style.backgroundColor = '#FF6F61'; // Cam khi hover nếu chưa lưu
+                          e.target.style.color = 'white';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSaved) {
+                          e.target.style.backgroundColor = '#D3D3D3'; // Quay về xám nếu chưa lưu
+                          e.target.style.color = 'black';
+                        }
+                      }}
+                    >
+                      {/* <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`}></span> */}
+                      {isSaved ? 'Saved' : 'Save'}
+                    </button>
+                  </div>
+
+                  {/* Nút Buy */}
+                  <div>
+                    <button
+                      className="uk-button"
+                      onClick={() => {
+                        const userId = getUserId();
+                        if (!userId) {
+                          toast.error('Vui lòng đăng nhập để mua hàng.');
+                        } else {
+                          toggleFormVisibility(); // Hiện form đặt hàng nếu đã đăng nhập
+                        }
+                      }}
+                      style={{
+                        backgroundColor: isInCart ? '#32CD32' : '#D3D3D3', // Xanh lá nếu trong giỏ, xám nếu chưa
+                        border: `2px solid ${isInCart ? '#228B22' : '#808080'}`, // Viền xanh lá nếu trong giỏ
+                        color: isInCart ? 'white' : 'black', // Màu chữ
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isInCart) {
+                          e.target.style.backgroundColor = '#FF6F61'; // Cam khi hover nếu chưa thêm
+                          e.target.style.color = 'white';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isInCart) {
+                          e.target.style.backgroundColor = '#D3D3D3'; // Quay về xám nếu chưa thêm
+                          e.target.style.color = 'black';
+                        }
+                      }}
+                    >
+                      <span data-uk-icon={`icon: ${isInCart ? 'cart' : 'cart-o'}; ratio: 1.5`}></span>
+                      {isInCart ? 'Remove from Cart' : 'Buy'}
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button
-                    className="uk-button uk-button-default"
-                    onClick={() => {
-                      const userId = getUserId();
-                      if (!userId) {
-                        toast.error('Vui lòng đăng nhập để mua hàng.');
-                      } else {
-                        toggleFormVisibility(); // Hiện form đặt hàng nếu đã đăng nhập
-                      }
-                    }}
-                  >
-                    <span data-uk-icon="icon: shopping-cart; ratio: 1.5"></span>
-                    {isInCart ? 'Remove from Cart' : 'Buy'}
-                  </button>
-                </div>
-              </div>
+
+
             </div>
           </div>
         </div>
@@ -348,7 +389,7 @@ const RecipeDetail = () => {
               {/* Additional info */}
               <div className="form-group">
                 <label>Total Price:</label>
-                <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
+                <span>{`${(formData.quantity * recipe.price)} VND`}</span>
               </div>
 
               {/* Check if all required fields are filled */}

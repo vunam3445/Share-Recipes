@@ -100,12 +100,7 @@ const Search = () => {
         />
       </div>
 
-      {/* Lọc theo category */}
-      <FilterBar
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-      />
+      
     </div>
   );
 };
