@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import Comments from "../components/Comment";
 import FavouriteService from '../services/FavouriteService';
 import { getUserFromToken } from "../components/readtoken";
-import { toast, ToastContainer } from 'react-toastify';
 import "../styles/detail.css";
 import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import RecipeSuggestionList from './RecipeSuggestionList';
 
 

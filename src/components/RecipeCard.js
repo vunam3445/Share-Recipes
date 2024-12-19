@@ -3,8 +3,10 @@ import "../styles/main.css";
 import { Link } from "react-router-dom";
 import "../styles/RecipeCard.css";
 import FavouriteService from "../services/FavouriteService";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import { getUserFromToken } from "../components/readtoken";
-import { toast } from "react-toastify";
+
 
 const RecipeCard = ({ id, name, image, serves, time }) => {
   const [isLiked, setIsLiked] = useState(false); // Trạng thái yêu thích cục bộ
@@ -49,27 +51,35 @@ const RecipeCard = ({ id, name, image, serves, time }) => {
     checkIfSaved();
   }, [id]);
 
-  // Hàm toggle yêu thích
-  const handleLikeClick = async (e) => {
-    e.preventDefault();
+  // Hàm xử lý click yêu thích
+    const handleLikeClick = async (e) => {
+      e.preventDefault();
 
-    const newLikeState = !isLiked;
-    setIsLiked(newLikeState);
+      const token = getToken();
+      const userId = getUserId();
 
-    try {
-      if (newLikeState) {
-        await FavouriteService.addFavourite(id); // Thêm vào danh sách yêu thích
-        toast.success("Đã thêm vào danh sách yêu thích!");
-      } else {
-        await FavouriteService.removeFavourite(id); // Xóa khỏi danh sách yêu thích
-        toast.success("Đã xóa khỏi danh sách yêu thích!");
+      if (!userId || !token) {
+          toast.error('Vui lòng đăng nhập để thêm vào yêu thích.');
+          return;
       }
-    } catch (error) {
-      console.error("Error toggling favourite:", error);
-      setIsLiked(!newLikeState); // Reset trạng thái nếu lỗi
-      toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
-    }
-  };
+
+      const newLikeState = !isLiked;
+      setIsLiked(newLikeState);
+
+      try {
+          if (newLikeState) {
+              await FavouriteService.addFavourite(id); // Thêm vào danh sách yêu thích
+              toast.success("Đã thêm vào danh sách yêu thích!");
+          } else {
+              await FavouriteService.removeFavourite(id); // Xóa khỏi danh sách yêu thích
+              toast.success("Đã xóa khỏi danh sách yêu thích!");
+          }
+      } catch (error) {
+          console.error("Error toggling favourite:", error);
+          setIsLiked(!newLikeState); // Reset trạng thái nếu lỗi
+          toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      }
+    };
 
   if (loading) return <div>Loading...</div>;
 
@@ -108,6 +118,7 @@ const RecipeCard = ({ id, name, image, serves, time }) => {
           </div>
         </div>
       </Link>
+      <ToastContainer />
     </div>
   );
 };
