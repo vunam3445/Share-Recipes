@@ -228,7 +228,7 @@ const RecipeDetail = () => {
                 <div>
                   <span data-uk-icon="icon: credit-card; ratio: 1.4"></span>
                   <h5>Price</h5>
-                  <span>{recipe.price} USD</span>
+                  <span>{recipe.price} VND</span>
                 </div>
               </div>
               <hr />
@@ -389,7 +389,7 @@ const RecipeDetail = () => {
               {/* Additional info */}
               <div className="form-group">
                 <label>Total Price:</label>
-                <span>{`$${(formData.quantity * recipe.price).toFixed(2)}`}</span>
+                <span>{`${(formData.quantity * recipe.price)} VND`}</span>
               </div>
 
               {/* Check if all required fields are filled */}

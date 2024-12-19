@@ -11,6 +11,10 @@ const OrderDetailModal = ({ order, onClose, fetchOrders, pageNumber }) => {
       if (!order || !order.id) {
         throw new Error('Đơn hàng không hợp lệ!');
       }
+      if(order.isactive == true){
+        throw new Error('Đơn hàng đã giao không thể hủy!');
+        return;
+      }
 
       setLoading(true);
 
