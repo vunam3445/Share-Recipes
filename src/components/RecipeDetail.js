@@ -254,7 +254,7 @@ const RecipeDetail = () => {
                         }
                       }}
                     >
-                      <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`}></span>
+                      {/* <span data-uk-icon={`icon: ${isSaved ? 'heart' : 'heart-o'}; ratio: 1.5`}></span> */}
                       {isSaved ? 'Saved' : 'Save'}
                     </button>
                   </div>
